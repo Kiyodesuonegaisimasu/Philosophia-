@@ -4,6 +4,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Philosophia — 哲学を体系的に学ぶ</title>
+<meta name="description" content="哲学を体系的に、無料で。古代から現代まで150人の哲学者を、やさしい要約・主要な思想・キーワード解説・影響関係（つながり）・年表でたどれる学習プラットフォーム。">
+<meta name="keywords" content="哲学,哲学者,思想,哲学入門,西洋哲学,東洋哲学,ソクラテス,プラトン,カント,ニーチェ">
+<meta property="og:title" content="Philosophia — 哲学を体系的に学ぶ">
+<meta property="og:description" content="古代から現代まで150人の哲学者を、やさしい要約・思想・キーワード・影響関係・年表でたどれる無料の学習プラットフォーム。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kiyodesuonegaisimasu.github.io/Philosophia-/">
+<meta property="og:site_name" content="Philosophia 哲学の泉">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Philosophia — 哲学を体系的に学ぶ">
+<meta name="twitter:description" content="150人の哲学者を、要約・思想・つながり・年表でたどれる無料の哲学学習サイト。">
 <style>
   :root{
     --bg:#0a0a0a; --bg2:#161616; --card:#1c1c1c; --card-hover:#282828;
@@ -70,6 +80,28 @@
     border:1px solid var(--accent2);border-radius:8px;padding:1px 7px}
 
   .empty{color:var(--sub);padding:40px 4px;font-size:14px}
+
+  .viewbar{display:flex;gap:8px;padding:8px 30px 0}
+  .vt{padding:6px 14px;border-radius:14px;background:var(--bg2);border:1px solid var(--line);color:var(--sub);font-size:13px;cursor:pointer;user-select:none;transition:.15s}
+  .vt.active{background:var(--accent2);border-color:var(--accent2);color:#fff;font-weight:700}
+  .vt:hover:not(.active){color:var(--text)}
+  .timeline{max-width:900px;margin:8px auto 0;padding:0 30px}
+  .tl-band{margin-top:26px}
+  .tl-band-label{font-size:16px;font-weight:800;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:9px}
+  .tl-band-label span{font-size:12px;color:var(--sub);font-weight:400}
+  .tl-item{position:relative;display:flex;align-items:flex-start;gap:14px;padding:11px 14px 11px 26px;border-left:2px solid var(--line);cursor:pointer;transition:.15s}
+  .tl-item:hover{background:var(--card);border-left-color:var(--accent2)}
+  .tl-dot{position:absolute;left:-7px;top:16px;width:12px;height:12px;border-radius:50%;border:2px solid var(--bg)}
+  .tl-year{flex:none;width:122px;font-size:12.5px;color:var(--sub);padding-top:2px}
+  .tl-body{flex:1;min-width:0}
+  .tl-name{font-weight:800;font-size:15px}
+  .tl-en{color:var(--sub);font-weight:600;font-size:12px;margin-left:6px}
+  .tl-one{color:var(--sub);font-size:12.5px;margin-top:3px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+  .tl-cat{flex:none;font-size:11px;border:1px solid;border-radius:10px;padding:2px 8px;white-space:nowrap;align-self:center}
+  .m-share{position:absolute;right:60px;top:16px;height:34px;padding:0 13px;border-radius:17px;background:rgba(0,0,0,.4);border:none;color:#fff;font-size:12.5px;cursor:pointer}
+  .m-share:hover{background:rgba(0,0,0,.7)}
+  .toast{position:fixed;left:50%;bottom:32px;transform:translateX(-50%) translateY(20px);background:#2a2a2a;color:#fff;padding:11px 20px;border-radius:22px;font-size:13.5px;opacity:0;transition:.25s;z-index:100;pointer-events:none;box-shadow:var(--shadow);border:1px solid var(--line)}
+  .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
   .overlay{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.72);backdrop-filter:blur(6px);
     display:none;align-items:flex-start;justify-content:center;overflow-y:auto;padding:40px 16px}
@@ -175,6 +207,7 @@
     .m-head{flex-direction:column}.m-portrait{width:110px;height:110px}
     header{gap:10px;padding:10px 14px}.brand small,.count-pill{display:none}
     .hero,.chips,main{padding-left:16px;padding-right:16px}
+    .timeline{padding:0 14px}.tl-year{width:92px;font-size:11.5px}.tl-cat{display:none}.viewbar{padding:8px 16px 0}
   }
 </style>
 </head>
@@ -198,6 +231,10 @@
 </div>
 
 <div class="chips" id="chips"></div>
+<div class="viewbar">
+  <span class="vt active" data-v="grid" onclick="setView('grid')">🗂 一覧</span>
+  <span class="vt" data-v="timeline" onclick="setView('timeline')">🕰 年表で見る</span>
+</div>
 
 <main id="main"></main>
 
@@ -2894,6 +2931,8 @@ const WIKITITLE = {
 const LS_ADDED = "philosophia_added_v3";
 let added = load(LS_ADDED, []);
 let activeCat = "all";
+let viewMode = "grid";
+const CATCOLOR = {"west-ancient":"#c9a24b","west-medieval":"#b5642d","west-modern":"#7b5cff","west-contemporary":"#4aa3ff","east":"#2e9e6b","islamic-jewish":"#d0568f"};
 
 function allData(){return [...SEED, ...added]}
 function catLabel(id){return (CATS.find(c=>c.id===id)||{}).label || "その他"}
@@ -2957,25 +2996,91 @@ function render(){
   const q=document.getElementById("search").value.trim().toLowerCase();
   const main=document.getElementById("main");
   main.innerHTML="";
-  const cats2 = activeCat==="all" ? CATS : CATS.filter(c=>c.id===activeCat);
-  let total=0;
-  cats2.forEach(cat=>{
-    let list=allData().filter(p=>p.category===cat.id);
-    if(q) list=list.filter(p=>matches(p,q));
-    if(!list.length) return;
-    total+=list.length;
-    const sec=document.createElement("div");
-    sec.className="section";
-    sec.innerHTML=`<h2><span class="dot"></span>${cat.label}<span class="hint" style="font-size:12px;color:var(--sub);font-weight:400;margin-left:8px">${list.length}名</span></h2><div class="desc">${cat.desc}</div><div class="grid"></div>`;
-    const grid=sec.querySelector(".grid");
-    list.forEach(p=>grid.appendChild(cardEl(p)));
-    main.appendChild(sec);
-  });
-  if(total===0){
-    main.innerHTML=`<div class="empty">「${esc(document.getElementById("search").value)}」に一致する哲学者は見つかりませんでした。<br>フッターの「AIで哲学者を追加する」から新しく生成できます。</div>`;
+  if(viewMode==="timeline"){
+    main.innerHTML = timelineHTML(q);
+  } else {
+    const cats2 = activeCat==="all" ? CATS : CATS.filter(c=>c.id===activeCat);
+    let total=0;
+    cats2.forEach(cat=>{
+      let list=allData().filter(p=>p.category===cat.id);
+      if(q) list=list.filter(p=>matches(p,q));
+      if(!list.length) return;
+      total+=list.length;
+      const sec=document.createElement("div");
+      sec.className="section";
+      sec.innerHTML=`<h2><span class="dot"></span>${cat.label}<span class="hint" style="font-size:12px;color:var(--sub);font-weight:400;margin-left:8px">${list.length}名</span></h2><div class="desc">${cat.desc}</div><div class="grid"></div>`;
+      const grid=sec.querySelector(".grid");
+      list.forEach(p=>grid.appendChild(cardEl(p)));
+      main.appendChild(sec);
+    });
+    if(total===0){
+      main.innerHTML=`<div class="empty">「${esc(document.getElementById("search").value)}」に一致する哲学者は見つかりませんでした。<br>フッターの「AIで哲学者を追加する」から新しく生成できます。</div>`;
+    }
   }
   const need=allData().filter(p=>!fimg[p.name] && !_triedImg.has(p.name));
   if(need.length && !_hydrating) hydrateImgs(need);
+}
+
+/* ============================================================
+   年表ビュー / 共有(固有URL)
+   ============================================================ */
+function setView(v){ viewMode=v; document.querySelectorAll('.vt').forEach(e=>e.classList.toggle('active',e.dataset.v===v)); render(); window.scrollTo({top:0,behavior:"smooth"}); }
+/* 生没年の文字列から代表年を取り出す(紀元前=マイナス、N世紀=中央値) */
+function parseYear(era){
+  if(!era) return null;
+  const bc = /^紀元前/.test(era);
+  const start = era.split(/[–—\-〜~]/)[0];
+  const m = start.match(/(\d+)/);
+  if(!m) return null;
+  let year = parseInt(m[1],10);
+  if(/世紀/.test(era)) year = (year-1)*100 + 50;
+  return bc ? -year : year;
+}
+function timelineHTML(q){
+  const catsSel = activeCat==="all" ? CATS.map(c=>c.id) : [activeCat];
+  let list = allData().filter(p=>catsSel.includes(p.category));
+  if(q) list = list.filter(p=>matches(p,q));
+  list = list.map(p=>({p,y:parseYear(p.era)})).filter(o=>o.y!==null).sort((a,b)=>a.y-b.y);
+  if(!list.length) return `<div class="empty">該当する哲学者がいません。</div>`;
+  const BANDS=[
+    {label:"古代（紀元前）",min:-99999,max:-1},
+    {label:"古代（紀元後〜500年頃）",min:0,max:499},
+    {label:"中世（500〜1400年頃）",min:500,max:1399},
+    {label:"ルネサンス・近世（1400〜1600年頃）",min:1400,max:1599},
+    {label:"近代（1600〜1900年頃）",min:1600,max:1899},
+    {label:"現代（1900年〜）",min:1900,max:99999}
+  ];
+  let html='<div class="timeline">';
+  BANDS.forEach(b=>{
+    const items=list.filter(o=>o.y>=b.min&&o.y<=b.max);
+    if(!items.length) return;
+    html+=`<div class="tl-band"><div class="tl-band-label">${b.label}<span>${items.length}名</span></div>`;
+    items.forEach(({p})=>{
+      const col=CATCOLOR[p.category]||"#888";
+      html+=`<div class="tl-item" onclick="openModal('${p.name.replace(/'/g,"\\'")}')">`
+        +`<div class="tl-dot" style="background:${col}"></div>`
+        +`<div class="tl-year">${esc(p.era)}</div>`
+        +`<div class="tl-body"><div class="tl-name">${esc(p.name)}${p.en?`<span class="tl-en">${esc(p.en)}</span>`:''}</div>`
+        +`<div class="tl-one">${esc(easyOf(p)||p.summary||"")}</div></div>`
+        +`<div class="tl-cat" style="color:${col};border-color:${col}">${catLabel(p.category)}</div>`
+        +`</div>`;
+    });
+    html+='</div>';
+  });
+  html+='</div>';
+  return html;
+}
+function toast(msg){
+  let t=document.getElementById("toast");
+  if(!t){t=document.createElement("div");t.id="toast";t.className="toast";document.body.appendChild(t);}
+  t.textContent=msg; t.classList.add("show");
+  clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),1900);
+}
+function sharePhil(name){
+  const url=location.origin+location.pathname+"#"+encodeURIComponent(name);
+  if(navigator.share){ navigator.share({title:name+" — Philosophia 哲学の泉",url}).catch(()=>{}); }
+  else if(navigator.clipboard && navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(()=>toast("リンクをコピーしました")).catch(()=>toast(url)); }
+  else { toast(url); }
 }
 function matches(p,q){
   return [p.name,p.en,p.summary,p.system,normConcepts(p).map(c=>c.t+" "+c.d).join(" ")]
@@ -3033,6 +3138,7 @@ function openModal(name){
   const links=scholarLinks(p);
   CURRENT_CONCEPTS=normConcepts(p);
   CURRENT_NAME=name;
+  try{history.replaceState(null,"","#"+encodeURIComponent(name));}catch(e){}
   fetchImg(p).then(ok=>{if(ok && CURRENT_NAME===name && document.getElementById("overlay").classList.contains("open")) openModal(name);});
   const sd=sysDetail(p);
   const ez=easyOf(p);
@@ -3056,6 +3162,7 @@ function openModal(name){
   document.getElementById("modal").innerHTML=`
     <div class="m-head">
       <button class="m-close" onclick="closeModal()">×</button>
+      <button class="m-share" onclick="sharePhil('${p.name.replace(/'/g,"\\'")}')">🔗 共有</button>
       <div class="m-portrait">${portraitHTML(p)}</div>
       <div class="m-headinfo">
         <div class="m-era">${esc(p.era)}</div>
@@ -3103,7 +3210,7 @@ function showDef(i){
   box.innerHTML=`<strong style="color:var(--accent2)">${esc(c.t)}</strong>　${c.d?esc(c.d):'(この用語の説明はまだ用意されていません)'}`
     + (long?`<div><span class="more-btn" onclick="toggleMore('termMore',this)">もっと詳しく ▾</span><div class="more-body" id="termMore">${esc(long)}</div></div>`:'');
 }
-function closeModal(){document.getElementById("overlay").classList.remove("open");document.body.style.overflow=""}
+function closeModal(){document.getElementById("overlay").classList.remove("open");document.body.style.overflow="";CURRENT_NAME="";try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}}
 function removePhilosopher(name){
   if(!confirm(`「${name}」を削除しますか?`))return;
   added=added.filter(p=>p.name!==name);save(LS_ADDED,added);
@@ -3213,6 +3320,19 @@ function initMonetize(){
 document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeGen();closePrivacy()}});
 render();
 initMonetize();
+
+/* 固有URL(#哲学者名)で直接開く / 戻る進むにも対応 */
+function openFromHash(){
+  const h=decodeURIComponent((location.hash||"").replace(/^#/,"")).trim();
+  if(!h) return;
+  if(allData().some(p=>p.name===h)) openModal(h);
+}
+window.addEventListener("hashchange",()=>{
+  const h=decodeURIComponent((location.hash||"").replace(/^#/,"")).trim();
+  if(h && h!==CURRENT_NAME && allData().some(p=>p.name===h)) openModal(h);
+  else if(!h) closeModal();
+});
+openFromHash();
 </script>
 </body>
 </html>
