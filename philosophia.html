@@ -163,6 +163,14 @@
 
   footer{padding:26px 30px 40px;border-top:1px solid var(--line);color:var(--sub);font-size:12.5px;line-height:1.7}
   footer a{color:var(--accent2);font-weight:600}
+  .support-btn{display:inline-flex;align-items:center;gap:7px;padding:8px 15px;border-radius:20px;cursor:pointer;
+    background:linear-gradient(120deg,#e0894b,#d76b3a);color:#fff;font-weight:800;font-size:13.5px;border:none;white-space:nowrap;text-decoration:none}
+  .support-btn:hover{filter:brightness(1.08)}
+  .ad-slot{max-width:970px;margin:22px auto 0;padding:0 30px;text-align:center;min-height:0}
+  .ad-slot .ad-label{font-size:10.5px;color:var(--sub);letter-spacing:.5px;margin-bottom:4px}
+  .support-block{margin-top:16px;padding-top:16px;border-top:1px solid var(--line);display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .support-block .txt{font-size:12.5px;color:var(--sub)}
+  @media(max-width:640px){ .ad-slot{padding:0 16px} }
   @media(max-width:640px){
     .m-head{flex-direction:column}.m-portrait{width:110px;height:110px}
     header{gap:10px;padding:10px 14px}.brand small,.count-pill{display:none}
@@ -179,7 +187,10 @@
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
   </div>
   <div class="count-pill" id="countPill"></div>
+  <a class="support-btn" id="supportBtn" href="#" style="display:none">☕ 支援する</a>
 </header>
+
+<div class="ad-slot" id="adTop"></div>
 
 <div class="hero">
   <h1>哲学を、体系的に。</h1>
@@ -190,14 +201,36 @@
 
 <main id="main"></main>
 
+<div class="ad-slot" id="adBottom"></div>
 <footer>
   Philosophia — 哲学を体系的に無料で学べるプラットフォーム。<br>
   肖像画像はWikimedia Commons(パブリックドメイン等)から表示しています。自由に使える写真が存在しない一部の人物は、頭文字のプレースホルダーになる場合があります。<br>
-  詳細画面の「研究・文献をさがす」からGoogle Scholar・Wikipedia・CiNii等の学術データベースへ誘導します。 ・ <a href="#" onclick="openGen();return false;">AIで哲学者を追加する</a>
+  詳細画面の「研究・文献をさがす」からGoogle Scholar・Wikipedia・CiNii等の学術データベースへ誘導します。 ・ <a href="#" onclick="openGen();return false;">AIで哲学者を追加する</a> ・ <a href="#" onclick="showPrivacy();return false;">プライバシーポリシー</a>
+  <div class="support-block" id="supportBlock" style="display:none">
+    <span class="txt">このサイトは無料で運営しています。応援いただけると励みになります。</span>
+    <a class="support-btn" id="supportBtn2" href="#">☕ 支援する</a>
+  </div>
 </footer>
 
 <div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
   <div class="modal" id="modal"></div>
+</div>
+
+<div class="overlay" id="privacyOverlay" onclick="if(event.target===this)closePrivacy()">
+  <div class="modal" style="max-width:720px">
+    <div class="m-head" style="padding:26px 30px">
+      <button class="m-close" onclick="closePrivacy()">×</button>
+      <div class="m-headinfo"><div class="m-name" style="font-size:24px">プライバシーポリシー</div></div>
+    </div>
+    <div class="m-body">
+      <div class="m-block"><p>Philosophia（以下「当サイト」）は、利用者のプライバシーを尊重します。本ポリシーは、当サイトにおける情報の取り扱いについて定めるものです。</p></div>
+      <div class="m-block"><h3><span class="ic">🍪</span>Cookie と広告について</h3><p>当サイトは、第三者配信の広告サービス（Google AdSense など）を利用する場合があります。これらの広告事業者は、利用者の興味に応じた広告を表示するために Cookie を使用することがあります。Cookie を無効にする設定や、Google の広告設定ページから、パーソナライズ広告を無効にできます。</p></div>
+      <div class="m-block"><h3><span class="ic">📊</span>アクセス解析</h3><p>当サイトは、利用状況の把握のためアクセス解析ツールを利用する場合があります。これらは Cookie を使用してデータを収集しますが、個人を特定する情報は含みません。</p></div>
+      <div class="m-block"><h3><span class="ic">🔗</span>外部リンク・画像</h3><p>当サイトは、Wikipedia・Wikimedia、Google Scholar、CiNii 等の外部サービスへのリンクや、Wikimedia の画像を表示します。リンク先・引用元のコンテンツについては、各提供元の規約が適用されます。</p></div>
+      <div class="m-block"><h3><span class="ic gold">💛</span>支援（寄付）について</h3><p>当サイトへの任意の支援は、外部の決済サービス（Stripe / Ko-fi 等）を通じて処理されます。当サイトが利用者のカード情報などの決済情報を保持することはありません。</p></div>
+      <div class="m-block"><p style="color:var(--sub);font-size:13px">お問い合わせや本ポリシーの変更は、当サイト運営者が随時行います。</p></div>
+    </div>
+  </div>
 </div>
 
 <div class="backdrop" id="backdrop" onclick="closeGen()"></div>
@@ -226,6 +259,19 @@
 </aside>
 
 <script>
+/* ============================================================
+   収益化の設定 —— ここに値を入れるだけで有効化されます（秘密キーは不要）
+   ============================================================ */
+const CONFIG = {
+  // 寄付：Stripe Payment Link または Ko-fi 等の「公開URL」を貼る（例: https://buy.stripe.com/xxxx）
+  donateUrl: "",
+  // 広告：Google AdSense のパブリッシャーID（例: "ca-pub-1234567890123456"）
+  adsenseClient: "",
+  // 広告ユニットのスロットID（AdSenseで作成。空でも自動広告として動作）
+  adSlotTop: "",
+  adSlotBottom: ""
+};
+
 /* ============================================================
    カテゴリ
    ============================================================ */
@@ -3133,8 +3179,40 @@ JSONのみを出力してください。`;
   }finally{btn.disabled=false}
 }
 
-document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeGen()}});
+/* ============================================================
+   収益化(寄付ボタン・広告)とプライバシー
+   ============================================================ */
+function showPrivacy(){document.getElementById("privacyOverlay").classList.add("open");document.body.style.overflow="hidden";}
+function closePrivacy(){document.getElementById("privacyOverlay").classList.remove("open");document.body.style.overflow="";}
+function initMonetize(){
+  if(CONFIG.donateUrl){
+    ["supportBtn","supportBtn2"].forEach(id=>{const b=document.getElementById(id); if(b){b.href=CONFIG.donateUrl; b.target="_blank"; b.rel="noopener noreferrer";}});
+    const sb=document.getElementById("supportBtn"); if(sb) sb.style.display="inline-flex";
+    const bl=document.getElementById("supportBlock"); if(bl) bl.style.display="flex";
+  }
+  if(CONFIG.adsenseClient){
+    const s=document.createElement("script");
+    s.async=true; s.setAttribute("crossorigin","anonymous");
+    s.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client="+encodeURIComponent(CONFIG.adsenseClient);
+    document.head.appendChild(s);
+    [["adTop",CONFIG.adSlotTop],["adBottom",CONFIG.adSlotBottom]].forEach(([id,slot])=>{
+      const c=document.getElementById(id); if(!c) return;
+      const ins=document.createElement("ins");
+      ins.className="adsbygoogle"; ins.style.display="block";
+      ins.setAttribute("data-ad-client",CONFIG.adsenseClient);
+      if(slot) ins.setAttribute("data-ad-slot",slot);
+      ins.setAttribute("data-ad-format","auto");
+      ins.setAttribute("data-full-width-responsive","true");
+      c.innerHTML='<div class="ad-label">スポンサーリンク</div>';
+      c.appendChild(ins);
+      try{(window.adsbygoogle=window.adsbygoogle||[]).push({});}catch(e){}
+    });
+  }
+}
+
+document.addEventListener("keydown",e=>{if(e.key==="Escape"){closeModal();closeGen();closePrivacy()}});
 render();
+initMonetize();
 </script>
 </body>
 </html>
