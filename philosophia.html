@@ -176,6 +176,9 @@
   .easy{margin:22px 0 2px;padding:15px 17px;background:rgba(46,125,91,.15);border:1px solid #2e7d5b;border-radius:12px}
   .easy .easy-tag{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;font-weight:800;color:#84e0a8;margin-bottom:7px}
   .easy p{font-size:15px;line-height:1.85;color:#eef5f0}
+  .m-block.story{margin-top:22px;padding:18px 20px;background:linear-gradient(180deg,rgba(123,92,255,.14),rgba(123,92,255,.05));border:1px solid #4a3d8f;border-radius:14px}
+  .m-block.story h3{margin-bottom:10px}
+  .story-p{font-family:"Hiragino Mincho ProN","Yu Mincho",YuMincho,"Noto Serif JP",serif;font-size:15.5px;line-height:2.05;color:#efeaff;text-indent:1em}
   .links{display:flex;gap:10px;flex-wrap:wrap}
   .linkbtn{display:inline-flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--line);
     border-radius:12px;padding:10px 14px;font-size:13.5px;color:var(--text);transition:.15s}
@@ -3370,6 +3373,17 @@ function scholarLinks(p){
   ];
 }
 
+/* 絵本のように語りかける物語（1人ずつ・約300字） */
+const STORY = {
+  "ソクラテス":"むかしむかし、紀元前469年のギリシア・アテナイに、ソクラテスという風変わりなおじいさんがいました。裸足で広場を歩きまわり、えらい政治家や詩人をつかまえては「ねえ、正義ってなんだい？」と無邪気に問いかけます。相手が得意げに答えると、「じゃあ、この場合は？」と静かに聞き返し、そのたびに立派なはずの答えがぐらぐらと崩れていくのでした。彼は自分でも答えを知りません。ただ「自分は何も知らない」と気づいている——それこそが賢さの始まりだと信じていたのです。やがて「若者を惑わす」と訴えられ、死刑を宣告されても、彼は逃げませんでした。最後まで問い続けたその人生そのものが、彼の遺した哲学だったのです。",
+  "デカルト":"1596年、フランスに生まれたデカルトは、子どものころから体が弱く、朝はベッドの中でぼんやり考えごとをする少年でした。大人になった彼は、ある冬、暖炉のそばでひとつの大胆な遊びを思いつきます。「いちど、何もかもを疑ってみよう」。目に見えるものも、数学でさえ、もしかしたら悪魔にだまされているだけかもしれない——。そうしてすべてを疑っていくと、最後にどうしても疑えないものが残りました。「こうして疑っている“私”は、たしかにここにいる」。我思う、ゆえに我あり。ぐらつく世界のただ中に、彼はゆるがない一点を見つけたのです。その小さな“私”から、彼は世界をもう一度築きなおそうとしました。",
+  "カント":"ドイツの小さな町ケーニヒスベルクに、カントという几帳面な先生がいました。毎日きっかり同じ時刻に散歩へ出るので、町の人は彼の姿を見て時計を合わせたといいます。そんな彼が一生をかけて考えたのは、「人間はどこまで知ることができるのか」という問いでした。やがて彼は気づきます——私たちは世界をありのまま見ているのではなく、心という“めがね”を通して見ているのだ、と。時間や空間は、世界の側にではなく、それを映す私たちの心の枠組みなのです。だからこそ知りうることには限界がある。けれど彼は、その限界の向こうにこそ、自由や道徳の居場所があると考えました。輝く星空と、心のなかの道徳法則——その二つに、彼は生涯おどろき続けたのです。",
+  "ニーチェ":"牧師の家に生まれたニーチェは、若くして大学教授になった秀才でした。けれど体をこわして職を辞し、山や海辺をひとりさすらいながら、猛烈な勢いで本を書きます。ある日、彼はこう宣言しました。「神は死んだ」。人々が寄りかかってきた古い価値が、もう力を失ってしまった——そう見抜いたのです。では、何を頼りに生きればいい？彼は答えます。誰かに与えられた善悪ではなく、自分自身の力で新しい価値を創り出せ、と。たとえこの同じ人生が永遠にくり返されても「もう一度!」と言えるほど、力強く生きよ。晩年、彼の心はやみに閉ざされてしまいますが、その激しい言葉は、後の時代を大きくゆさぶり続けました。",
+  "孔子":"いまから二千五百年ほど前の中国、乱れた世に孔子という先生がいました。国はいくつにも分かれて争い、力がすべてを決める時代です。孔子はそんな世を憂い、「人を思いやる心——仁」こそが世の中を立て直す鍵だと説きました。彼は理想の政治を求めて国から国へと旅をしますが、どこの王も彼を重く用いてはくれません。それでもくじけず、集まってきた弟子たちに語り続けました。親を敬い、友を信じ、日々の振る舞いを正すこと。その小さな積み重ねの先にこそ、善い社会があるのだ、と。彼の言葉はのちに弟子たちの手で『論語』にまとめられ、東アジアの人々の生き方を、長く静かに形づくっていきました。",
+  "ブッダ(釈迦)":"むかしインドの北の国に、シッダールタという王子がいました。宮殿の中で何ひとつ不自由なく育てられた彼は、ある日はじめて城の外を見て、老いた人・病んだ人・亡くなった人に出会い、深く心を揺さぶられます。「どうして人は苦しむのだろう」。その問いを抱えて、彼は妻も子も王の位も捨て、答えを求める旅に出ました。きびしい修行を重ねても、答えは見つかりません。やがて一本の菩提樹の下に静かに座り、瞑想の果てに、彼はついに悟ります——苦しみは、満たされない“執着”から生まれる。それを手放したとき、心は自由になるのだ、と。目覚めた人“ブッダ”となった彼は、その道を、人々に静かに説いてまわりました。"
+};
+function storyOf(p){ return STORY[p.name] || ""; }
+
 function openModal(name){
   const p=findByName(name);if(!p)return;
   const links=scholarLinks(p);
@@ -3380,6 +3394,8 @@ function openModal(name){
   const sd=sysDetail(p);
   const ez=easyOf(p);
   const easyHTML = ez ? `<div class="easy"><span class="easy-tag">💡 かんたんに言うと</span><p>${esc(ez)}</p></div>` : '';
+  const st=storyOf(p);
+  const storyHTML = st ? `<div class="m-block story"><h3><span class="ic" style="background:#7b5cff">📖</span>物語で読む</h3><p class="story-p">${esc(st)}</p></div>` : '';
   const rels=RELATIONS[name]||p.relations||[];
   const relHTML = rels.length ? `
       <div class="m-block">
@@ -3409,6 +3425,7 @@ function openModal(name){
       </div>
     </div>
     <div class="m-body">
+      ${storyHTML}
       ${easyHTML}
       <div class="m-block">
         <h3><span class="ic">💬</span>何を言っていたか</h3>
