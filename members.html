@@ -68,16 +68,9 @@
 <script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-  // ====== ここを自分の値に置き換える（どちらも公開して安全な値）======
-  const SUPABASE_URL = 'https://YOUR-PROJECT.supabase.co';
-  const SUPABASE_ANON_KEY = 'YOUR-SUPABASE-ANON-KEY';
-  const STRIPE_LINK = 'https://buy.stripe.com/7sY5kD1Ay1Ss0OZ02zfMA00';
-  // ===============================================================
-
-  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  // 設定（SUPABASE_URL / anonキー / Stripeリンク）はサーバーの /api/config から取得する。
+  let supabase = null;
   const $ = (id) => document.getElementById(id);
-
-  document.getElementById('subscribeBtn').href = STRIPE_LINK;
 
   async function refresh() {
     const { data: { session } } = await supabase.auth.getSession();
@@ -129,6 +122,7 @@
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
   $('sendLink').addEventListener('click', async () => {
+    if (!supabase) { $('loginMsg').textContent = '準備中です。少し待って再度お試しください。'; return; }
     const email = $('email').value.trim();
     if (!email) { $('loginMsg').textContent = 'メールアドレスを入力してください。'; return; }
     $('sendLink').disabled = true;
@@ -143,8 +137,20 @@
 
   $('logout').addEventListener('click', async () => { await supabase.auth.signOut(); refresh(); });
   $('recheck').addEventListener('click', refresh);
-  supabase.auth.onAuthStateChange(() => refresh());
-  refresh();
+  (async () => {
+    try {
+      const cfg = await (await fetch('/api/config')).json();
+      if (!cfg.url || !cfg.anonKey) throw new Error('config empty');
+      supabase = createClient(cfg.url, cfg.anonKey);
+      $('subscribeBtn').href = cfg.stripeLink || '#';
+      supabase.auth.onAuthStateChange(() => refresh());
+      refresh();
+    } catch (e) {
+      $('loginCard').classList.remove('hide');
+      $('loginMsg').style.color = '#e9a463';
+      $('loginMsg').textContent = 'サーバー設定の読み込みに失敗しました。少し待って再読み込みしてください。';
+    }
+  })();
 </script>
 </body>
 </html>
