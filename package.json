@@ -1,0 +1,11 @@
+{
+  "name": "philosophia-membership",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Philosophia プレミアム会員（ログイン制）バックエンド一式",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.0",
+    "stripe": "^16.12.0"
+  }
+}

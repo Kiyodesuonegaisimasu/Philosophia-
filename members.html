@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<!-- リポジトリ内の置き場所: /public/members.html -->
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>プレミアム会員 — Philosophia</title>
+<style>
+  :root{--bg:#0a0a0a;--bg2:#161616;--card:#1c1c1c;--text:#f1f1f1;--sub:#a8a8a8;--line:#2c2c2c;--accent:#c9a24b;--accent2:#7b5cff}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:var(--bg);color:var(--text);font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;line-height:1.8}
+  a{color:var(--accent2)}
+  header{padding:16px 26px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
+  header .mark{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 30% 30%,var(--accent),#6b4c1a);display:grid;place-items:center;font-size:16px;color:#111;font-weight:900}
+  header b{font-size:18px}
+  .wrap{max-width:640px;margin:0 auto;padding:40px 22px 80px}
+  h1{font-size:24px;font-weight:800;margin-bottom:6px}
+  .lead{color:var(--sub);font-size:14px;margin-bottom:26px}
+  .card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px}
+  input[type=email]{width:100%;padding:13px 14px;border-radius:10px;border:1px solid var(--line);background:#111;color:#fff;font-size:15px;margin:10px 0}
+  button,.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:24px;border:none;background:var(--accent);color:#111;font-weight:800;font-size:14.5px;cursor:pointer;text-decoration:none}
+  button.ghost{background:transparent;border:1px solid var(--line);color:var(--sub);font-weight:600}
+  .status{font-size:14px;color:var(--sub)}
+  .badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:12.5px;font-weight:800}
+  .badge.on{background:rgba(46,125,91,.2);color:#84e0a8;border:1px solid #2e7d5b}
+  .badge.off{background:rgba(201,162,75,.12);color:#e9c46a;border:1px solid #6b4c1a}
+  .p-item{border-top:1px solid var(--line);padding:16px 0}
+  .p-item:first-child{border-top:none}
+  .p-item h3{font-size:16px;margin-bottom:6px}
+  .p-item p{font-size:14.5px;color:#e6e6e6}
+  .muted{color:var(--sub);font-size:12.5px}
+  .hide{display:none}
+  .back{display:inline-block;margin-top:20px;font-size:13.5px}
+  .err{color:#e9a463;font-size:13px;margin-top:8px}
+</style>
+</head>
+<body>
+<header><span class="mark">φ</span><b>Philosophia</b><span style="color:var(--accent);font-weight:700">&nbsp;プレミアム会員</span></header>
+<div class="wrap">
+  <h1>プレミアム会員</h1>
+  <p class="lead">メールでログインし、月額500円のプレミアム会員になると、会員限定コンテンツが読めます。</p>
+
+  <!-- 未ログイン -->
+  <div id="loginCard" class="card hide">
+    <div class="status">メールアドレスを入力すると、ログイン用リンクが届きます（パスワード不要）。</div>
+    <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
+    <button id="sendLink">ログインリンクを送る</button>
+    <div class="err" id="loginMsg"></div>
+  </div>
+
+  <!-- ログイン済み -->
+  <div id="userCard" class="card hide">
+    <div class="status">ログイン中：<b id="userEmail"></b> ・ <span id="memberBadge"></span></div>
+    <div id="notMember" class="hide" style="margin-top:14px">
+      <p style="font-size:14px;margin-bottom:12px">まだプレミアム会員ではありません。下のボタンから月額500円で登録できます。<br><span class="muted">※Stripeの購入画面では、ログインと<b>同じメールアドレス</b>をお使いください（それで会員として認識されます）。</span></p>
+      <a class="btn" id="subscribeBtn" href="#" target="_blank" rel="noopener noreferrer">☕ プレミアム会員になる（月500円）</a>
+      <div style="margin-top:12px"><button class="ghost" id="recheck">支払い後、状態を再確認</button></div>
+    </div>
+    <div id="isMember" class="hide" style="margin-top:16px">
+      <div id="premium"></div>
+    </div>
+    <div style="margin-top:18px"><button class="ghost" id="logout">ログアウト</button></div>
+  </div>
+
+  <a class="back" href="/philosophia.html">← Philosophia へ戻る</a>
+</div>
+
+<script type="module">
+  import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+
+  // ====== ここを自分の値に置き換える（どちらも公開して安全な値）======
+  const SUPABASE_URL = 'https://YOUR-PROJECT.supabase.co';
+  const SUPABASE_ANON_KEY = 'YOUR-SUPABASE-ANON-KEY';
+  const STRIPE_LINK = 'https://buy.stripe.com/7sY5kD1Ay1Ss0OZ02zfMA00';
+  // ===============================================================
+
+  const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const $ = (id) => document.getElementById(id);
+
+  document.getElementById('subscribeBtn').href = STRIPE_LINK;
+
+  async function refresh() {
+    const { data: { session } } = await supabase.auth.getSession();
+    if (!session) {
+      $('loginCard').classList.remove('hide');
+      $('userCard').classList.add('hide');
+      return;
+    }
+    $('loginCard').classList.add('hide');
+    $('userCard').classList.remove('hide');
+    $('userEmail').textContent = session.user.email;
+
+    // 会員状態をサーバーに問い合わせ
+    let me = { active: false };
+    try {
+      const r = await fetch('/api/me', { headers: { Authorization: 'Bearer ' + session.access_token } });
+      me = await r.json();
+    } catch (e) {}
+
+    if (me.active) {
+      $('memberBadge').innerHTML = '<span class="badge on">✓ プレミアム会員</span>';
+      $('isMember').classList.remove('hide');
+      $('notMember').classList.add('hide');
+      loadPremium(session.access_token);
+    } else {
+      $('memberBadge').innerHTML = '<span class="badge off">未登録</span>';
+      $('notMember').classList.remove('hide');
+      $('isMember').classList.add('hide');
+    }
+  }
+
+  async function loadPremium(token) {
+    try {
+      const r = await fetch('/api/premium', { headers: { Authorization: 'Bearer ' + token } });
+      if (!r.ok) { $('premium').innerHTML = '<p class="muted">限定コンテンツの取得に失敗しました。</p>'; return; }
+      const data = await r.json();
+      let html = '<div class="card" style="background:linear-gradient(180deg,rgba(123,92,255,.12),rgba(123,92,255,.04));border-color:#4a3d8f">';
+      html += '<p style="margin-bottom:6px">📖 <b>会員限定エリア</b></p>';
+      html += '<p style="font-size:14px;color:#efeaff">' + (data.welcome || '') + '</p></div>';
+      (data.items || []).forEach(it => {
+        html += '<div class="p-item"><h3>' + esc(it.title) + '</h3><p>' + esc(it.body) + '</p></div>';
+      });
+      $('premium').innerHTML = html;
+    } catch (e) {
+      $('premium').innerHTML = '<p class="muted">通信エラーが発生しました。</p>';
+    }
+  }
+
+  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  $('sendLink').addEventListener('click', async () => {
+    const email = $('email').value.trim();
+    if (!email) { $('loginMsg').textContent = 'メールアドレスを入力してください。'; return; }
+    $('sendLink').disabled = true;
+    const { error } = await supabase.auth.signInWithOtp({
+      email,
+      options: { emailRedirectTo: window.location.href.split('#')[0] }
+    });
+    $('sendLink').disabled = false;
+    $('loginMsg').style.color = error ? '#e9a463' : '#84e0a8';
+    $('loginMsg').textContent = error ? ('送信エラー: ' + error.message) : 'メールを送りました。届いたリンクを開いてください。';
+  });
+
+  $('logout').addEventListener('click', async () => { await supabase.auth.signOut(); refresh(); });
+  $('recheck').addEventListener('click', refresh);
+  supabase.auth.onAuthStateChange(() => refresh());
+  refresh();
+</script>
+</body>
+</html>
