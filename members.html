@@ -17,7 +17,8 @@
   h1{font-size:24px;font-weight:800;margin-bottom:6px}
   .lead{color:var(--sub);font-size:14px;margin-bottom:26px}
   .card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px}
-  input[type=email]{width:100%;padding:13px 14px;border-radius:10px;border:1px solid var(--line);background:#111;color:#fff;font-size:15px;margin:10px 0}
+  input[type=email],input[type=text]{width:100%;padding:13px 14px;border-radius:10px;border:1px solid var(--line);background:#111;color:#fff;font-size:15px;margin:10px 0}
+  #code{letter-spacing:.35em;font-size:20px;text-align:center}
   button,.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border-radius:24px;border:none;background:var(--accent);color:#111;font-weight:800;font-size:14.5px;cursor:pointer;text-decoration:none}
   button.ghost{background:transparent;border:1px solid var(--line);color:var(--sub);font-weight:600}
   .status{font-size:14px;color:var(--sub)}
@@ -42,9 +43,14 @@
 
   <!-- 未ログイン -->
   <div id="loginCard" class="card hide">
-    <div class="status">メールアドレスを入力すると、ログイン用リンクが届きます（パスワード不要）。</div>
+    <div class="status">メールアドレスを入力すると、ログイン用の<b>6桁コード</b>が届きます（パスワード不要）。<br><span class="muted">スマホでメールを見ても、コードをこの端末に入力すればこの端末でログインできます。</span></div>
     <input type="email" id="email" placeholder="you@example.com" autocomplete="email">
-    <button id="sendLink">ログインリンクを送る</button>
+    <button id="sendCode">コードを送る</button>
+    <div id="codeArea" class="hide" style="margin-top:16px">
+      <div class="status">メールに届いた6桁コードを入力してください。</div>
+      <input type="text" id="code" inputmode="numeric" autocomplete="one-time-code" placeholder="123456" maxlength="6">
+      <div style="margin-top:6px"><button id="verifyCode">ログイン</button> <button class="ghost" id="resendCode">コードを再送</button></div>
+    </div>
     <div class="err" id="loginMsg"></div>
   </div>
 
@@ -121,19 +127,46 @@
 
   function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-  $('sendLink').addEventListener('click', async () => {
+  async function sendCode() {
     if (!supabase) { $('loginMsg').textContent = '準備中です。少し待って再度お試しください。'; return; }
     const email = $('email').value.trim();
-    if (!email) { $('loginMsg').textContent = 'メールアドレスを入力してください。'; return; }
-    $('sendLink').disabled = true;
+    if (!email) { $('loginMsg').style.color='#e9a463'; $('loginMsg').textContent = 'メールアドレスを入力してください。'; return; }
+    $('sendCode').disabled = true; $('resendCode').disabled = true;
     const { error } = await supabase.auth.signInWithOtp({
       email,
-      options: { emailRedirectTo: window.location.href.split('#')[0] }
+      options: { shouldCreateUser: true, emailRedirectTo: window.location.href.split('#')[0] }
     });
-    $('sendLink').disabled = false;
-    $('loginMsg').style.color = error ? '#e9a463' : '#84e0a8';
-    $('loginMsg').textContent = error ? ('送信エラー: ' + error.message) : 'メールを送りました。届いたリンクを開いてください。';
-  });
+    $('sendCode').disabled = false; $('resendCode').disabled = false;
+    if (error) {
+      $('loginMsg').style.color = '#e9a463';
+      $('loginMsg').textContent = '送信エラー: ' + error.message;
+    } else {
+      $('codeArea').classList.remove('hide');
+      $('loginMsg').style.color = '#84e0a8';
+      $('loginMsg').textContent = 'メールに6桁コードを送りました。届いたコードを入力してください。';
+      $('code').focus();
+    }
+  }
+  async function verifyCode() {
+    if (!supabase) return;
+    const email = $('email').value.trim();
+    const token = $('code').value.trim();
+    if (!/^\d{6}$/.test(token)) { $('loginMsg').style.color='#e9a463'; $('loginMsg').textContent = '6桁の数字コードを入力してください。'; return; }
+    $('verifyCode').disabled = true;
+    const { error } = await supabase.auth.verifyOtp({ email, token, type: 'email' });
+    $('verifyCode').disabled = false;
+    if (error) {
+      $('loginMsg').style.color = '#e9a463';
+      $('loginMsg').textContent = 'コードが違うか期限切れです：' + error.message;
+    } else {
+      $('loginMsg').textContent = '';
+      refresh();
+    }
+  }
+  $('sendCode').addEventListener('click', sendCode);
+  $('resendCode').addEventListener('click', sendCode);
+  $('verifyCode').addEventListener('click', verifyCode);
+  $('code').addEventListener('keydown', (e) => { if (e.key === 'Enter') verifyCode(); });
 
   $('logout').addEventListener('click', async () => { await supabase.auth.signOut(); refresh(); });
   $('recheck').addEventListener('click', refresh);
