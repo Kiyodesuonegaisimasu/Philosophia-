@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- リポジトリ内の置き場所: /public/members.html -->
+<!-- リポジトリ内の置き場所: /members.html -->
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
@@ -13,9 +13,9 @@
   header{padding:16px 26px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px}
   header .mark{width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 30% 30%,var(--accent),#6b4c1a);display:grid;place-items:center;font-size:16px;color:#111;font-weight:900}
   header b{font-size:18px}
-  .wrap{max-width:640px;margin:0 auto;padding:40px 22px 80px}
+  .wrap{max-width:760px;margin:0 auto;padding:36px 22px 90px}
   h1{font-size:24px;font-weight:800;margin-bottom:6px}
-  .lead{color:var(--sub);font-size:14px;margin-bottom:26px}
+  .lead{color:var(--sub);font-size:14px;margin-bottom:24px}
   .card{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:22px;margin-bottom:18px}
   input[type=email],input[type=text]{width:100%;padding:13px 14px;border-radius:10px;border:1px solid var(--line);background:#111;color:#fff;font-size:15px;margin:10px 0}
   #code{letter-spacing:.35em;font-size:20px;text-align:center}
@@ -24,22 +24,60 @@
   .status{font-size:14px;color:var(--sub)}
   .badge{display:inline-block;padding:3px 12px;border-radius:20px;font-size:12.5px;font-weight:800}
   .badge.on{background:rgba(46,125,91,.2);color:#84e0a8;border:1px solid #2e7d5b}
+  .badge.trial{background:rgba(123,92,255,.15);color:#c9bcff;border:1px solid #4a3d8f}
   .badge.off{background:rgba(201,162,75,.12);color:#e9c46a;border:1px solid #6b4c1a}
-  .p-item{border-top:1px solid var(--line);padding:16px 0}
-  .p-item:first-child{border-top:none}
-  .p-item h3{font-size:16px;margin-bottom:6px}
-  .p-item p{font-size:14.5px;color:#e6e6e6}
   .muted{color:var(--sub);font-size:12.5px}
   .hide{display:none}
-  .back{display:inline-block;margin-top:20px;font-size:13.5px}
+  .back{display:inline-block;margin-top:22px;font-size:13.5px}
   .err{color:#e9a463;font-size:13px;margin-top:8px}
+
+  /* --- プレミアム本体 --- */
+  .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 22px}
+  .tab{padding:9px 15px;border-radius:22px;border:1px solid var(--line);background:transparent;color:var(--sub);font-size:13.5px;font-weight:700;cursor:pointer}
+  .tab.active{background:var(--accent2);color:#fff;border-color:var(--accent2)}
+  .panel{display:none}
+  .panel.active{display:block}
+  .item{border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden;background:#141414}
+  .item>.head{padding:15px 18px;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+  .item .ttl{font-size:16px;font-weight:800}
+  .item .sub{font-size:13px;color:var(--sub);margin-top:3px}
+  .item .meta{font-size:11.5px;color:var(--accent);white-space:nowrap;margin-top:3px}
+  .item .body{padding:0 18px 18px;display:none}
+  .item.open .body{display:block}
+  .item .chev{color:var(--sub);font-size:13px;margin-top:3px}
+  .step{border-top:1px solid var(--line);padding:12px 0}
+  .step .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--accent2);color:#fff;font-size:12px;font-weight:800;margin-right:8px}
+  .step .nm{font-weight:800;font-size:14.5px}
+  .step .why{font-size:13.5px;color:#e0e0e0;margin:5px 0 3px}
+  .step .fc{font-size:12.5px;color:var(--accent)}
+  .kv{margin:10px 0}
+  .kv .k{font-size:12px;color:var(--accent);font-weight:800;letter-spacing:.03em}
+  .kv .v{font-size:14px;color:#e6e6e6;margin-top:2px}
+  .pos{border-top:1px solid var(--line);padding:11px 0}
+  .pos .who{font-weight:800;font-size:14px}
+  .pos .claim{color:var(--accent2);font-size:13.5px;font-weight:700;margin:2px 0}
+  .pos .dt{font-size:13px;color:#dcdcdc}
+  .intro-p{font-size:14px;color:#e6e6e6;margin-bottom:10px}
+  .q-p{font-size:13.5px;color:#efe6c9;font-style:italic;border-left:3px solid var(--accent);padding-left:12px;margin:10px 0}
+  .gsearch{width:100%;margin-bottom:14px}
+  .gitem{border-bottom:1px solid var(--line);padding:12px 0}
+  .gitem .gt{font-weight:800;font-size:15px}
+  .gitem .gr{font-size:11.5px;color:var(--sub);margin-left:6px}
+  .gitem .gs{font-size:13.5px;color:#e6e6e6;margin-top:3px}
+  .gitem .gd{font-size:13px;color:var(--sub);margin-top:4px}
+  .quiz .qq{font-weight:700;font-size:14.5px;margin:14px 0 8px}
+  .choice{display:block;width:100%;text-align:left;background:#111;border:1px solid var(--line);color:#eee;border-radius:9px;padding:11px 13px;margin:6px 0;font-size:14px;cursor:pointer;font-weight:600}
+  .choice.correct{background:rgba(46,125,91,.22);border-color:#2e7d5b;color:#bff0d0}
+  .choice.wrong{background:rgba(201,80,80,.18);border-color:#8f3d3d;color:#f0c0c0}
+  .explain{font-size:13px;color:#cdead9;margin:6px 0 4px;padding:9px 12px;background:rgba(46,125,91,.1);border-radius:8px;display:none}
+  .explain.show{display:block}
 </style>
 </head>
 <body>
 <header><span class="mark">φ</span><b>Philosophia</b><span style="color:var(--accent);font-weight:700">&nbsp;プレミアム会員</span></header>
 <div class="wrap">
   <h1>プレミアム会員</h1>
-  <p class="lead">メールでログインし、月額500円のプレミアム会員になると、会員限定コンテンツが読めます。</p>
+  <p class="lead">メールでログインすると、まず<b>1日間は無料</b>で会員限定コンテンツを全部お試しできます。続けたい場合は月額500円で会員になれます。</p>
 
   <!-- 未ログイン -->
   <div id="loginCard" class="card hide">
@@ -58,14 +96,18 @@
   <div id="userCard" class="card hide">
     <div class="status">ログイン中：<b id="userEmail"></b> ・ <span id="memberBadge"></span></div>
     <div id="notMember" class="hide" style="margin-top:14px">
-      <p style="font-size:14px;margin-bottom:12px">まだプレミアム会員ではありません。下のボタンから月額500円で登録できます。<br><span class="muted">※Stripeの購入画面では、ログインと<b>同じメールアドレス</b>をお使いください（それで会員として認識されます）。</span></p>
+      <p style="font-size:14px;margin-bottom:12px" id="notMemberMsg"></p>
       <a class="btn" id="subscribeBtn" href="#" target="_blank" rel="noopener noreferrer">☕ プレミアム会員になる（月500円）</a>
       <div style="margin-top:12px"><button class="ghost" id="recheck">支払い後、状態を再確認</button></div>
     </div>
-    <div id="isMember" class="hide" style="margin-top:16px">
-      <div id="premium"></div>
-    </div>
-    <div style="margin-top:18px"><button class="ghost" id="logout">ログアウト</button></div>
+    <div style="margin-top:16px"><button class="ghost" id="logout">ログアウト</button></div>
+  </div>
+
+  <!-- 会員限定コンテンツ本体 -->
+  <div id="premiumWrap" class="hide">
+    <div id="premiumWelcome" class="card" style="background:linear-gradient(180deg,rgba(123,92,255,.12),rgba(123,92,255,.04));border-color:#4a3d8f"></div>
+    <div class="tabs" id="tabs"></div>
+    <div id="panels"></div>
   </div>
 
   <a class="back" href="/philosophia.html">← Philosophia へ戻る</a>
@@ -74,58 +116,160 @@
 <script type="module">
   import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
 
-  // 設定（SUPABASE_URL / anonキー / Stripeリンク）はサーバーの /api/config から取得する。
   let supabase = null;
   const $ = (id) => document.getElementById(id);
+  function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
   async function refresh() {
     const { data: { session } } = await supabase.auth.getSession();
     if (!session) {
       $('loginCard').classList.remove('hide');
       $('userCard').classList.add('hide');
+      $('premiumWrap').classList.add('hide');
       return;
     }
     $('loginCard').classList.add('hide');
     $('userCard').classList.remove('hide');
     $('userEmail').textContent = session.user.email;
 
-    // 会員状態をサーバーに問い合わせ
-    let me = { active: false };
+    let me = { access: false, active: false, trial: false };
     try {
       const r = await fetch('/api/me', { headers: { Authorization: 'Bearer ' + session.access_token } });
       me = await r.json();
     } catch (e) {}
 
+    // バッジ表示
     if (me.active) {
       $('memberBadge').innerHTML = '<span class="badge on">✓ プレミアム会員</span>';
-      $('isMember').classList.remove('hide');
-      $('notMember').classList.add('hide');
-      loadPremium(session.access_token);
+    } else if (me.trial) {
+      const hrs = me.trial_ends ? Math.max(0, Math.ceil((new Date(me.trial_ends) - Date.now())/3600000)) : 0;
+      $('memberBadge').innerHTML = '<span class="badge trial">⏳ 無料トライアル中（残り約' + hrs + '時間）</span>';
     } else {
       $('memberBadge').innerHTML = '<span class="badge off">未登録</span>';
+    }
+
+    if (me.access) {
+      // アクセス権あり（会員 or トライアル）→ 限定コンテンツ表示
+      $('notMember').classList.add('hide');
+      $('premiumWrap').classList.remove('hide');
+      loadPremium(session.access_token);
+    } else {
+      // トライアル終了・未課金 → 登録案内
+      $('premiumWrap').classList.add('hide');
       $('notMember').classList.remove('hide');
-      $('isMember').classList.add('hide');
+      $('notMemberMsg').innerHTML = '無料トライアル（1日間）は終了しました。続けて会員限定コンテンツを読むには、月額500円のプレミアム会員にご登録ください。<br><span class="muted">※Stripeの購入画面では、ログインと<b>同じメールアドレス</b>をお使いください。</span>';
     }
   }
 
+  let premiumLoaded = false;
   async function loadPremium(token) {
+    if (premiumLoaded) return;
     try {
       const r = await fetch('/api/premium', { headers: { Authorization: 'Bearer ' + token } });
-      if (!r.ok) { $('premium').innerHTML = '<p class="muted">限定コンテンツの取得に失敗しました。</p>'; return; }
+      if (!r.ok) { $('premiumWelcome').innerHTML = '<p class="muted">限定コンテンツの取得に失敗しました。再読み込みしてください。</p>'; return; }
       const data = await r.json();
-      let html = '<div class="card" style="background:linear-gradient(180deg,rgba(123,92,255,.12),rgba(123,92,255,.04));border-color:#4a3d8f">';
-      html += '<p style="margin-bottom:6px">📖 <b>会員限定エリア</b></p>';
-      html += '<p style="font-size:14px;color:#efeaff">' + (data.welcome || '') + '</p></div>';
-      (data.items || []).forEach(it => {
-        html += '<div class="p-item"><h3>' + esc(it.title) + '</h3><p>' + esc(it.body) + '</p></div>';
-      });
-      $('premium').innerHTML = html;
+      $('premiumWelcome').innerHTML = '<p style="margin-bottom:4px">📖 <b>会員限定エリア</b></p><p style="font-size:14px;color:#efeaff">' + esc(data.welcome) + '</p>';
+      renderContent(data.content);
+      premiumLoaded = true;
     } catch (e) {
-      $('premium').innerHTML = '<p class="muted">通信エラーが発生しました。</p>';
+      $('premiumWelcome').innerHTML = '<p class="muted">通信エラーが発生しました。</p>';
     }
   }
 
-  function esc(s){return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function renderContent(c){
+    const tabs = [
+      { id:'courses', label:'📚 入門コース', render: renderCourses },
+      { id:'deep', label:'🔬 哲学者・深掘り', render: renderDeep },
+      { id:'classics', label:'📖 原典ガイド', render: renderClassics },
+      { id:'themes', label:'🧭 テーマ解説', render: renderThemes },
+      { id:'glossary', label:'🔤 用語辞典', render: renderGlossary },
+      { id:'quizzes', label:'✅ クイズ', render: renderQuizzes },
+    ];
+    $('tabs').innerHTML = tabs.map((t,i)=>'<button class="tab'+(i===0?' active':'')+'" data-tab="'+t.id+'">'+t.label+'</button>').join('');
+    $('panels').innerHTML = tabs.map((t,i)=>'<div class="panel'+(i===0?' active':'')+'" id="panel-'+t.id+'">'+t.render(c)+'</div>').join('');
+
+    // タブ切替
+    $('tabs').querySelectorAll('.tab').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        $('tabs').querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+        $('panels').querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+        btn.classList.add('active');
+        $('panel-'+btn.dataset.tab).classList.add('active');
+        window.scrollTo({top:0,behavior:'smooth'});
+      });
+    });
+    // アコーディオン開閉
+    $('panels').querySelectorAll('.item>.head').forEach(h=>{
+      h.addEventListener('click',()=>h.parentElement.classList.toggle('open'));
+    });
+    // 用語検索
+    const gs = document.getElementById('gsearch');
+    if (gs) gs.addEventListener('input',()=>{
+      const q = gs.value.trim();
+      document.querySelectorAll('#panel-glossary .gitem').forEach(el=>{
+        el.style.display = (!q || el.dataset.k.indexOf(q)>=0) ? '' : 'none';
+      });
+    });
+    // クイズ
+    $('panels').querySelectorAll('.choice').forEach(ch=>{
+      ch.addEventListener('click',()=>{
+        const box = ch.closest('.qbox');
+        if (box.dataset.done) return;
+        box.dataset.done = '1';
+        const correct = +box.dataset.ans;
+        box.querySelectorAll('.choice').forEach((c,i)=>{
+          if (i===correct) c.classList.add('correct');
+          else if (c===ch) c.classList.add('wrong');
+        });
+        box.querySelector('.explain').classList.add('show');
+      });
+    });
+  }
+
+  function renderCourses(c){
+    return (c.COURSES||[]).map(co=>{
+      const steps = co.steps.map(s=>'<div class="step"><div><span class="n">'+s.n+'</span><span class="nm">'+esc(s.name)+'</span></div><div class="why">'+esc(s.why)+'</div><div class="fc">▶ 注目：'+esc(s.focus)+'</div></div>').join('');
+      return '<div class="item"><div class="head"><div><div class="ttl">'+esc(co.title)+'</div><div class="sub">'+esc(co.subtitle)+'</div><div class="meta">'+esc(co.level)+' ・ 約'+co.minutes+'分</div></div><div class="chev">▼</div></div><div class="body"><p class="intro-p">'+esc(co.intro)+'</p>'+steps+'<div class="kv" style="margin-top:12px"><div class="k">まとめ</div><div class="v">'+esc(co.outro)+'</div></div></div></div>';
+    }).join('');
+  }
+  function renderDeep(c){
+    const items = (c.DEEPDIVES||[]);
+    if(!items.length) return '<p class="muted">準備中です。</p>';
+    return items.map(d=>{
+      const secs = (d.sections||[]).map(s=>'<div class="kv"><div class="k">'+esc(s.h)+'</div><div class="v">'+esc(s.body)+'</div></div>').join('');
+      const bl = (label,arr)=> (arr&&arr.length)? '<div class="kv"><div class="k">'+label+'</div><div class="v">'+arr.map(x=>'・'+esc(x)).join('<br>')+'</div></div>' : '';
+      return '<div class="item"><div class="head"><div><div class="ttl">'+esc(d.name)+'</div><div class="sub">深掘り解説＋参考文献</div></div><div class="chev">▼</div></div><div class="body"><p class="intro-p">'+esc(d.lead)+'</p>'+secs
+        +'<div class="kv" style="margin-top:14px"><div class="k">📚 参考文献</div></div>'+bl('日本語',d.booksJP)+bl('English',d.booksEN)+bl('Français',d.booksFR)+'</div></div>';
+    }).join('');
+  }
+  function renderClassics(c){
+    return (c.CLASSICS||[]).map(b=>{
+      const map = (b.map||[]).map(m=>'<div class="step"><div class="nm">'+esc(m.part)+'</div><div class="why">'+esc(m.gist)+'</div></div>').join('');
+      return '<div class="item"><div class="head"><div><div class="ttl">'+esc(b.work)+'</div><div class="sub">'+esc(b.author)+' ／ '+esc(b.era)+'</div><div class="meta">難易度 '+esc(b.difficulty)+' ・ '+esc(b.pages)+'</div></div><div class="chev">▼</div></div><div class="body"><p class="intro-p">'+esc(b.why)+'</p><div class="kv"><div class="k">中身の地図</div></div>'+map+'<div class="kv" style="margin-top:12px"><div class="k">読み方のコツ</div><div class="v">'+esc(b.howto)+'</div></div><div class="kv"><div class="k">つまずきポイント</div><div class="v">'+esc(b.pitfalls)+'</div></div><div class="kv"><div class="k">次の一冊</div><div class="v">'+esc(b.next)+'</div></div></div></div>';
+    }).join('');
+  }
+  function renderThemes(c){
+    return (c.THEMES||[]).map(t=>{
+      const pos = (t.positions||[]).map(p=>'<div class="pos"><div class="who">'+esc(p.thinker)+'</div><div class="claim">'+esc(p.claim)+'</div><div class="dt">'+esc(p.detail)+'</div></div>').join('');
+      return '<div class="item"><div class="head"><div><div class="ttl">'+esc(t.title)+'</div></div><div class="chev">▼</div></div><div class="body"><div class="q-p">'+esc(t.question)+'</div><p class="intro-p">'+esc(t.intro)+'</p><div class="kv"><div class="k">主な立場</div></div>'+pos+'<div class="kv" style="margin-top:12px"><div class="k">対立の核心</div><div class="v">'+esc(t.tension)+'</div></div><div class="kv"><div class="k">持ち帰り</div><div class="v">'+esc(t.takeaway)+'</div></div></div></div>';
+    }).join('');
+  }
+  function renderGlossary(c){
+    const items = (c.GLOSSARY||[]).map(g=>{
+      const key = (g.term+' '+(g.reading||'')+' '+(g.short||'')).toLowerCase();
+      return '<div class="gitem" data-k="'+esc(key)+'"><div><span class="gt">'+esc(g.term)+'</span><span class="gr">'+esc(g.reading||'')+'</span></div><div class="gs">'+esc(g.short)+'</div><div class="gd">'+esc(g.detail)+'</div></div>';
+    }).join('');
+    return '<input type="text" id="gsearch" class="gsearch" placeholder="用語を検索（例：イデア、自由）">'+items;
+  }
+  function renderQuizzes(c){
+    return (c.QUIZZES||[]).map(qz=>{
+      const qs = (qz.questions||[]).map(q=>{
+        const choices = q.choices.map(ch=>'<button class="choice">'+esc(ch)+'</button>').join('');
+        return '<div class="qbox" data-ans="'+q.answer+'"><div class="qq">'+esc(q.q)+'</div>'+choices+'<div class="explain">'+esc(q.explain)+'</div></div>';
+      }).join('');
+      return '<div class="item open"><div class="head"><div><div class="ttl">'+esc(qz.title)+'</div><div class="sub">全'+qz.questions.length+'問・選ぶと即採点</div></div><div class="chev">▼</div></div><div class="body quiz">'+qs+'</div></div>';
+    }).join('');
+  }
 
   async function sendCode() {
     if (!supabase) { $('loginMsg').textContent = '準備中です。少し待って再度お試しください。'; return; }
@@ -167,6 +311,7 @@
       $('loginMsg').textContent = 'コードが違うか期限切れです：' + error.message;
     } else {
       $('loginMsg').textContent = '';
+      premiumLoaded = false;
       refresh();
     }
   }
@@ -174,9 +319,9 @@
   $('resendCode').addEventListener('click', sendCode);
   $('verifyCode').addEventListener('click', verifyCode);
   $('code').addEventListener('keydown', (e) => { if (e.key === 'Enter') verifyCode(); });
+  $('logout').addEventListener('click', async () => { await supabase.auth.signOut(); premiumLoaded=false; refresh(); });
+  $('recheck').addEventListener('click', () => { premiumLoaded=false; refresh(); });
 
-  $('logout').addEventListener('click', async () => { await supabase.auth.signOut(); refresh(); });
-  $('recheck').addEventListener('click', refresh);
   (async () => {
     try {
       const cfg = await (await fetch('/api/config')).json();
