@@ -84,6 +84,11 @@
   .viewbar{display:flex;gap:8px;padding:8px 30px 0}
   .vt{padding:6px 14px;border-radius:14px;background:var(--bg2);border:1px solid var(--line);color:var(--sub);font-size:13px;cursor:pointer;user-select:none;transition:.15s}
   .vt.active{background:var(--accent2);border-color:var(--accent2);color:#fff;font-weight:700}
+  .vt-prem{background:linear-gradient(120deg,rgba(201,162,75,.18),rgba(123,92,255,.12));border-color:#6b4c1a;color:var(--accent);font-weight:700}
+  .vt-prem.active{background:var(--accent);border-color:var(--accent);color:#111}
+  .prem-embed{padding:10px 20px 0}
+  #premFrame{width:100%;height:calc(100vh - 210px);min-height:560px;border:1px solid var(--line);border-radius:16px;background:var(--bg2)}
+  @media(max-width:680px){ .prem-embed{padding:8px 8px 0} #premFrame{height:calc(100vh - 190px)} }
   .vt:hover:not(.active){color:var(--text)}
   .timeline{max-width:900px;margin:8px auto 0;padding:0 30px}
   .tl-band{margin-top:26px}
@@ -264,13 +269,14 @@
   <p>カードをタップすると、その哲学者が「何を言っていたのか」と「どういう思想体系を作ったのか」がひらけます。キーワードをタップすれば用語の意味も読めます。肖像はWikimediaから表示。</p>
 </div>
 
-<div class="chips" id="chips"></div>
 <div class="viewbar">
   <span class="vt active" data-v="grid" onclick="setView('grid')">🗂 一覧</span>
-  <span class="vt" data-v="timeline" onclick="setView('timeline')">🕰 年表で見る</span>
+  <span class="vt" data-v="timeline" onclick="setView('timeline')">🕰 年表</span>
   <span class="vt" data-v="theme" onclick="setView('theme')">🏷 テーマ・学派</span>
   <span class="vt" data-v="course" onclick="setView('course')">🎓 入門コース</span>
+  <span class="vt vt-prem" data-v="premium" onclick="setView('premium')">✦ プレミアム</span>
 </div>
+<div class="chips" id="chips"></div>
 
 <main id="main"></main>
 
@@ -3135,10 +3141,16 @@ function render(){
     `<div class="chip ${activeCat===c.id?'active':''}" onclick="setCat('${c.id}')">${c.label}</div>`).join("");
   document.getElementById("countPill").textContent=`全 ${allData().length} 名`;
 
+  // カテゴリ絞り込みチップは「一覧」ビューのときだけ表示
+  chips.style.display = (viewMode==="grid") ? "" : "none";
+
   const q=document.getElementById("search").value.trim().toLowerCase();
   const main=document.getElementById("main");
   main.innerHTML="";
-  if(viewMode==="timeline"){
+  if(viewMode==="premium"){
+    main.innerHTML = premiumViewHTML();
+    return; // プレミアムは埋め込み表示なので画像ハイドレーション等は不要
+  } else if(viewMode==="timeline"){
     main.innerHTML = timelineHTML(q);
   } else if(viewMode==="theme"){
     main.innerHTML = themeHTML(q);
@@ -3171,6 +3183,15 @@ function render(){
    年表ビュー / 共有(固有URL)
    ============================================================ */
 function setView(v){ viewMode=v; document.querySelectorAll('.vt').forEach(e=>e.classList.toggle('active',e.dataset.v===v)); render(); window.scrollTo({top:0,behavior:"smooth"}); }
+/* プレミアム(会員)ビュー：会員ページの内容をこの画面の枠内に埋め込む。
+   非会員はログイン/登録フォーム、会員は限定コンテンツがそのまま表示される（画面遷移なし）。 */
+function premiumViewHTML(){
+  return `<div class="prem-embed"><iframe id="premFrame" title="プレミアム会員" src="/members.html?embed=1" loading="lazy"></iframe></div>`;
+}
+/* 埋め込んだ会員ページでログインが成立したら、メイン画面のロック(詳細解説・関係性)も解除するため再確認する */
+window.addEventListener('message', (e)=>{
+  try{ if(e && e.data && e.data.type==='philo-access'){ if(window.PHILO_RECHECK) window.PHILO_RECHECK(); } }catch(_){}
+});
 /* 生没年の文字列から代表年を取り出す(紀元前=マイナス、N世紀=中央値) */
 function parseYear(era){
   if(!era) return null;
@@ -4044,6 +4065,7 @@ openFromHash();
       const cfg = await (await fetch('/api/config')).json();
       if(!cfg.url || !cfg.anonKey) return;
       const supabase = createClient(cfg.url, cfg.anonKey);
+      window.PHILO_RECHECK = ()=>check(supabase);
       await check(supabase);
       supabase.auth.onAuthStateChange(()=>check(supabase));
     }catch(e){}

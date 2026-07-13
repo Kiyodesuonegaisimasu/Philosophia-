@@ -29,6 +29,11 @@
   .muted{color:var(--sub);font-size:12.5px}
   .hide{display:none}
   .back{display:inline-block;margin-top:22px;font-size:13.5px}
+  /* メイン画面への埋め込み表示（?embed=1） */
+  body.embed header{display:none}
+  body.embed .back{display:none}
+  body.embed .wrap{padding:18px 20px 60px}
+  body.embed h1{font-size:20px}
   .err{color:#e9a463;font-size:13px;margin-top:8px}
 
   /* --- プレミアム本体 --- */
@@ -128,6 +133,10 @@
   let supabase = null;
   const $ = (id) => document.getElementById(id);
   function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  // メイン画面(philosophia.html)への埋め込みモード
+  const EMBED = new URLSearchParams(location.search).get('embed')==='1';
+  if(EMBED){ document.body.classList.add('embed'); }
+  function notifyParent(access){ if(EMBED && window.parent!==window){ try{ window.parent.postMessage({type:'philo-access', access:!!access}, '*'); }catch(e){} } }
 
   async function refresh() {
     const { data: { session } } = await supabase.auth.getSession();
@@ -146,6 +155,7 @@
       const r = await fetch('/api/me', { headers: { Authorization: 'Bearer ' + session.access_token } });
       me = await r.json();
     } catch (e) {}
+    notifyParent(me.access);  // 埋め込み時、親のメイン画面にログイン状態を伝える
 
     // バッジ表示
     if (me.active) {
