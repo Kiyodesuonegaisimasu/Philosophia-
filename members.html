@@ -153,7 +153,14 @@
     const token = $('code').value.trim();
     if (!/^\d{6}$/.test(token)) { $('loginMsg').style.color='#e9a463'; $('loginMsg').textContent = '6桁の数字コードを入力してください。'; return; }
     $('verifyCode').disabled = true;
-    const { error } = await supabase.auth.verifyOtp({ email, token, type: 'email' });
+    // 既存ユーザーは type:'email'、新規ユーザー（サインアップ確認）は type:'signup' でコードが発行される。
+    // まず 'email' で試し、ダメなら 'signup' でフォールバックする。
+    let error = null;
+    ({ error } = await supabase.auth.verifyOtp({ email, token, type: 'email' }));
+    if (error) {
+      const r2 = await supabase.auth.verifyOtp({ email, token, type: 'signup' });
+      error = r2.error;
+    }
     $('verifyCode').disabled = false;
     if (error) {
       $('loginMsg').style.color = '#e9a463';
