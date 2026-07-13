@@ -3554,6 +3554,7 @@ function openModal(name){
   const p=findByName(name);if(!p)return;
   const links=scholarLinks(p);
   CURRENT_CONCEPTS=normConcepts(p);
+  const _prevModalName=CURRENT_NAME;
   CURRENT_NAME=name;
   try{history.replaceState(null,"","#"+encodeURIComponent(name));}catch(e){}
   try{if(window.philoOnOpen)philoOnOpen(name);}catch(e){}
@@ -3621,7 +3622,9 @@ function openModal(name){
       <div class="m-actions" id="mActions">${(window.actionBarHTML?actionBarHTML(p.name):'')}</div>
       ${p.ai?`<div class="m-tools"><button onclick="removePhilosopher('${p.name.replace(/'/g,"\\'")}')">このカードを削除</button></div>`:''}
     </div>`;
-  document.getElementById("overlay").classList.add("open");
+  const _ov=document.getElementById("overlay");
+  _ov.classList.add("open");
+  if(_prevModalName!==name){ _ov.scrollTop=0; }  // 別の哲学者に切り替えたときは最上部から表示
   document.body.style.overflow="hidden";
 }
 function showDef(i){
