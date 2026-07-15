@@ -137,6 +137,17 @@
   const EMBED = new URLSearchParams(location.search).get('embed')==='1';
   if(EMBED){ document.body.classList.add('embed'); }
   function notifyParent(access){ if(EMBED && window.parent!==window){ try{ window.parent.postMessage({type:'philo-access', access:!!access}, '*'); }catch(e){} } }
+  // 埋め込み時：中身の高さを親に伝え、iframeを内容に合わせて伸縮させる（内部スクロール・余白を無くす）
+  function notifyHeight(){ if(!(EMBED && window.parent!==window)) return;
+    try{ var h=Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
+      window.parent.postMessage({type:'philo-embed-height', height:h}, '*'); }catch(e){} }
+  if(EMBED){
+    window.addEventListener('load', notifyHeight);
+    window.addEventListener('resize', notifyHeight);
+    if('ResizeObserver' in window){ try{ new ResizeObserver(function(){ notifyHeight(); }).observe(document.body); }catch(e){} }
+    document.addEventListener('click', function(){ setTimeout(notifyHeight,70); setTimeout(notifyHeight,400); });
+    setTimeout(notifyHeight, 300);
+  }
 
   async function refresh() {
     const { data: { session } } = await supabase.auth.getSession();
