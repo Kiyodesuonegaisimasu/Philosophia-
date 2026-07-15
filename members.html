@@ -146,7 +146,7 @@
     window.addEventListener('resize', notifyHeight);
     if('ResizeObserver' in window){ try{ new ResizeObserver(function(){ notifyHeight(); }).observe(document.body); }catch(e){} }
     document.addEventListener('click', function(){ setTimeout(notifyHeight,70); setTimeout(notifyHeight,400); });
-    setTimeout(notifyHeight, 300);
+    [200,600,1200,2000,3200,5000].forEach(function(ms){ setTimeout(notifyHeight, ms); });
   }
 
   async function refresh() {
@@ -201,6 +201,8 @@
       $('premiumWelcome').innerHTML = '<p style="margin-bottom:4px">📖 <b>会員限定エリア</b></p><p style="font-size:14px;color:#efeaff">' + esc(data.welcome) + '</p>';
       renderContent(data.content);
       premiumLoaded = true;
+      // 埋め込み時：内容描画後に高さを親へ通知（画像等の遅延反映もリトライで拾う）
+      if(EMBED){ [50,300,800,1500,2800].forEach(function(ms){ setTimeout(notifyHeight, ms); }); }
     } catch (e) {
       $('premiumWelcome').innerHTML = '<p class="muted">通信エラーが発生しました。</p>';
     }
