@@ -412,7 +412,10 @@
 <script>
 (function(){
   var EMBED=new URLSearchParams(location.search).get('embed')==='1';
-  if(EMBED){ document.documentElement.style.background='transparent'; document.body.style.background='transparent'; return; }
+  if(EMBED){ document.documentElement.style.background='transparent'; document.body.style.background='transparent';
+    // 埋め込み時：iframe内のマウス位置を親へ転送し、親の光の粒子の追従を継続させる
+    if(window.parent!==window){ window.addEventListener('pointermove', function(e){ try{ parent.postMessage({type:'philo-embed-pointer', x:e.clientX, y:e.clientY}, '*'); }catch(_){}; }); }
+    return; }
   var cv=document.getElementById('bgParticles'); if(!cv) return;
   var ctx=cv.getContext('2d');
   var DPR=Math.min(window.devicePixelRatio||1,2);

@@ -477,6 +477,8 @@
   document.addEventListener('mouseleave', function(){ pointer.active=false; });
   window.addEventListener('blur', function(){ pointer.active=false; });
   document.addEventListener('visibilitychange', function(){ if(document.hidden){ if(raf){cancelAnimationFrame(raf);raf=null;} } else if(!reduced && !raf){ raf=requestAnimationFrame(loop); } });
+  // 埋め込みプレミアム(iframe)内のマウス位置を親から受け取って追従を継続させる用のフック
+  window.PHILO_CURSOR=function(nx,ny){ onMove({clientX:nx,clientY:ny}); };
   if(!reduced){ raf=requestAnimationFrame(loop); }
 })();
 </script>
@@ -3425,6 +3427,10 @@ window.addEventListener('message', (e)=>{
     else if(e.data.type==='philo-embed-height'){
       var f=document.getElementById('premFrame');
       if(f && e.data.height){ f.style.height = Math.max(400, Math.round(e.data.height)) + 'px'; }
+    }
+    else if(e.data.type==='philo-embed-pointer'){
+      var pf=document.getElementById('premFrame');
+      if(pf && window.PHILO_CURSOR){ var r=pf.getBoundingClientRect(); window.PHILO_CURSOR(r.left + e.data.x, r.top + e.data.y); }
     }
   }catch(_){}
 });
