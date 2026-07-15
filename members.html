@@ -13,6 +13,8 @@
   #bgParticles{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
   #bgCursor{position:fixed;inset:0;width:100%;height:100%;z-index:30;pointer-events:none}
   a{color:var(--accent2)}
+  svg.ic{width:15px;height:15px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;vertical-align:-3px;margin-right:3px}
+  svg.ic.fill{fill:currentColor;stroke:none}
   header{padding:16px 26px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap;row-gap:8px}
   header .back-top{margin-left:14px;font-size:13px;letter-spacing:.08em;font-weight:600;white-space:nowrap;
     background:linear-gradient(180deg,#f2f4f8,#aeb4bf);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
@@ -120,7 +122,7 @@
     <div class="status">ログイン中：<b id="userEmail"></b> ・ <span id="memberBadge"></span></div>
     <div id="notMember" class="hide" style="margin-top:14px">
       <p style="font-size:14px;margin-bottom:12px" id="notMemberMsg"></p>
-      <a class="btn" id="subscribeBtn" href="#" target="_blank" rel="noopener noreferrer">☕ プレミアム会員になる（月500円）</a>
+      <a class="btn" id="subscribeBtn" href="#" target="_blank" rel="noopener noreferrer"><svg class="ic fill" viewBox="0 0 24 24"><path d="M12 3c.6 4 2 5.4 6 6-4 .6-5.4 2-6 6-.6-4-2-5.4-6-6 4-.6 5.4-2 6-6z"/></svg> プレミアム会員になる（月500円）</a>
       <div style="margin-top:12px"><button class="ghost" id="recheck">支払い後、状態を再確認</button></div>
     </div>
     <div style="margin-top:16px"><button class="ghost" id="logout">ログアウト</button></div>
@@ -206,7 +208,7 @@
       const r = await fetch('/api/premium', { headers: { Authorization: 'Bearer ' + token } });
       if (!r.ok) { $('premiumWelcome').innerHTML = '<p class="muted">限定コンテンツの取得に失敗しました。再読み込みしてください。</p>'; return; }
       const data = await r.json();
-      $('premiumWelcome').innerHTML = '<p style="margin-bottom:4px">📖 <b>会員限定エリア</b></p><p style="font-size:14px;color:#efeaff">' + esc(data.welcome) + '</p>';
+      $('premiumWelcome').innerHTML = '<p style="margin-bottom:4px"><svg class="ic" viewBox="0 0 24 24" style="vertical-align:-3px"><path d="M12 6c-2-1.3-4.5-1.3-7 0v12c2.5-1.3 5-1.3 7 0 2-1.3 4.5-1.3 7 0V6c-2.5-1.3-5-1.3-7 0z"/><path d="M12 6v12"/></svg> <b>会員限定エリア</b></p><p style="font-size:14px;color:#efeaff">' + esc(data.welcome) + '</p>';
       renderContent(data.content);
       premiumLoaded = true;
       // 埋め込み時：内容描画後に高さを親へ通知（画像等の遅延反映もリトライで拾う）
@@ -218,12 +220,12 @@
 
   function renderContent(c){
     const tabs = [
-      { id:'courses', label:'📚 入門コース', render: renderCourses },
-      { id:'deep', label:'🔬 哲学者・深掘り', render: renderDeep },
-      { id:'classics', label:'📖 原典ガイド', render: renderClassics },
-      { id:'themes', label:'🧭 テーマ解説', render: renderThemes },
-      { id:'glossary', label:'🔤 用語辞典', render: renderGlossary },
-      { id:'quizzes', label:'✅ クイズ', render: renderQuizzes },
+      { id:'courses', label:"<svg class='ic' viewBox='0 0 24 24'><path d='M12 6c-2-1.3-4.5-1.3-7 0v12c2.5-1.3 5-1.3 7 0 2-1.3 4.5-1.3 7 0V6c-2.5-1.3-5-1.3-7 0z'/><path d='M12 6v12'/></svg>入門コース", render: renderCourses },
+      { id:'deep', label:"<svg class='ic' viewBox='0 0 24 24'><circle cx='10.5' cy='10.5' r='6'/><path d='M15 15l5 5'/></svg>哲学者・深掘り", render: renderDeep },
+      { id:'classics', label:"<svg class='ic' viewBox='0 0 24 24'><path d='M5 5h9a3 3 0 0 1 3 3v11a2.5 2.5 0 0 0-2.5-2.5H5z'/><path d='M19 6v13'/></svg>原典ガイド", render: renderClassics },
+      { id:'themes', label:"<svg class='ic' viewBox='0 0 24 24'><circle cx='12' cy='12' r='9'/><path d='M15.5 8.5l-2.2 4.8-4.8 2.2 2.2-4.8z'/></svg>テーマ解説", render: renderThemes },
+      { id:'glossary', label:"<svg class='ic' viewBox='0 0 24 24'><path d='M4 7V5h16v2'/><path d='M12 5v14'/><path d='M9 19h6'/></svg>用語辞典", render: renderGlossary },
+      { id:'quizzes', label:"<svg class='ic' viewBox='0 0 24 24'><circle cx='12' cy='12' r='9'/><path d='M8 12l2.5 2.5L16 9'/></svg>クイズ", render: renderQuizzes },
     ];
     $('tabs').innerHTML = tabs.map((t,i)=>'<button class="tab'+(i===0?' active':'')+'" data-tab="'+t.id+'">'+t.label+'</button>').join('');
     $('panels').innerHTML = tabs.map((t,i)=>'<div class="panel'+(i===0?' active':'')+'" id="panel-'+t.id+'">'+t.render(c)+'</div>').join('');
@@ -294,7 +296,7 @@
     if(!items.length) return '<p class="muted">準備中です。</p>';
     return items.map(d=>{
       const bl = (label,arr)=> (arr&&arr.length)? '<div class="kv"><div class="k">'+label+'</div><div class="v">'+arr.map(x=>'・'+esc(x)).join('<br>')+'</div></div>' : '';
-      const books = '<div class="kv" style="margin-top:14px"><div class="k">📚 参考文献</div></div>'+bl('日本語',d.booksJP)+bl('English',d.booksEN)+bl('Français',d.booksFR);
+      const books = '<div class="kv" style="margin-top:14px"><div class="k"><svg class="ic" viewBox="0 0 24 24" style="vertical-align:-3px"><path d="M12 6c-2-1.3-4.5-1.3-7 0v12c2.5-1.3 5-1.3 7 0 2-1.3 4.5-1.3 7 0V6c-2.5-1.3-5-1.3-7 0z"/><path d="M12 6v12"/></svg> 参考文献</div></div>'+bl('日本語',d.booksJP)+bl('English',d.booksEN)+bl('Français',d.booksFR);
       let inner, badge='';
       if(d.levels){
         // 初級・中級・上級
@@ -302,9 +304,9 @@
         const L=d.levels;
         const panel=(key,secs)=>'<div class="lvlpanel'+(key==='b'?' active':'')+'" data-lvl="'+key+'"><div class="lvl-wc">約'+wc(secs)+'字</div>'+renderSecs(secs)+'</div>';
         inner = '<div class="lvltabs">'
-          + '<button class="lvltab active" data-lvl="b">🌱 初級</button>'
-          + '<button class="lvltab" data-lvl="i">📘 中級</button>'
-          + '<button class="lvltab" data-lvl="a">🎓 上級</button></div>'
+          + '<button class="lvltab active" data-lvl="b"><svg class="ic" viewBox="0 0 24 24"><path d="M12 20v-8"/><path d="M12 12c0-3 2-5 6-5 0 3-2 5-6 5z"/><path d="M12 14c0-2.5-2-4-5-4 0 2.5 2 4 5 4z"/></svg>初級</button>'
+          + '<button class="lvltab" data-lvl="i"><svg class="ic" viewBox="0 0 24 24"><path d="M5 5h9a3 3 0 0 1 3 3v11a2.5 2.5 0 0 0-2.5-2.5H5z"/><path d="M19 6v13"/></svg>中級</button>'
+          + '<button class="lvltab" data-lvl="a"><svg class="ic" viewBox="0 0 24 24"><path d="M3 9l9-4 9 4-9 4z"/><path d="M7 11v4c0 1 2.5 2 5 2s5-1 5-2v-4"/></svg>上級</button></div>'
           + panel('b',L.beginner) + panel('i',L.intermediate) + panel('a',L.advanced)
           + books;
       } else {
