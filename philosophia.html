@@ -458,12 +458,12 @@
       var near=0;
       if(pointer.active){ var dx=pointer.x-p.x, dy=pointer.y-p.y, d2=dx*dx+dy*dy;
         if(d2<67600){ var d=Math.sqrt(d2)||1, f=1-d/260; near=f;
-          p.x+=(dx/d)*f*f*3.0; p.y+=(dy/d)*f*f*3.0;
+          p.x+=(dx/d)*f*f*2.0; p.y+=(dy/d)*f*f*2.0;
           p.x+=pointer.vx*f*0.3; p.y+=pointer.vy*f*0.3;
           p.x+=(-dy/d)*f*f*0.9; p.y+=(dx/d)*f*f*0.9; } }
       var tw=0.55+0.45*Math.sin(t*p.tws+p.tw);
-      var size=(p.r*(2.0+near*2.4))*(0.75+tw*0.5);
-      var al=(p.a*(0.5+tw*0.6))*(0.62+near*0.9); if(al>1)al=1;
+      var size=(p.r*2.0)*(0.75+tw*0.5);
+      var al=(p.a*(0.5+tw*0.6))*0.68; if(al>1)al=1;
       ctx.globalAlpha=al; ctx.drawImage(sprites[p.s], p.x-size, p.y-size, size*2, size*2);
     }
     ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
