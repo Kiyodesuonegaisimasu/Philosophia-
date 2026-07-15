@@ -305,7 +305,7 @@
   var W=0,H=0,cx=0,cy=0,R=0;
   var N=150, particles=[], t=0, entering=false, exitP=0, raf=null;
   var pointer={x:-9999,y:-9999,active:false};
-  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduced=false; /* 動き（マウス追従）はユーザー要望により常に有効 */
   var palette=[[201,162,75],[123,92,255],[240,220,170],[255,255,255],[201,162,75]];
   function rand(a,b){return a+Math.random()*(b-a);}
 
@@ -386,7 +386,7 @@
   var ctx=cv.getContext('2d');
   var DPR=Math.min(window.devicePixelRatio||1,2);
   var W=0,H=0,ps=[],t=0,raf=null,sprites=[];
-  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduced=false; /* 動き（マウス追従）はユーザー要望により常に有効 */
   var pointer={x:-9999,y:-9999,vx:0,vy:0,active:false};
   var cols=['201,162,75','123,92,255','240,220,170','255,255,255','255,255,255','225,230,245'];
   function rnd(a,b){return a+Math.random()*(b-a);}
@@ -437,7 +437,7 @@
   var ctx=cv.getContext('2d');
   var DPR=Math.min(window.devicePixelRatio||1,2);
   var W=0,H=0,ps=[],t=0,raf=null,sprites=[];
-  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var reduced=false; /* 動き（マウス追従）はユーザー要望により常に有効 */
   var pointer={x:-9999,y:-9999,vx:0,vy:0,active:false};
   var cols=['201,162,75','240,220,170','255,255,255','123,92,255','255,240,205','225,230,245'];
   function rnd(a,b){return a+Math.random()*(b-a);}
