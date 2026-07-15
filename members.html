@@ -11,6 +11,7 @@
   html{background:var(--bg)}
   body{background:transparent;color:var(--text);font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;line-height:1.8}
   #bgParticles{position:fixed;inset:0;width:100%;height:100%;z-index:-1;pointer-events:none}
+  #bgCursor{position:fixed;inset:0;width:100%;height:100%;z-index:30;pointer-events:none}
   a{color:var(--accent2)}
   header{padding:16px 26px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;flex-wrap:wrap;row-gap:8px}
   header .back-top{margin-left:14px;font-size:13px;letter-spacing:.08em;font-weight:600;white-space:nowrap;
@@ -95,6 +96,7 @@
 </head>
 <body>
 <canvas id="bgParticles" aria-hidden="true"></canvas>
+<canvas id="bgCursor" aria-hidden="true"></canvas>
 <header><span class="mark">φ</span><b>Philosophia</b><span style="color:var(--accent);font-weight:700">&nbsp;プレミアム会員</span><a class="back-top" href="/philosophia.html">← Philosophia へ戻る</a></header>
 <div class="wrap">
   <h1>プレミアム会員</h1>
@@ -456,6 +458,50 @@
   window.addEventListener('blur', function(){ pointer.active=false; });
   document.addEventListener('visibilitychange', function(){ if(document.hidden){ if(raf){cancelAnimationFrame(raf);raf=null;} } else if(!reduced && !raf){ raf=requestAnimationFrame(loop); } });
   if(reduced){ frame(); } else { raf=requestAnimationFrame(loop); }
+})();
+</script>
+<!-- マウス追従の光の粒子（前面のきらめき・トレイル）。埋め込み時は親画面が担当 -->
+<script>
+(function(){
+  var EMBED=new URLSearchParams(location.search).get('embed')==='1'; if(EMBED) return;
+  var cv=document.getElementById('bgCursor'); if(!cv) return;
+  var ctx=cv.getContext('2d');
+  var DPR=Math.min(window.devicePixelRatio||1,2);
+  var W=0,H=0,ps=[],t=0,raf=null,sprites=[];
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var m={x:window.innerWidth/2,y:window.innerHeight/2,tx:window.innerWidth/2,ty:window.innerHeight/2,speed:0};
+  var cols=['201,162,75','240,220,170','255,255,255','123,92,255','255,240,205'];
+  function rnd(a,b){return a+Math.random()*(b-a);}
+  function makeSprite(rgb){ var s=document.createElement('canvas'); s.width=s.height=16; var g=s.getContext('2d');
+    var rg=g.createRadialGradient(8,8,0,8,8,8); rg.addColorStop(0,'rgba('+rgb+',1)'); rg.addColorStop(0.4,'rgba('+rgb+',0.55)'); rg.addColorStop(1,'rgba('+rgb+',0)');
+    g.fillStyle=rg; g.fillRect(0,0,16,16); return s; }
+  function resize(){ W=window.innerWidth;H=window.innerHeight;cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);ctx.setTransform(DPR,0,0,DPR,0,0); }
+  function build(){ sprites=cols.map(makeSprite); ps=[];
+    for(var i=0;i<260;i++){ ps.push({x:m.x,y:m.y,ang:rnd(0,6.28),dist:rnd(4,90),spin:(Math.random()<0.5?-1:1)*rnd(0.4,1.5),ease:rnd(0.08,0.22),r:rnd(0.6,2.1),s:Math.floor(Math.random()*sprites.length),tws:rnd(0.6,2.1),phase:rnd(0,6.28)}); } }
+  function frame(){
+    t+=0.016;
+    m.x+=(m.tx-m.x)*0.28; m.y+=(m.ty-m.y)*0.28; m.speed*=0.85;
+    var act=Math.min(1, 0.2 + m.speed*0.05);
+    ctx.clearRect(0,0,W,H); ctx.globalCompositeOperation='lighter';
+    for(var i=0;i<ps.length;i++){ var p=ps[i];
+      var a=p.ang+t*p.spin;
+      var tx=m.x+Math.cos(a)*p.dist, ty=m.y+Math.sin(a)*p.dist;
+      p.x+=(tx-p.x)*p.ease; p.y+=(ty-p.y)*p.ease;
+      var tw=0.6+0.4*Math.sin(t*p.tws+p.phase);
+      var size=p.r*(1.5+tw*0.8+m.speed*0.02);
+      var al=act*(0.5+tw*0.5); if(al>1)al=1;
+      ctx.globalAlpha=al; ctx.drawImage(sprites[p.s], p.x-size, p.y-size, size*2, size*2);
+    }
+    ctx.globalAlpha=1; ctx.globalCompositeOperation='source-over';
+  }
+  function loop(){ frame(); raf=requestAnimationFrame(loop); }
+  var onMove=function(e){ var nx=e.clientX, ny=e.clientY; m.speed=Math.min(60, m.speed+Math.hypot(nx-m.tx, ny-m.ty)); m.tx=nx; m.ty=ny; };
+  resize(); build();
+  window.addEventListener('resize', function(){ resize(); });
+  window.addEventListener('pointermove', onMove);
+  window.addEventListener('pointerdown', onMove);
+  document.addEventListener('visibilitychange', function(){ if(document.hidden){ if(raf){cancelAnimationFrame(raf);raf=null;} } else if(!reduced && !raf){ raf=requestAnimationFrame(loop); } });
+  if(!reduced){ raf=requestAnimationFrame(loop); }
 })();
 </script>
 </body>
