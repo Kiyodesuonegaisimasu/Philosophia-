@@ -252,6 +252,125 @@
 </head>
 <body>
 
+<!-- ===== イントロ・スプラッシュ（光の粒子 = 150人の哲学者） ===== -->
+<div id="introSplash" role="button" tabindex="0" aria-label="Philosophia に入る">
+  <canvas id="introCanvas"></canvas>
+  <div class="intro-center">
+    <div class="intro-welcome">ようこそ</div>
+    <div class="intro-title">Philosophia</div>
+    <div class="intro-sub">哲学の泉</div>
+    <div class="intro-hint">— 光にふれて、はじめる —</div>
+  </div>
+</div>
+<style>
+  #introSplash{position:fixed;inset:0;z-index:9999;overflow:hidden;cursor:pointer;
+    display:grid;place-items:center;
+    background:radial-gradient(ellipse at 50% 44%, #15110a 0%, #0a0a0a 58%, #050505 100%);
+    transition:opacity .95s ease;}
+  #introSplash.hide{opacity:0;pointer-events:none;}
+  #introCanvas{position:absolute;inset:0;width:100%;height:100%;display:block;}
+  #introSplash .intro-center{position:relative;z-index:2;text-align:center;pointer-events:none;
+    transition:transform .95s cubic-bezier(.5,0,.2,1), opacity .7s ease;}
+  #introSplash.hide .intro-center{transform:scale(1.18);opacity:0;}
+  #introSplash .intro-welcome{font-size:14px;letter-spacing:.55em;text-indent:.55em;color:#d9c188;opacity:.85;
+    animation:introFade 1.7s ease both;}
+  #introSplash .intro-title{font-size:clamp(46px,9vw,88px);font-weight:800;letter-spacing:.04em;margin-top:12px;
+    background:linear-gradient(180deg,#ffffff 0%, #efdcab 55%, #c9a24b 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;
+    text-shadow:0 0 46px rgba(201,162,75,.22);animation:introFade 1.9s .15s ease both;}
+  #introSplash .intro-sub{margin-top:8px;color:#c9a24b;font-weight:700;letter-spacing:.36em;text-indent:.36em;font-size:13px;opacity:.9;
+    animation:introFade 1.9s .32s ease both;}
+  #introSplash .intro-hint{margin-top:38px;color:#9a8f77;font-size:12.5px;letter-spacing:.16em;
+    animation:hintPulse 2.8s .9s ease-in-out infinite;}
+  @keyframes introFade{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
+  @keyframes hintPulse{0%,100%{opacity:.32;}50%{opacity:.92;}}
+</style>
+<script>
+(function(){
+  var splash=document.getElementById('introSplash');
+  if(!splash) return;
+  // 最初の導入だけ：このセッションで一度でも見たら以降は出さない
+  try{ if(sessionStorage.getItem('philo_intro_seen')==='1'){ splash.parentNode.removeChild(splash); return; } }catch(e){}
+  var canvas=document.getElementById('introCanvas');
+  var ctx=canvas.getContext('2d');
+  var DPR=Math.min(window.devicePixelRatio||1,2);
+  var W=0,H=0,cx=0,cy=0,R=0;
+  var N=150, particles=[], t=0, entering=false, exitP=0, raf=null;
+  var pointer={x:-9999,y:-9999,active:false};
+  var reduced=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var palette=[[201,162,75],[123,92,255],[240,220,170],[255,255,255],[201,162,75]];
+  function rand(a,b){return a+Math.random()*(b-a);}
+
+  function resize(){
+    W=splash.clientWidth; H=splash.clientHeight;
+    canvas.width=Math.round(W*DPR); canvas.height=Math.round(H*DPR);
+    ctx.setTransform(DPR,0,0,DPR,0,0);
+    cx=W/2; cy=H*0.44; R=Math.min(W,H)*0.36;
+  }
+  function target(p){ p.tx=cx+Math.cos(p.ang)*p.radN*R*1.28; p.ty=cy+Math.sin(p.ang)*p.radN*R*0.9; }
+  function build(){
+    particles=[];
+    for(var i=0;i<N;i++){
+      var c=palette[Math.floor(Math.random()*palette.length)];
+      var p={ ang:rand(0,Math.PI*2), radN:Math.sqrt(Math.random()),
+        x:rand(0,W), y:rand(0,H), vx:0, vy:0,
+        r:rand(0.8,2.7), col:c, tw:rand(0,Math.PI*2), tws:rand(0.5,1.6) };
+      target(p); particles.push(p);
+    }
+  }
+  function frame(){
+    t+=0.016; if(entering) exitP=Math.min(1,exitP+0.02);
+    ctx.clearRect(0,0,W,H);
+    // つながりの線（影響関係）
+    if(!entering || exitP<0.5){
+      ctx.lineWidth=1;
+      var lim=Math.min(N,150);
+      for(var a=0;a<lim;a++){ var pa=particles[a];
+        for(var b=a+1;b<lim;b++){ var pb=particles[b];
+          var dx=pa.x-pb.x, dy=pa.y-pb.y, d=dx*dx+dy*dy;
+          if(d<5184){ var al=(1-Math.sqrt(d)/72)*0.16*(1-exitP);
+            if(al>0.004){ ctx.strokeStyle='rgba(201,162,75,'+al.toFixed(3)+')';
+              ctx.beginPath(); ctx.moveTo(pa.x,pa.y); ctx.lineTo(pb.x,pb.y); ctx.stroke(); } } }
+      }
+    }
+    ctx.globalCompositeOperation='lighter';
+    for(var i=0;i<N;i++){ var p=particles[i];
+      if(!entering){
+        var bx=Math.cos(t*0.5+p.tw)*7, by=Math.sin(t*0.42+p.tw)*7;
+        p.x += ((p.tx+bx)-p.x)*0.045; p.y += ((p.ty+by)-p.y)*0.045;
+        if(pointer.active){ var dx=p.x-pointer.x, dy=p.y-pointer.y, d2=dx*dx+dy*dy;
+          if(d2<16900 && d2>1){ var f=(1-Math.sqrt(d2)/130)*0.05; p.x+=dx*f; p.y+=dy*f; } }
+      } else {
+        if(p.vx===0&&p.vy===0){ p.vx=(p.x-cx)*0.05+Math.cos(p.ang)*rand(.6,2.4); p.vy=(p.y-cy)*0.05+Math.sin(p.ang)*rand(.6,2.4); }
+        p.vx*=1.055; p.vy*=1.055; p.x+=p.vx; p.y+=p.vy;
+      }
+      var tw=0.6+0.4*Math.sin(t*p.tws+p.tw);
+      var rr=p.r*(entering?(1+exitP*1.6):1)*(0.8+tw*0.5);
+      var glow=rr*5, c=p.col, alpha=(entering?(1-exitP):1);
+      var g=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,glow);
+      g.addColorStop(0,'rgba('+c[0]+','+c[1]+','+c[2]+','+(0.9*alpha)+')');
+      g.addColorStop(0.4,'rgba('+c[0]+','+c[1]+','+c[2]+','+(0.28*alpha)+')');
+      g.addColorStop(1,'rgba('+c[0]+','+c[1]+','+c[2]+',0)');
+      ctx.fillStyle=g; ctx.beginPath(); ctx.arc(p.x,p.y,glow,0,6.283); ctx.fill();
+      ctx.fillStyle='rgba(255,255,255,'+(0.9*alpha)+')'; ctx.beginPath(); ctx.arc(p.x,p.y,rr*0.6,0,6.283); ctx.fill();
+    }
+    ctx.globalCompositeOperation='source-over';
+  }
+  function loop(){ frame(); if(splash.style.display!=='none') raf=requestAnimationFrame(loop); }
+  function enter(){ if(entering) return; entering=true; splash.classList.add('hide');
+    setTimeout(function(){ if(raf) cancelAnimationFrame(raf); splash.style.display='none'; }, 1000); }
+
+  try{ sessionStorage.setItem('philo_intro_seen','1'); }catch(e){}
+  resize(); build();
+  if(reduced){ frame(); } else { raf=requestAnimationFrame(loop); }
+  window.addEventListener('resize', function(){ resize(); for(var i=0;i<particles.length;i++) target(particles[i]); if(reduced) frame(); });
+  splash.addEventListener('click', enter);
+  splash.addEventListener('keydown', function(e){ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); enter(); } });
+  splash.addEventListener('pointermove', function(e){ var r=canvas.getBoundingClientRect(); pointer.x=e.clientX-r.left; pointer.y=e.clientY-r.top; pointer.active=true; });
+  splash.addEventListener('pointerleave', function(){ pointer.active=false; });
+})();
+</script>
+
 <header>
   <div class="brand"><span class="mark">φ</span>Philosophia<small>&nbsp;哲学の泉</small></div>
   <div class="search">
