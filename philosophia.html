@@ -25,6 +25,7 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Philosophia">
 <script src="batch1.js"></script>
+<script src="batch2.js"></script>
 <style>
   :root{
     --bg:#0a0a0a; --bg2:#161616; --card:#1c1c1c; --card-hover:#282828;
@@ -3584,11 +3585,13 @@ let __batch1Merged=false;
 function __mergeBatch1(){
   if(__batch1Merged) return; __batch1Merged=true;
   try{
-    var b=(typeof window!=='undefined')&&window.__BATCH1;
-    if(!b) return;
-    if(Array.isArray(b.seed)){ b.seed.forEach(function(p){ if(!SEED.some(function(x){return x.name===p.name;})) SEED.push(p); }); }
-    if(b.detail){ Object.assign(DETAIL, b.detail); }
-    if(b.rel){ Object.assign(RELATIONS, b.rel); }
+    ['__BATCH1','__BATCH2','__BATCH3','__BATCH4','__BATCH5','__BATCH6'].forEach(function(k){
+      var b=(typeof window!=='undefined')&&window[k];
+      if(!b) return;
+      if(Array.isArray(b.seed)){ b.seed.forEach(function(p){ if(!SEED.some(function(x){return x.name===p.name;})) SEED.push(p); }); }
+      if(b.detail){ Object.assign(DETAIL, b.detail); }
+      if(b.rel){ Object.assign(RELATIONS, b.rel); }
+    });
     try{ SEED.forEach(function(p){ if(!p.country && typeof COUNTRY_MAP!=='undefined' && COUNTRY_MAP[p.name]) p.country=COUNTRY_MAP[p.name]; }); }catch(e){}
   }catch(e){}
 }
