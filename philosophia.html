@@ -24,6 +24,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Philosophia">
+<script src="batch1.js"></script>
 <style>
   :root{
     --bg:#0a0a0a; --bg2:#161616; --card:#1c1c1c; --card-hover:#282828;
@@ -3579,7 +3580,19 @@ let activeCat = "all";
 let viewMode = "grid";
 const CATCOLOR = {"west-ancient":"#c9a24b","west-medieval":"#b5642d","west-modern":"#7b5cff","west-contemporary":"#4aa3ff","east":"#2e9e6b","islamic-jewish":"#d0568f"};
 
-function allData(){return [...SEED, ...added]}
+let __batch1Merged=false;
+function __mergeBatch1(){
+  if(__batch1Merged) return; __batch1Merged=true;
+  try{
+    var b=(typeof window!=='undefined')&&window.__BATCH1;
+    if(!b) return;
+    if(Array.isArray(b.seed)){ b.seed.forEach(function(p){ if(!SEED.some(function(x){return x.name===p.name;})) SEED.push(p); }); }
+    if(b.detail){ Object.assign(DETAIL, b.detail); }
+    if(b.rel){ Object.assign(RELATIONS, b.rel); }
+    try{ SEED.forEach(function(p){ if(!p.country && typeof COUNTRY_MAP!=='undefined' && COUNTRY_MAP[p.name]) p.country=COUNTRY_MAP[p.name]; }); }catch(e){}
+  }catch(e){}
+}
+function allData(){ __mergeBatch1(); return [...SEED, ...added]; }
 function catLabel(id){return (CATS.find(c=>c.id===id)||{}).label || "その他"}
 function wikiTitle(p){return p.wiki || WIKI[p.name] || p.name}
 function normConcepts(p){return (p.concepts||[]).map(c=> typeof c==="string"?{t:c,d:""}:c)}
