@@ -1,0 +1,16 @@
+{
+  "name": "Philosophia — 哲学を体系的に学ぶ",
+  "short_name": "Philosophia",
+  "description": "古代から現代まで150人の哲学者を、やさしい要約・思想・キーワード・影響関係・年表でたどれる哲学学習プラットフォーム。",
+  "start_url": "./philosophia.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "lang": "ja",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
