@@ -3,19 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Philosophia — 哲学を体系的に学ぶ</title>
-<meta name="description" content="哲学を体系的に、無料で。古代から現代まで150人の哲学者を、やさしい要約・主要な思想・キーワード解説・影響関係（つながり）・年表でたどれる学習プラットフォーム。">
-<meta name="keywords" content="哲学,哲学者,思想,哲学入門,西洋哲学,東洋哲学,ソクラテス,プラトン,カント,ニーチェ">
-<meta property="og:title" content="Philosophia — 哲学を体系的に学ぶ">
-<meta property="og:description" content="古代から現代まで150人の哲学者を、やさしい要約・思想・キーワード・影響関係・年表でたどれる無料の学習プラットフォーム。">
+<title>Philosophia｜哲学を、体系的に。200人以上の哲学者を無料で学ぶ</title>
+<meta name="description" content="ソクラテスからニーチェ、東洋・イスラームまで——古代から現代の哲学者200人以上を、やさしい要約・キーワード解説・影響関係（つながり）・年表でたどれる無料の哲学学習サイト。予備知識ゼロから体系的に学べます。">
+<meta name="keywords" content="哲学,哲学者,思想,哲学入門,わかりやすい,西洋哲学,東洋哲学,倫理学,ソクラテス,プラトン,アリストテレス,カント,ニーチェ,孔子,ブッダ">
+<link rel="canonical" href="https://philosophia-psi.vercel.app/philosophia.html">
+<meta property="og:title" content="Philosophia｜哲学を、体系的に。200人以上の哲学者を無料で">
+<meta property="og:description" content="古代から現代まで、200人以上の哲学者を、やさしい要約・思想・キーワード・つながり・年表でたどれる無料の哲学学習サイト。">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://kiyodesuonegaisimasu.github.io/Philosophia-/">
+<meta property="og:url" content="https://philosophia-psi.vercel.app/philosophia.html">
 <meta property="og:site_name" content="Philosophia 哲学の泉">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Philosophia — 哲学を体系的に学ぶ">
-<meta name="twitter:description" content="150人の哲学者を、要約・思想・つながり・年表でたどれる無料の哲学学習サイト。">
-<meta property="og:image" content="https://kiyodesuonegaisimasu.github.io/Philosophia-/icon-512.png">
-<meta name="twitter:image" content="https://kiyodesuonegaisimasu.github.io/Philosophia-/icon-512.png">
+<meta property="og:image" content="https://philosophia-psi.vercel.app/icon-512.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Philosophia｜哲学を、体系的に。200人以上を無料で">
+<meta name="twitter:description" content="ソクラテスからニーチェ、東洋・イスラームまで。200人以上の哲学者を要約・つながり・年表でたどれる無料サイト。">
+<meta name="twitter:image" content="https://philosophia-psi.vercel.app/icon-512.png">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebSite","name":"Philosophia 哲学の泉","alternateName":"Philosophia","url":"https://philosophia-psi.vercel.app/philosophia.html","description":"古代から現代まで200人以上の哲学者を、やさしい要約・キーワード・影響関係・年表でたどれる無料の哲学学習サイト。","inLanguage":"ja","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://philosophia-psi.vercel.app/philosophia.html?q={search_term_string}"},"query-input":"required name=search_term_string"},"publisher":{"@type":"Organization","name":"Philosophia 哲学の泉","logo":{"@type":"ImageObject","url":"https://philosophia-psi.vercel.app/icon-512.png"}}}
+</script>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
 <link rel="apple-touch-icon" href="icon-180.png">
@@ -4132,6 +4136,7 @@ function openModal(name){
   CURRENT_CONCEPTS=normConcepts(p);
   const _prevModalName=CURRENT_NAME;
   CURRENT_NAME=name;
+  try{ document.title = name + "｜哲学者の思想をわかりやすく - Philosophia"; }catch(e){}
   try{history.replaceState(null,"","#"+encodeURIComponent(name));}catch(e){}
   try{if(window.philoOnOpen)philoOnOpen(name);}catch(e){}
   fetchImg(p).then(ok=>{if(ok && CURRENT_NAME===name && document.getElementById("overlay").classList.contains("open")) openModal(name);});
@@ -4212,7 +4217,7 @@ function showDef(i){
   box.innerHTML=`<strong style="color:var(--accent2)">${esc(c.t)}</strong>　${c.d?esc(c.d):'(この用語の説明はまだ用意されていません)'}`
     + (long?`<div><span class="more-btn" onclick="toggleMore('termMore',this)">もっと詳しく ▾</span><div class="more-body" id="termMore">${esc(long)}</div></div>`:'');
 }
-function closeModal(){document.getElementById("overlay").classList.remove("open");document.body.style.overflow="";CURRENT_NAME="";try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}}
+function closeModal(){document.getElementById("overlay").classList.remove("open");document.body.style.overflow="";CURRENT_NAME="";try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}try{document.title="Philosophia｜哲学を、体系的に。200人以上の哲学者を無料で学ぶ";}catch(e){}}
 function removePhilosopher(name){
   if(!confirm(`「${name}」を削除しますか?`))return;
   added=added.filter(p=>p.name!==name);save(LS_ADDED,added);
@@ -4334,6 +4339,10 @@ window.addEventListener("hashchange",()=>{
   if(h && h!==CURRENT_NAME && allData().some(p=>p.name===h)) openModal(h);
   else if(!h) closeModal();
 });
+try{
+  var _q=new URLSearchParams(location.search).get('q');
+  if(_q){ var _b=document.getElementById('search'); if(_b){ _b.value=_q; if(typeof render==='function') render(); } }
+}catch(e){}
 openFromHash();
 </script>
 <!-- YouTube風UI：サイドバー／フォロー／マイページ／いいね／通知（すべて端末内保存） -->
