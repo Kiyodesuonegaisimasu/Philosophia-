@@ -301,6 +301,10 @@
   <div class="intro-center">
     <div class="intro-title">Philosophia</div>
     <div class="intro-sub">哲学の泉</div>
+    <div class="intro-promise">むずかしい哲学を、いちばんやさしく。</div>
+    <div class="intro-lead">ソクラテスからニーチェ、東洋・イスラームまで――228人の思想を、予備知識ゼロから無料で。</div>
+    <button class="intro-cta" type="button" aria-label="無料ではじめる">無料ではじめる →</button>
+    <div class="intro-hint">画面のどこでもクリックで入れます</div>
   </div>
 </div>
 <style>
@@ -323,6 +327,16 @@
     animation:introFade 1.9s .32s ease both;}
   #introSplash .intro-hint{margin-top:38px;color:#9a8f77;font-size:12.5px;letter-spacing:.16em;
     animation:hintPulse 2.8s .9s ease-in-out infinite;}
+  #introSplash .intro-promise{margin-top:26px;font-size:clamp(20px,3.8vw,32px);font-weight:800;color:#fff;
+    letter-spacing:.01em;line-height:1.5;animation:introFade 1.9s .5s ease both;}
+  #introSplash .intro-lead{margin-top:13px;font-size:clamp(13px,2.5vw,15.5px);color:#cfc7b5;line-height:1.85;
+    max-width:min(88vw,580px);margin-left:auto;margin-right:auto;animation:introFade 1.9s .7s ease both;}
+  #introSplash .intro-cta{margin-top:30px;pointer-events:auto;cursor:pointer;border:none;
+    background:linear-gradient(180deg,#f6e4ad,#e8c672);color:#1a1408;font-weight:800;font-size:15.5px;
+    padding:14px 34px;border-radius:28px;letter-spacing:.03em;box-shadow:0 8px 30px rgba(232,198,114,.30);
+    animation:introFade 1.9s .9s ease both, ctaPulse 2.6s 2.2s ease-in-out infinite;transition:transform .15s ease;}
+  #introSplash .intro-cta:hover{transform:translateY(-2px);}
+  @keyframes ctaPulse{0%,100%{box-shadow:0 8px 30px rgba(232,198,114,.30);}50%{box-shadow:0 12px 44px rgba(232,198,114,.55);}}
   @keyframes introFade{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:none;}}
   @keyframes hintPulse{0%,100%{opacity:.32;}50%{opacity:.92;}}
 </style>
