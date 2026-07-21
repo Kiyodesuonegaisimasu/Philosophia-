@@ -30,6 +30,7 @@
 <meta name="apple-mobile-web-app-title" content="Philosophia">
 <script src="batch1.js"></script>
 <script src="batch2.js"></script>
+<script src="levels.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
   :root{
@@ -3611,6 +3612,7 @@ function __mergeBatch1(){
       if(b.detail){ Object.assign(DETAIL, b.detail); }
       if(b.rel){ Object.assign(RELATIONS, b.rel); }
     });
+    try{ if(typeof window!=='undefined' && window.__LEVELS && typeof DETAIL_LEVELS!=='undefined') Object.assign(DETAIL_LEVELS, window.__LEVELS); }catch(e){}
     try{ SEED.forEach(function(p){ if(!p.country && typeof COUNTRY_MAP!=='undefined' && COUNTRY_MAP[p.name]) p.country=COUNTRY_MAP[p.name]; }); }catch(e){}
   }catch(e){}
 }
