@@ -224,7 +224,7 @@ function render(y){
     var body=l.length ? '<div class="plist">'+l.map(function(p){
       var age=y-p.b;
       var face = p.i
-        ? '<img src="'+img(p.i,80)+'" alt="" loading="lazy">'
+        ? '<img src="'+img(p.i,80)+'" alt="" decoding="async">'
         : '<div class="ph" style="background:linear-gradient(135deg,hsl('+hue(p.n)+' 45% 32%),hsl('+((hue(p.n)+40)%360)+' 50% 20%))">'+p.n.charAt(0)+'</div>';
       return '<a class="pchip" href="/p/'+p.s+'">'+face+'<span><span class="nm">'+p.n+'</span><br><span class="ag">'+(age<=0?"この年に誕生":age+"歳")+'</span></span></a>';
     }).join("")+'</div>' : '<div class="none">この地域の思想家は<br>収録されていません</div>';
