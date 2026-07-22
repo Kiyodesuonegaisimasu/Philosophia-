@@ -3,6 +3,10 @@
     {
       "source": "/p/:slug",
       "destination": "/api/p?slug=:slug"
+    },
+    {
+      "source": "/q/:slug",
+      "destination": "/api/q?slug=:slug"
     }
   ]
 }

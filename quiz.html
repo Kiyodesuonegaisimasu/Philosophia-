@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>哲学者診断｜あなたに近い思想家は誰？ - Philosophia</title>
+<meta name="description" content="6つの質問に答えるだけ。古今東西73人の哲学者から、あなたの考え方にいちばん近い一人を診断します。無料・登録不要。">
+<link rel="canonical" href="https://philosophia-psi.vercel.app/quiz.html">
+<meta property="og:title" content="哲学者診断｜あなたに近い思想家は誰？">
+<meta property="og:description" content="6つの質問に答えるだけ。古今東西73人の哲学者から、あなたに近い一人を診断します。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://philosophia-psi.vercel.app/quiz.html">
+<meta property="og:image" content="https://philosophia-psi.vercel.app/icon-512.png">
+<meta property="og:site_name" content="Philosophia 哲学の泉">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="哲学者診断｜あなたに近い思想家は誰？">
+<meta name="twitter:description" content="6つの質問に答えるだけ。あなたに近い哲学者を診断します。">
+<meta name="twitter:image" content="https://philosophia-psi.vercel.app/icon-512.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/icon-180.png">
+<meta name="theme-color" content="#0a0a0a">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;color:#eaeaea;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:#e8c672;text-decoration:none}a:hover{text-decoration:underline}
+header{position:sticky;top:0;background:rgba(10,10,10,.92);backdrop-filter:blur(8px);border-bottom:1px solid #2c2c2c;padding:13px 20px;display:flex;align-items:center;gap:14px;z-index:5}
+header .brand{font-weight:800;font-size:17px;color:#f4dfa0}
+header .r{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:13.5px}
+.wrap{max-width:660px;margin:0 auto;padding:26px 20px 70px}
+.hide{display:none!important}
+
+/* start */
+.start{text-align:center;padding:26px 0 10px}
+.start .eyebrow{font-size:12.5px;letter-spacing:.22em;color:#8a7a52;font-weight:700}
+.start h1{font-size:31px;color:#fff;margin:14px 0 6px;line-height:1.42;letter-spacing:.01em}
+.start h1 .g{background:linear-gradient(180deg,#f4dfa0,#e8c672);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.start .lead{font-size:15px;color:#b9b9b9;margin:14px auto 0;max-width:470px}
+.faces{display:flex;justify-content:center;gap:-10px;margin:26px 0 6px}
+.faces img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid #1a1a1a;margin-left:-12px;background:#181818}
+.faces img:first-child{margin-left:0}
+.startbtn{display:inline-block;background:linear-gradient(180deg,#f4dfa0,#e8c672);color:#1a1408;font-weight:800;font-size:16.5px;padding:15px 44px;border-radius:32px;border:none;cursor:pointer;margin-top:24px;font-family:inherit;box-shadow:0 6px 24px rgba(232,198,114,.22)}
+.startbtn:hover{opacity:.93}
+.note{font-size:12.5px;color:#7e7e7e;margin-top:13px}
+
+/* question */
+.prog{display:flex;gap:6px;margin-bottom:26px}
+.prog i{flex:1;height:3px;border-radius:2px;background:#242424}
+.prog i.on{background:#e8c672}
+.qnum{font-size:12.5px;letter-spacing:.16em;color:#8a7a52;font-weight:700}
+.qtext{font-size:21.5px;color:#fff;margin:10px 0 24px;line-height:1.55;font-weight:700}
+.opt{display:block;width:100%;text-align:left;background:#151515;border:1px solid #282828;border-radius:13px;padding:15px 18px;font-size:15px;color:#e4e4e4;cursor:pointer;margin-bottom:11px;font-family:inherit;line-height:1.6;transition:border-color .15s,background .15s}
+.opt:hover{background:#1b1b1b;border-color:#e8c672}
+.back{background:none;border:none;color:#7e7e7e;font-size:13.5px;cursor:pointer;font-family:inherit;margin-top:6px;padding:6px 0}
+.back:hover{color:#bbb}
+
+/* result */
+.rescard{background:linear-gradient(170deg,#171717,#101010);border:1px solid #2c2c2c;border-radius:20px;padding:28px 24px;text-align:center}
+.rlabel{font-size:12.5px;letter-spacing:.2em;color:#8a7a52;font-weight:700}
+.rimg{width:132px;height:132px;border-radius:50%;object-fit:cover;border:3px solid #e8c672;margin:16px auto 0;display:block;background:#181818}
+.rname{font-size:29px;color:#fff;font-weight:800;margin-top:15px;line-height:1.35}
+.ren{font-size:13px;color:#8f8f8f;margin-top:3px}
+.rera{font-size:12.5px;color:#7e7e7e;margin-top:2px}
+.rquote{border-left:3px solid #7b5cff;text-align:left;padding:7px 0 7px 14px;color:#cfc6ff;font-size:15px;margin:20px 0 0}
+.rdesc{text-align:left;font-size:14.5px;color:#dcdcdc;margin-top:15px}
+.rmore{display:block;background:linear-gradient(180deg,#f4dfa0,#e8c672);color:#1a1408;font-weight:800;text-align:center;padding:14px;border-radius:26px;font-size:15px;margin-top:22px}
+.rmore:hover{text-decoration:none;opacity:.92}
+
+.sec{margin-top:30px}
+.sec h2{font-size:15.5px;color:#f4dfa0;border-left:4px solid #e8c672;padding-left:11px;margin-bottom:13px}
+.bars{display:flex;flex-direction:column;gap:13px}
+.bar{font-size:12.5px;color:#9a9a9a}
+.bar .lb{display:flex;justify-content:space-between;margin-bottom:5px}
+.bar .tr{position:relative;height:6px;background:#1e1e1e;border-radius:3px}
+.bar .tr b{position:absolute;top:-4px;width:14px;height:14px;border-radius:50%;background:#e8c672;transform:translateX(-50%);box-shadow:0 0 0 3px rgba(232,198,114,.16)}
+.near{display:flex;flex-direction:column;gap:9px}
+.near a{display:flex;align-items:center;gap:13px;background:#151515;border:1px solid #262626;border-radius:12px;padding:11px 14px;color:#e4e4e4}
+.near a:hover{border-color:#e8c672;text-decoration:none}
+.near img{width:44px;height:44px;border-radius:50%;object-fit:cover;flex:none;background:#181818}
+.near .nm{font-size:14.5px;font-weight:700;color:#fff}
+.near .nd{font-size:12px;color:#8f8f8f}
+.share{display:flex;gap:9px;flex-wrap:wrap}
+.share button,.share a{flex:1;min-width:96px;text-align:center;background:#151515;border:1px solid #2a2a2a;border-radius:11px;padding:12px 8px;font-size:13.5px;color:#e4e4e4;cursor:pointer;font-family:inherit}
+.share button:hover,.share a:hover{border-color:#e8c672;text-decoration:none}
+.retry{display:block;width:100%;background:none;border:1px solid #2a2a2a;border-radius:26px;padding:13px;color:#b9b9b9;font-size:14px;cursor:pointer;font-family:inherit;margin-top:26px}
+.retry:hover{border-color:#666;color:#eee}
+footer{border-top:1px solid #2c2c2c;margin-top:46px;padding:22px 20px;text-align:center;color:#888;font-size:12.5px}
+@media(max-width:520px){.start h1{font-size:26px}.qtext{font-size:19px}.rname{font-size:25px}}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="/philosophia.html">Φ Philosophia</a>
+  <div class="r"><a href="/guide.html">哲学者一覧</a><a href="/philosophia.html">アプリ</a></div>
+</header>
+
+<main class="wrap">
+  <!-- START -->
+  <section id="scStart" class="start">
+    <div class="eyebrow">PHILOSOPHER TYPE</div>
+    <h1>あなたに近い哲学者は、<br><span class="g">誰だろう。</span></h1>
+    <div class="faces" id="faces"></div>
+    <p class="lead">6つの質問に答えるだけ。ソクラテスからニーチェ、老子まで――古今東西<b>73人</b>の思想家から、あなたの考え方にいちばん近い一人を見つけます。</p>
+    <button class="startbtn" id="btnStart">診断をはじめる →</button>
+    <div class="note">所要1分・無料・登録不要</div>
+  </section>
+
+  <!-- QUESTION -->
+  <section id="scQ" class="hide">
+    <div class="prog" id="prog"></div>
+    <div class="qnum" id="qnum"></div>
+    <div class="qtext" id="qtext"></div>
+    <div id="opts"></div>
+    <button class="back hide" id="btnBack">← ひとつ前に戻る</button>
+  </section>
+
+  <!-- RESULT -->
+  <section id="scR" class="hide">
+    <div class="rescard">
+      <div class="rlabel">あなたに近い哲学者</div>
+      <img class="rimg" id="rimg" alt="">
+      <div class="rname" id="rname"></div>
+      <div class="ren" id="ren"></div>
+      <div class="rera" id="rera"></div>
+      <blockquote class="rquote" id="rquote"></blockquote>
+      <p class="rdesc" id="rdesc"></p>
+      <a class="rmore" id="rmore" href="#">▶ この哲学者をもっと詳しく読む</a>
+    </div>
+
+    <div class="sec">
+      <h2>あなたの思考の傾向</h2>
+      <div class="bars" id="bars"></div>
+    </div>
+
+    <div class="sec">
+      <h2>ほかに近かった3人</h2>
+      <div class="near" id="near"></div>
+    </div>
+
+    <div class="sec">
+      <h2>結果をシェアする</h2>
+      <div class="share">
+        <a id="shX" href="#" target="_blank" rel="noopener">Xで共有</a>
+        <a id="shL" href="#" target="_blank" rel="noopener">LINEで送る</a>
+        <button id="shC">リンクをコピー</button>
+      </div>
+    </div>
+
+    <button class="retry" id="btnRetry">もう一度診断する</button>
+  </section>
+</main>
+
+<footer>Philosophia｜哲学を、体系的に。　<a href="/philosophia.html">インタラクティブ版</a>　/　<a href="/guide.html">哲学者一覧</a></footer>
+
+<script>
+var DATA = {"P":[{"s":"socrates","n":"ソクラテス","e":"Socrates","r":"紀元前469–399","i":"Socrates Louvre.jpg","q":"知らないということを知っている、それだけ私は彼より賢い。","d":"アテナイの街頭で人々に問答をしかけ、当たり前とされる「正義」「勇気」「善」の定義を吟味しつづけた。","v":[-1,0,1,1]},{"s":"plato","n":"プラトン","e":"Plato","r":"紀元前427–347","i":"Plato Silanion Musei Capitolini MC1377.jpg","q":"我々が見ているのは、洞窟の壁に映る影にすぎない。","d":"移ろう感覚世界の背後に、永遠で完全な「イデア」の世界があると説いた。","v":[-1,1,2,-2]},{"s":"aristotle","n":"アリストテレス","e":"Aristotle","r":"紀元前384–322","i":"Aristotle Altemps Inv8575.jpg","q":"人間は本性からしてポリス的動物である。","d":"師プラトンのイデアを天上に置く見方を退け、本質は個々の事物の内にあると考えた。","v":[-2,1,-1,-2]},{"s":"epicurus","n":"エピクロス","e":"Epicurus","r":"紀元前341–270","i":"Epicurus Louvre.jpg","q":"死は我々にとって何ものでもない。","d":"快楽こそ善だと説いたが、それは放埒ではなく、心の平静(アタラクシア)という「静かな快」だった。","v":[-1,-1,-2,0]},{"s":"zeno-of-citium","n":"ゼノン(ストア派)","e":"Zeno of Citium","r":"紀元前334–262","i":"Zeno of Citium pushkin.jpg","q":"自然に従って生きよ。","d":"世界は理性(ロゴス)に貫かれており、人はその宇宙的秩序に調和して生きるべきだと説いた。","v":[-1,1,0,-1]},{"s":"diogenes","n":"ディオゲネス","e":"Diogenes","r":"紀元前412頃–323頃","i":"Jean-Léon Gérôme - Diogenes - Walters 37131.jpg","q":"日向をふさがないでくれ。","d":"文明や社会の慣習・所有・名誉をすべて余計なものと見なし、樽に住み、最小限の物で自然に従って生きることを実践した。","v":[1,-2,-2,2]},{"s":"heraclitus","n":"ヘラクレイトス","e":"Heraclitus","r":"紀元前540頃–480頃","i":"Hendrick ter Brugghen - Heraclitus.jpg","q":"万物は流転する。同じ川に二度入ることはできない。","d":"世界は絶えず変化・生成する流れであり、その変化を貫く対立物の統一と、宇宙を支配する理法(ロゴス)を説いた。","v":[0,-1,1,2]},{"s":"pythagoras","n":"ピュタゴラス","e":"Pythagoras","r":"紀元前570頃–495頃","i":"Kapitolinischer Pythagoras adjusted.jpg","q":"万物は数である。","d":"世界の根源を数と、数の比が生む調和(ハルモニア)に見た。","v":[-2,0,2,-2]},{"s":"protagoras","n":"プロタゴラス","e":"Protagoras","r":"紀元前490頃–420頃","i":"Protagoras.jpg","q":"人間は万物の尺度である。","d":"真理は誰にとっても同じ絶対的なものではなく、各人の感じ方次第で変わる(相対主義)と説いた。","v":[0,1,-2,2]},{"s":"pyrrho","n":"ピュロン","e":"Pyrrho","r":"紀元前360頃–270頃","i":"Pyrrho.jpg","q":"何も断定せず、判断を保留せよ。","d":"どんな事柄についても、それが真だと確実には知りえないとし、判断を保留する(エポケー)ことを説いた。","v":[0,-1,-1,2]},{"s":"seneca","n":"セネカ","e":"Seneca","r":"紀元前4頃–65","i":"Seneca-berlinantikensammlung-1.jpg","q":"生きることは、生涯かけて学ぶべき技術である。","d":"ストア派の教えを、実践的な生き方の知恵として説いた。","v":[-1,0,0,-1]},{"s":"epictetus","n":"エピクテトス","e":"Epictetus","r":"55頃–135頃","i":"Epictetus.jpg","q":"人を悩ませるのは物事ではなく、物事についての考えである。","d":"元奴隷の身から哲学者となり、私たちを苦しめるのは出来事そのものでなく、それについての判断だと説いた。","v":[-1,-1,0,-1]},{"s":"marcus-aurelius","n":"マルクス・アウレリウス","e":"Marcus Aurelius","r":"121–180","i":"Marcus Aurelius Glyptothek Munich.jpg","q":"宇宙は変化であり、人生は意見である。","d":"ローマ皇帝でありながらストア派の哲学を実践し、自らを戒める省察を『自省録』に書き記した。","v":[-1,1,0,-1]},{"s":"augustine","n":"アウグスティヌス","e":"Augustine","r":"354–430","i":"Sandro Botticelli - St Augustin - WGA2842.jpg","q":"我々の心は、あなたのうちに憩うまで安らぎを得ない。","d":"放縦な青年期からキリスト教へ回心した経験を『告白』に記し、内面を見つめる自己省察の伝統を切り開いた。","v":[1,1,2,-1]},{"s":"thomas-aquinas","n":"トマス・アクィナス","e":"Thomas Aquinas","r":"1225–1274","i":"St-thomas-aquinas.jpg","q":"恩寵は自然を破壊せず、これを完成させる。","d":"アリストテレス哲学とキリスト教神学を大胆に総合した。","v":[-2,1,2,-2]},{"s":"rene-descartes","n":"デカルト","e":"René Descartes","r":"1596–1650","i":"Frans Hals - Portret van René Descartes.jpg","q":"我思う、ゆえに我あり。","d":"確実な知の土台を求め、疑いうるものをすべて疑う「方法的懐疑」を徹底した。","v":[-2,-2,1,-1]},{"s":"baruch-spinoza","n":"スピノザ","e":"Baruch Spinoza","r":"1632–1677","i":"Spinoza.jpg","q":"神即自然。","d":"神と自然を同一視し、存在するのはただ一つの無限の実体だけで、精神も物体もその表れ(属性)だと考えた。","v":[-2,0,2,-2]},{"s":"john-locke","n":"ジョン・ロック","e":"John Locke","r":"1632–1704","i":"JohnLocke.png","q":"心は生まれたとき白紙(タブラ・ラサ)である。","d":"人は生得観念を持たず、心は白紙で生まれ、あらゆる知識は経験から来ると説いた。","v":[-1,1,-2,0]},{"s":"david-hume","n":"デイヴィッド・ヒューム","e":"David Hume","r":"1711–1776","i":"Allan Ramsay - David Hume, 1711 - 1776. Historian and philosopher - Google Art Project.jpg","q":"理性は情念の奴隷であり、またそうあるべきだ。","d":"経験論を徹底し、私たちが「因果」と呼ぶものは、繰り返し起こる出来事を結びつける心の習慣にすぎず、必然的な結びつきそのものは観察できないと喝破した。","v":[-1,0,-2,2]},{"s":"immanuel-kant","n":"カント","e":"Immanuel Kant","r":"1724–1804","i":"Immanuel Kant (painted portrait).jpg","q":"我が上なる星空と、我が内なる道徳法則。","d":"認識は対象に従うのではなく、対象が私たちの認識の形式に従って現れると考えた(コペルニクス的転回)。","v":[-2,1,1,-2]},{"s":"g-w-f-hegel","n":"ヘーゲル","e":"G.W.F. Hegel","r":"1770–1831","i":"Hegel portrait by Schlesinger 1831.jpg","q":"理性的なものは現実的であり、現実的なものは理性的である。","d":"世界と歴史を、精神(理性)が矛盾を乗り越えながら自己を実現していく壮大な運動として描いた。","v":[-1,2,2,-2]},{"s":"gottfried-wilhelm-leibniz","n":"ライプニッツ","e":"Gottfried Wilhelm Leibniz","r":"1646–1716","i":"Christoph Bernhard Francke - Bildnis des Philosophen Leibniz (ca. 1695).jpg","q":"この世界は、可能な世界のうち最善のものである。","d":"世界は、それ以上分割できない無数の精神的実体「モナド」から成ると考えた。","v":[-2,0,2,-2]},{"s":"thomas-hobbes","n":"ホッブズ","e":"Thomas Hobbes","r":"1588–1679","i":"Thomas Hobbes (portrait).jpg","q":"万人の万人に対する闘争。","d":"国家が無い自然状態では、各人が自己保存の権利を主張し合い「万人の万人に対する闘争」となると論じた。","v":[-1,2,-2,-1]},{"s":"jean-jacques-rousseau","n":"ルソー","e":"Jean-Jacques Rousseau","r":"1712–1778","i":"Jean-Jacques Rousseau (painted portrait).jpg","q":"人間は自由なものとして生まれ、しかもいたるところで鎖につながれている。","d":"人間は本来善良で自由だが、文明と私有財産が不平等と堕落を生んだと批判した。","v":[2,2,0,1]},{"s":"blaise-pascal","n":"パスカル","e":"Blaise Pascal","r":"1623–1662","i":"Blaise Pascal Versailles.JPG","q":"人間は考える葦である。","d":"人間は宇宙の中では無力な一本の葦にすぎないが、自分の悲惨さを考えることができる点で偉大だと説いた。","v":[2,-1,2,1]},{"s":"michel-de-montaigne","n":"モンテーニュ","e":"Michel de Montaigne","r":"1533–1592","i":"Michel de Montaigne 1.jpg","q":"私は何を知っているか?","d":"独断を避け、自分自身を観察の対象として率直に見つめ続けた。","v":[0,-1,-1,2]},{"s":"niccolo-machiavelli","n":"マキャヴェッリ","e":"Niccolò Machiavelli","r":"1469–1527","i":"Portrait of Niccolò Machiavelli by Santi di Tito.jpg","q":"愛されるより、恐れられるほうが安全である。","d":"政治を道徳や理想からでなく、現実の権力の力学として捉えた。","v":[-1,2,-2,1]},{"s":"adam-smith","n":"アダム・スミス","e":"Adam Smith","r":"1723–1790","i":"AdamSmith.jpg","q":"我々が食事にありつけるのは、肉屋やパン屋の慈悲によってではない。","d":"各人が自分の利益を追求しても、市場の「見えざる手」に導かれて、結果的に社会全体の富が増すと論じた。","v":[-1,2,-1,-1]},{"s":"jeremy-bentham","n":"ベンサム","e":"Jeremy Bentham","r":"1748–1832","i":"Jeremy Bentham by Henry William Pickersgill detail.jpg","q":"最大多数の最大幸福。","d":"善悪の基準を、快楽を増やし苦痛を減らすかどうかに置いた(功利性の原理)。","v":[-2,2,-2,-1]},{"s":"john-stuart-mill","n":"J.S.ミル","e":"John Stuart Mill","r":"1806–1873","i":"John Stuart Mill by London Stereoscopic Company, c1870.jpg","q":"満足した豚であるより、不満足なソクラテスであるほうがよい。","d":"ベンサムの功利主義を継ぎつつ、快楽には質の差があると主張し、精神的な高級な快楽を重視した。","v":[-1,2,-1,0]},{"s":"arthur-schopenhauer","n":"ショーペンハウアー","e":"Arthur Schopenhauer","r":"1788–1860","i":"Arthur Schopenhauer by J Schäfer, 1859b.jpg","q":"世界は私の表象である。","d":"世界は認識される限りで「表象」だが、その根底には盲目的で満たされることのない「意志」が働いていると説いた。","v":[2,-2,1,1]},{"s":"s-ren-kierkegaard","n":"キルケゴール","e":"Søren Kierkegaard","r":"1813–1855","i":"Kierkegaard.jpg","q":"主体性こそが真理である。","d":"客観的・普遍的な体系(ヘーゲル)に抗し、いま・ここで決断し生きる「単独者」としての実存を問題にした。","v":[2,-2,2,2]},{"s":"karl-marx","n":"マルクス","e":"Karl Marx","r":"1818–1883","i":"Karl Marx 001.jpg","q":"哲学者は世界を解釈してきた。だが大切なのは世界を変えることだ。","d":"歴史を動かす根本は観念でなく、物質的な生産のあり方(経済的土台)だと考えた。","v":[0,2,-2,1]},{"s":"friedrich-nietzsche","n":"ニーチェ","e":"Friedrich Nietzsche","r":"1844–1900","i":"Nietzsche187a.jpg","q":"神は死んだ。","d":"キリスト教道徳と絶対的真理が力を失った時代(ニヒリズム)を診断し、それを乗り越える生き方を模索した。","v":[2,-2,-2,2]},{"s":"edmund-husserl","n":"フッサール","e":"Edmund Husserl","r":"1859–1938","i":"Edmund Husserl 1900.jpg","q":"事象そのものへ。","d":"あらゆる先入観や理論をいったん括弧に入れ(エポケー)、意識に立ち現れる経験そのものを厳密に記述しようとした。","v":[-2,-1,1,-1]},{"s":"martin-heidegger","n":"ハイデガー","e":"Martin Heidegger","r":"1889–1976","i":"Martin Heidegger.jpg","q":"人間は死へと向かう存在である。","d":"西洋哲学が「存在するもの」ばかりを問い、「存在するとはどういうことか」という根本の問いを忘れてきたと批判した。","v":[1,-1,1,1]},{"s":"jean-paul-sartre","n":"サルトル","e":"Jean-Paul Sartre","r":"1905–1980","i":"Jean-Paul Sartre FP.JPG","q":"実存は本質に先立つ。","d":"人間には初めから決められた本質はなく、まず存在し、自らの選択によって自分が何者かを作っていくと説いた。","v":[1,1,-1,1]},{"s":"albert-camus","n":"カミュ","e":"Albert Camus","r":"1913–1960","i":"Albert Camus, gagnant de prix Nobel, portrait en buste, posé au bureau, faisant face à gauche, cigarette de tabagisme.jpg","q":"シーシュポスは幸福だと想像しなければならない。","d":"意味を求める人間と、それに応えない沈黙する世界との食い違いを「不条理」と呼んだ。","v":[1,0,-2,2]},{"s":"maurice-merleau-ponty","n":"メルロ=ポンティ","e":"Maurice Merleau-Ponty","r":"1908–1961","i":"Merleau.jpg","q":"私は身体を持つのではなく、私は身体である。","d":"認識の主体を、純粋な意識でなく、世界に住み込む「身体」に見いだした。","v":[0,0,-2,0]},{"s":"simone-de-beauvoir","n":"ボーヴォワール","e":"Simone de Beauvoir","r":"1908–1986","i":"Simone de Beauvoir2.png","q":"人は女に生まれるのではない、女になるのだ。","d":"「女らしさ」は生まれつきのものでなく、社会や文化によって作られると論じた。","v":[0,2,-1,1]},{"s":"emmanuel-levinas","n":"レヴィナス","e":"Emmanuel Levinas","r":"1906–1995","i":"Emmanuel Levinas.jpg","q":"他者の顔は「殺すなかれ」と語りかける。","d":"西洋哲学が万物を自我の理解へ回収してきたと批判し、決して自我に還元できない「他者」との出会いを倫理の原点に置いた。","v":[1,1,2,1]},{"s":"ludwig-wittgenstein","n":"ウィトゲンシュタイン","e":"Ludwig Wittgenstein","r":"1889–1951","i":"Ludwig Wittgenstein 1930.jpg","q":"語りえぬものについては、沈黙しなければならない。","d":"哲学の問題の多くは言語の誤用から生まれると考えた。","v":[-2,0,-1,2]},{"s":"bertrand-russell","n":"ラッセル","e":"Bertrand Russell","r":"1872–1970","i":"Bertrand Russell 1957.jpg","q":"世界の問題の多くは、確信ある愚者と懐疑する賢者から生じる。","d":"数学を論理学から基礎づけようとし、言語を論理的に分析することで哲学の問題を明晰にしようとした。","v":[-2,1,-1,0]},{"s":"karl-popper","n":"ポパー","e":"Karl Popper","r":"1902–1994","i":"Karl Popper.jpg","q":"反証できない理論は、科学ではない。","d":"科学と非科学を分けるのは、その理論が「反証可能」かどうかだと論じた。","v":[-2,1,-1,1]},{"s":"henri-bergson","n":"ベルクソン","e":"Henri Bergson","r":"1859–1941","i":"Henri Bergson 02.jpg","q":"時間とは、生きられる持続である。","d":"時計で測る空間化された時間とは別に、意識が生きる質的で不可分な流れ「持続(デュレ)」があると説いた。","v":[2,-1,1,1]},{"s":"hannah-arendt","n":"アーレント","e":"Hannah Arendt","r":"1906–1975","i":"Hannah Arendt 1975 (cropped).jpg","q":"悪は陳腐である。","d":"人間の営みを労働・仕事・活動に分け、他者と言葉を交わし共に行為する「活動」にこそ人間の自由と複数性があると論じた。","v":[0,2,0,0]},{"s":"michel-foucault","n":"フーコー","e":"Michel Foucault","r":"1926–1984","i":"Michel Foucault 1974 Brasil.jpg","q":"知は権力であり、権力は知を生み出す。","d":"狂気・病・監獄・性などの歴史をたどり、「正常」と「異常」といった区分が、時代ごとの知と権力の関係の中で作られてきたことを暴いた。","v":[0,2,-2,2]},{"s":"jacques-derrida","n":"デリダ","e":"Jacques Derrida","r":"1930–2004","i":"Jacques Derrida (1930-2004), foto 1979.jpg","q":"テクストの外部は存在しない。","d":"西洋思想が、話し言葉／書き言葉、現前／不在のように一方を優位に置く二項対立の上に成り立ってきたと指摘し、その内部の矛盾を露わにして揺さぶる「脱構築」を行った。","v":[0,0,0,2]},{"s":"gilles-deleuze","n":"ドゥルーズ","e":"Gilles Deleuze","r":"1925–1995","i":"Gilles Deleuze.jpg","q":"重要なのは、差異それ自体を思考することだ。","d":"同一性を基準に差異を捉える伝統を逆転させ、差異そのものを根源に置く哲学を構想した。","v":[1,1,0,2]},{"s":"john-rawls","n":"ロールズ","e":"John Rawls","r":"1921–2002","i":"John Rawls (1971 photo portrait).jpg","q":"正義は社会制度の第一の徳である。","d":"公正な社会の原理を、自分の立場や才能を知らない「無知のヴェール」の下で人々が選ぶルールとして導いた。","v":[-2,2,0,-2]},{"s":"jurgen-habermas","n":"ハーバーマス","e":"Jürgen Habermas","r":"1929–","i":"JuergenHabermas.jpg","q":"より良い議論だけが、力を持つべきである。","d":"理性を、孤立した個人の思考でなく、人々が対等に議論し合意を目指す「コミュニケーション」のうちに見いだした。","v":[-1,2,0,-1]},{"s":"friedrich-hayek","n":"ハイエク","e":"Friedrich Hayek","r":"1899–1992","i":"Friedrich Hayek portrait.jpg","q":"社会の知は、無数の個人に分散している。","d":"社会に必要な知識は一人の計画者に集められず、無数の個人に分散していると論じた。","v":[-1,1,-1,0]},{"s":"erich-fromm","n":"エーリッヒ・フロム","e":"Erich Fromm","r":"1900–1980","i":"Erich Fromm 1974.jpg","q":"自由は、しばしば重荷となって人を逃避へ向かわせる。","d":"近代人は封建的な束縛から自由になった一方、孤独と不安に耐えきれず、権威への服従や画一化へ逃げ込みがちだと分析した(自由からの逃走)。","v":[1,1,0,0]},{"s":"michael-sandel","n":"マイケル・サンデル","e":"Michael Sandel","r":"1953–","i":"Michael Sandel.jpg","q":"すべてをお金で買えるわけではない。","d":"個人の自由な選択を偏重するリベラリズムを批判し、正義は共同体で共有される善や美徳と切り離せないと論じた。","v":[-1,2,0,-1]},{"s":"judith-butler","n":"ジュディス・バトラー","e":"Judith Butler","r":"1956–","i":"Judith Butler 2013.jpg","q":"ジェンダーとは、反復される行為の効果である。","d":"性別やジェンダーは生まれつき固定したものでなく、社会の規範に沿ったふるまいを繰り返すことで作り上げられる(パフォーマティヴィティ)と論じた。","v":[0,2,-1,2]},{"s":"simone-weil","n":"シモーヌ・ヴェイユ","e":"Simone Weil","r":"1909–1943","i":"Simone Weil 04.jpg","q":"注意力は、最も稀で純粋な寛大さである。","d":"他者の苦しみ、とりわけ社会から見捨てられた人々の不幸に深く向き合った。","v":[2,1,2,1]},{"s":"confucius","n":"孔子","e":"Confucius","r":"紀元前551–479","i":"Confucius Tang Dynasty.jpg","q":"己の欲せざる所、人に施すこと勿かれ。","d":"乱れた世を立て直す鍵を、人と人との思いやり「仁」に見た。","v":[0,2,0,-2]},{"s":"mencius","n":"孟子","e":"Mencius","r":"紀元前372頃–289頃","i":"Half Portraits of the Great Sage and Virtuous Men of Old - Meng Ke.jpg","q":"人に忍びざるの心あり。","d":"人は生まれつき善への芽をもつと説いた(性善説)。","v":[1,2,1,-1]},{"s":"xunzi","n":"荀子","e":"Xunzi","r":"紀元前313頃–238頃","i":"Xunzi.jpg","q":"人の性は悪、その善なるものは偽なり。","d":"人は生まれつき欲望に従う悪い性をもつと説いた(性悪説)。","v":[-1,2,-1,-1]},{"s":"laozi","n":"老子","e":"Laozi","r":"紀元前6世紀頃","i":"Zhang Lu-Laozi Riding an Ox.jpg","q":"道の道とすべきは、常の道に非ず。","d":"万物を生み出す根源を、言葉では捉えきれない「道(タオ)」と呼んだ。","v":[1,-2,1,2]},{"s":"zhuangzi","n":"荘子","e":"Zhuangzi","r":"紀元前369–286頃","i":"Zhuangzi.gif","q":"胡蝶の夢——我が蝶を夢みたのか、蝶が我を夢みるのか。","d":"老子の道の思想を、自由で奔放な寓話によって深めた。","v":[2,-2,1,2]},{"s":"mozi","n":"墨子","e":"Mozi","r":"紀元前470頃–390頃","i":"Mozi.jpg","q":"兼ねて愛し、交々利す。","d":"身内をえこひいきする愛を退け、すべての人を分け隔てなく愛する「兼愛」を説いた。","v":[-1,2,0,0]},{"s":"han-feizi","n":"韓非子","e":"Han Feizi","r":"紀元前280頃–233","i":"Han Feizi.jpg","q":"賞罰は君主が握るべき二つの柄である。","d":"人は利によって動くという現実的な人間観から、道徳でなく明確な法と、賞罰の徹底によって国を治めるべきだと説いた。","v":[-2,2,-2,-1]},{"s":"zhu-xi","n":"朱熹","e":"Zhu Xi","r":"1130–1200","i":"Zhu xi.jpg","q":"事物に至りて、その理を窮む。","d":"万物には理(普遍的な原理)が宿り、それが気(素材・エネルギー)と結びついて具体的な物になると説いた。","v":[-2,1,1,-2]},{"s":"wang-yangming","n":"王陽明","e":"Wang Yangming","r":"1472–1529","i":"Wang Yangming.jpg","q":"知は行の始め、行は知の成るなり。","d":"理は外の事物でなく、自分の心のうちにあると説いた(心即理)。","v":[2,0,1,1]},{"s":"sun-tzu","n":"孫子","e":"Sun Tzu","r":"紀元前6世紀頃","i":"Enchoen27n3200.jpg","q":"彼を知り己を知れば、百戦して危うからず。","d":"戦争を、感情や偶然でなく、冷静な状況分析と合理的な計算によって捉えた。","v":[-2,1,-2,0]},{"s":"gautama-buddha","n":"ブッダ(釈迦)","e":"Gautama Buddha","r":"紀元前463–383頃","i":"Buddha in Sarnath Museum (Dhammajak Mutra).jpg","q":"すべては移ろい、とどまるものはない。","d":"人生は思い通りにならない苦であり、その原因は尽きない渇愛(執着)にあると見抜いた。","v":[0,0,1,2]},{"s":"dogen","n":"道元","e":"Dōgen","r":"1200–1253","i":"Dogen.jpg","q":"仏道をならふといふは、自己をならふなり。","d":"ただひたすら坐ること(只管打坐)そのものが悟りの現れだと説いた。","v":[1,-1,1,1]},{"s":"kukai","n":"空海","e":"Kūkai","r":"774–835","i":"Kobo Daishi (Taisanji Matsuyama).jpg","q":"この身のまま、仏となる。","d":"密教を体系化し、大日如来を宇宙そのものとする世界観を説いた。","v":[0,0,2,-1]},{"s":"shinran","n":"親鸞","e":"Shinran","r":"1173–1263","i":"Portrait of Shinran.jpg","q":"善人なほもて往生をとぐ、いはんや悪人をや。","d":"師法然の他力の教えをさらに徹底し、救いは自分の善行によるのでなく、まったく阿弥陀仏の力(絶対他力)によると説いた。","v":[2,0,2,1]},{"s":"nishida-kitaro","n":"西田幾多郎","e":"Nishida Kitarō","r":"1870–1945","i":"Kitaro Nishida.jpg","q":"主客未分の純粋経験こそ、真の実在である。","d":"主観と客観に分かれる前の、経験そのもの(純粋経験)を実在の根本に据えた。","v":[1,0,2,0]},{"s":"fukuzawa-yukichi","n":"福沢諭吉","e":"Fukuzawa Yukichi","r":"1835–1901","i":"Fukuzawa Yukichi.jpg","q":"天は人の上に人を造らず、人の下に人を造らず。","d":"人はみな生まれながらに平等であり、身分でなく学問によって独立した個人となるべきだと説いた。","v":[-1,2,-2,0]},{"s":"mahatma-gandhi","n":"ガンディー","e":"Mahatma Gandhi","r":"1869–1948","i":"Mahatma-Gandhi, studio, 1931.jpg","q":"あなたが見たい変化に、あなた自身がなりなさい。","d":"暴力に暴力で応じず、真理を堅く守り抜くこと(サティヤーグラハ)によって不正に立ち向かうことを説いた。","v":[1,2,2,1]}],"Q":[{"q":"大きな決断をするとき、最後に頼るのは？","o":[{"t":"筋道を立てて、考え抜いた結論","d":{"A":-2}},{"t":"心が強く動いたほう","d":{"A":2}},{"t":"これまでの経験と、確かな事実","d":{"A":-1,"C":-1}},{"t":"直感。理由はうまく言葉にできない","d":{"A":1,"C":1}}]},{"q":"「よく生きる」に近いのは？","o":[{"t":"自分の内面を磨き、心を整えること","d":{"B":-2}},{"t":"社会をより良くすることに関わること","d":{"B":2}},{"t":"与えられた役割を、誠実に果たすこと","d":{"B":1,"D":-1}},{"t":"誰にも縛られず、自分の道を行くこと","d":{"B":-1,"D":2}}]},{"q":"この世界の“本当のこと”は、どこにあると思う？","o":[{"t":"目に見え、触れられる この現実の中に","d":{"C":-2}},{"t":"現実の奥にある、見えない原理や真理に","d":{"C":2}},{"t":"移り変わる、流れそのものの中に","d":{"D":2}},{"t":"人の心が、世界を意味づけている","d":{"C":1,"A":1}}]},{"q":"苦しみについて、あなたに近い考えは？","o":[{"t":"避けられないもの。受け入れ方を学ぶ","d":{"A":-1,"D":-1}},{"t":"執着を手放せば、消えていく","d":{"C":1,"D":2}},{"t":"社会の仕組みが生んでいる。変えるべきだ","d":{"B":2,"C":-2}},{"t":"苦しみこそが、人を強く深くする","d":{"A":2}}]},{"q":"常識やルールに対して、あなたは？","o":[{"t":"秩序は必要。守ることで社会は成り立つ","d":{"B":1,"D":-2}},{"t":"まず疑う。当たり前を壊すところから始まる","d":{"D":2}},{"t":"一度立ち止まって、根拠を確かめたい","d":{"A":-1,"D":1}},{"t":"自分が納得できる範囲で、従う","d":{"B":-1,"D":1}}]},{"q":"100年後に、何を残したい？","o":[{"t":"揺るがない、筋の通った考えの体系","d":{"A":-1,"D":-2}},{"t":"誰かの生き方を変える、鋭い問い","d":{"D":2}},{"t":"より公正な、社会の仕組み","d":{"B":2}},{"t":"言葉にならない、静かな境地","d":{"A":1,"B":-1,"C":1}}]}]};
+var PH = DATA.P, QS = DATA.Q;
+var AXES = ["A","B","C","D"];
+var AXLABEL = [["理性","情熱"],["個人","社会"],["現実","超越"],["体系","解体"]];
+var BASE = "https://philosophia-psi.vercel.app";
+function img(f,w){ return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(f)+"?width="+(w||300); }
+function $(id){ return document.getElementById(id); }
+
+// 軸ごとの到達可能レンジ（正規化用）
+var PMAX={A:0,B:0,C:0,D:0}, PMIN={A:0,B:0,C:0,D:0};
+AXES.forEach(function(k){
+  QS.forEach(function(q){
+    var hi=-99, lo=99;
+    q.o.forEach(function(o){ var v=o.d[k]||0; if(v>hi)hi=v; if(v<lo)lo=v; });
+    PMAX[k]+=hi; PMIN[k]+=lo;
+  });
+});
+
+// 顔プレビュー
+(function(){
+  var pick=["socrates","friedrich-nietzsche","immanuel-kant","laozi","hannah-arendt","rene-descartes"];
+  var el=$("faces");
+  pick.forEach(function(s){
+    var p=PH.filter(function(x){return x.s===s;})[0]; if(!p) return;
+    var im=document.createElement("img"); im.src=img(p.i,120); im.alt=p.n; im.loading="lazy"; el.appendChild(im);
+  });
+})();
+
+var answers=[], qi=0;
+
+function showQ(){
+  $("scStart").classList.add("hide"); $("scR").classList.add("hide"); $("scQ").classList.remove("hide");
+  var q=QS[qi];
+  var pr=$("prog"); pr.innerHTML="";
+  for(var i=0;i<QS.length;i++){ var b=document.createElement("i"); if(i<=qi) b.className="on"; pr.appendChild(b); }
+  $("qnum").textContent="QUESTION "+(qi+1)+" / "+QS.length;
+  $("qtext").textContent=q.q;
+  var wrap=$("opts"); wrap.innerHTML="";
+  q.o.forEach(function(o,idx){
+    var b=document.createElement("button"); b.className="opt"; b.type="button"; b.textContent=o.t;
+    b.onclick=function(){ answers[qi]=idx; qi++; if(qi>=QS.length) showR(); else showQ(); window.scrollTo(0,0); };
+    wrap.appendChild(b);
+  });
+  $("btnBack").classList.toggle("hide", qi===0);
+}
+
+function userVec(){
+  var s={A:0,B:0,C:0,D:0};
+  answers.forEach(function(a,i){ var d=QS[i].o[a].d; AXES.forEach(function(k){ s[k]+=(d[k]||0); }); });
+  return AXES.map(function(k){
+    var v=s[k];
+    if(v>=0) return PMAX[k] ? 2*v/PMAX[k] : 0;
+    return PMIN[k] ? 2*v/Math.abs(PMIN[k]) : 0;
+  });
+}
+
+function showR(){
+  $("scQ").classList.add("hide"); $("scStart").classList.add("hide"); $("scR").classList.remove("hide");
+  var u=userVec();
+  var mag=Math.sqrt(u[0]*u[0]+u[1]*u[1]+u[2]*u[2]+u[3]*u[3]);
+  var scored=PH.map(function(p){
+    var dot=0, pb=0, e=0;
+    for(var i=0;i<4;i++){ dot+=u[i]*p.v[i]; pb+=p.v[i]*p.v[i]; var x=u[i]-p.v[i]; e+=x*x; }
+    var cosv=(mag>0&&pb>0) ? dot/(mag*Math.sqrt(pb)) : 0;
+    return {p:p, d:-cosv + Math.sqrt(e)*0.001};
+  }).sort(function(a,b){ return a.d-b.d; });
+  var top=scored[0].p;
+  render(top, scored.slice(1,4).map(function(x){return x.p;}), u);
+}
+
+function render(p, near, u){
+  $("rimg").src=img(p.i,400); $("rimg").alt=p.n;
+  $("rname").textContent=p.n;
+  $("ren").textContent=p.e;
+  $("rera").textContent=p.r;
+  $("rquote").textContent="「"+p.q+"」";
+  $("rdesc").textContent=p.d;
+  $("rmore").href="/p/"+p.s;
+
+  var bars=$("bars"); bars.innerHTML="";
+  for(var i=0;i<4;i++){
+    var pos=((u[i]+2)/4)*100; if(pos<3)pos=3; if(pos>97)pos=97;
+    var d=document.createElement("div"); d.className="bar";
+    d.innerHTML='<div class="lb"><span>'+AXLABEL[i][0]+'</span><span>'+AXLABEL[i][1]+'</span></div><div class="tr"><b style="left:'+pos.toFixed(1)+'%"></b></div>';
+    bars.appendChild(d);
+  }
+
+  var nr=$("near"); nr.innerHTML="";
+  near.forEach(function(x){
+    var a=document.createElement("a"); a.href="/p/"+x.s;
+    a.innerHTML='<img src="'+img(x.i,120)+'" alt="" loading="lazy"><span><span class="nm">'+x.n+'</span><br><span class="nd">'+x.r+'</span></span>';
+    nr.appendChild(a);
+  });
+
+  var url=BASE+"/q/"+p.s;
+  var txt="私に近い哲学者は「"+p.n+"」でした。";
+  $("shX").href="https://twitter.com/intent/tweet?text="+encodeURIComponent(txt+"\n#哲学者診断")+"&url="+encodeURIComponent(url);
+  $("shL").href="https://social-plugins.line.me/lineit/share?url="+encodeURIComponent(url)+"&text="+encodeURIComponent(txt);
+  $("shC").onclick=function(){
+    var done=function(){ $("shC").textContent="コピーしました ✓"; setTimeout(function(){ $("shC").textContent="リンクをコピー"; },1800); };
+    if(navigator.clipboard&&navigator.clipboard.writeText){ navigator.clipboard.writeText(url).then(done,done); }
+    else { var t=document.createElement("textarea"); t.value=url; document.body.appendChild(t); t.select(); try{document.execCommand("copy");}catch(e){} document.body.removeChild(t); done(); }
+  };
+  try{ history.replaceState(null,"","/quiz.html?r="+p.s); }catch(e){}
+}
+
+$("btnStart").onclick=function(){ answers=[]; qi=0; showQ(); window.scrollTo(0,0); };
+$("btnBack").onclick=function(){ if(qi>0){ qi--; showQ(); window.scrollTo(0,0);} };
+$("btnRetry").onclick=function(){ answers=[]; qi=0; try{history.replaceState(null,"","/quiz.html");}catch(e){} showQ(); window.scrollTo(0,0); };
+</script>
+</body>
+</html>
