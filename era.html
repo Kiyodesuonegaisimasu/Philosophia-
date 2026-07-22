@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>その年、世界では｜同時代タイムトラベル - Philosophia</title>
+<meta name="description" content="年代を動かすと、その瞬間に世界中で誰が生きて何を考えていたかが並びます。ソクラテスとブッダと墨子は同時代でした。古今東西228人の哲学者を時間軸で見る。">
+<link rel="canonical" href="https://philosophia-psi.vercel.app/era.html">
+<meta property="og:title" content="その年、世界では｜同時代タイムトラベル">
+<meta property="og:description" content="ソクラテス19歳、ブッダ13歳、墨子20歳。互いを知らないまま、同じ時代に。年代を動かして世界中の思想家を並べてみる。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://philosophia-psi.vercel.app/era.html">
+<meta property="og:image" content="https://philosophia-psi.vercel.app/icon-512.png">
+<meta property="og:site_name" content="Philosophia 哲学の泉">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="その年、世界では｜同時代タイムトラベル">
+<meta name="twitter:description" content="ソクラテス19歳、ブッダ13歳、墨子20歳。互いを知らないまま、同じ時代に。">
+<meta name="twitter:image" content="https://philosophia-psi.vercel.app/icon-512.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="apple-touch-icon" href="/icon-180.png">
+<meta name="theme-color" content="#0a0a0a">
+<script defer src="/_vercel/insights/script.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0a0a0a;color:#eaeaea;font-family:"Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,system-ui,sans-serif;line-height:1.8;-webkit-font-smoothing:antialiased}
+a{color:#e8c672;text-decoration:none}a:hover{text-decoration:underline}
+header{position:sticky;top:0;background:rgba(10,10,10,.94);backdrop-filter:blur(8px);border-bottom:1px solid #2c2c2c;padding:12px 20px;display:flex;align-items:center;gap:14px;z-index:20}
+header .brand{font-weight:800;font-size:17px;color:#f4dfa0}
+header .r{margin-left:auto;display:flex;gap:14px;font-size:13.5px}
+.wrap{max-width:1080px;margin:0 auto;padding:22px 20px 70px}
+.intro{text-align:center;margin-bottom:20px}
+.intro .eyebrow{font-size:12px;letter-spacing:.22em;color:#8a7a52;font-weight:700}
+.intro h1{font-size:27px;color:#fff;margin-top:9px;line-height:1.4}
+.intro p{font-size:14px;color:#9a9a9a;margin-top:9px}
+
+/* コントロール */
+.ctrl{position:sticky;top:52px;background:rgba(10,10,10,.96);backdrop-filter:blur(8px);padding:14px 0 12px;z-index:10;border-bottom:1px solid #1e1e1e}
+.yearline{display:flex;align-items:center;justify-content:center;gap:14px}
+.yr{font-size:38px;font-weight:800;color:#f4dfa0;letter-spacing:.01em;font-variant-numeric:tabular-nums;min-width:230px;text-align:center}
+.step{background:#161616;border:1px solid #2a2a2a;color:#cfcfcf;width:38px;height:38px;border-radius:50%;font-size:17px;cursor:pointer;font-family:inherit;flex:none}
+.step:hover{border-color:#e8c672;color:#f4dfa0}
+.hist{position:relative;height:34px;margin:10px 0 2px;display:flex;align-items:flex-end;gap:1px;cursor:pointer}
+.hist i{flex:1;background:#242424;border-radius:1px 1px 0 0;min-height:2px;transition:background .15s}
+.hist i.hot{background:#3b3357}
+.hist i.cur{background:#e8c672}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:4px;border-radius:2px;background:#262626;outline:none;margin-top:4px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#e8c672;cursor:pointer;border:3px solid #0a0a0a;box-shadow:0 0 0 1px #e8c672}
+input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#e8c672;cursor:pointer;border:3px solid #0a0a0a}
+.scale{display:flex;justify-content:space-between;font-size:11px;color:#6e6e6e;margin-top:5px}
+.presets{display:flex;gap:7px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+.pz{background:#151515;border:1px solid #2a2a2a;border-radius:16px;padding:6px 13px;font-size:12.5px;color:#c9c9c9;cursor:pointer;font-family:inherit;white-space:nowrap}
+.pz:hover{border-color:#e8c672;color:#f4dfa0}
+.pz.on{background:#e8c672;border-color:#e8c672;color:#151515;font-weight:800}
+
+/* 見出し */
+.headline{text-align:center;margin:20px 0 4px;font-size:16px;color:#efe3c4;min-height:28px}
+.headline b{color:#f4dfa0}
+.note{text-align:center;font-size:13.5px;color:#c9b8ff;margin-top:6px;min-height:20px}
+
+/* 地域グリッド */
+.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:22px}
+.col{background:#111;border:1px solid #222;border-radius:14px;padding:13px 11px;min-height:120px}
+.col.empty{opacity:.32}
+.col h2{font-size:13px;color:#f4dfa0;margin-bottom:3px;display:flex;align-items:center;gap:6px}
+.col .cnt{font-size:11px;color:#7e7e7e;font-weight:400}
+.col .none{font-size:12px;color:#6e6e6e;margin-top:10px;line-height:1.6}
+.plist{display:flex;flex-direction:column;gap:7px;margin-top:10px}
+.pchip{display:flex;align-items:center;gap:9px;background:#181818;border:1px solid #262626;border-radius:10px;padding:7px 9px;color:#e4e4e4}
+.pchip:hover{border-color:#e8c672;text-decoration:none;background:#1e1e1e}
+.pchip img{width:34px;height:34px;border-radius:50%;object-fit:cover;flex:none;background:#222}
+.pchip .ph{width:34px;height:34px;border-radius:50%;flex:none;display:grid;place-items:center;font-size:14px;font-weight:800;color:rgba(255,255,255,.9)}
+.pchip .nm{font-size:13px;font-weight:700;color:#fff;line-height:1.3}
+.pchip .ag{font-size:11px;color:#8f8f8f}
+.foot{margin-top:26px;text-align:center;font-size:12.5px;color:#7e7e7e}
+.share{display:flex;gap:9px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.share a,.share button{background:#151515;border:1px solid #2a2a2a;border-radius:11px;padding:11px 20px;font-size:13.5px;color:#e4e4e4;cursor:pointer;font-family:inherit}
+.share a:hover,.share button:hover{border-color:#e8c672;text-decoration:none}
+footer{border-top:1px solid #2c2c2c;margin-top:44px;padding:22px 20px;text-align:center;color:#888;font-size:12.5px}
+@media(max-width:900px){
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .yr{font-size:30px;min-width:190px}
+  .intro h1{font-size:22px}
+}
+@media(max-width:520px){
+  .grid{grid-template-columns:1fr}
+  .col.empty{display:none}
+  .wrap{padding:16px 14px 60px}
+}
+</style>
+</head>
+<body>
+<header>
+  <a class="brand" href="/philosophia.html">Φ Philosophia</a>
+  <div class="r"><a href="/guide.html">哲学者一覧</a><a href="/quiz.html">診断</a></div>
+</header>
+
+<main class="wrap">
+  <div class="intro">
+    <div class="eyebrow">TIME TRAVEL</div>
+    <h1>その年、世界では。</h1>
+    <p>年代を動かすと、その瞬間に世界のどこで誰が考えていたかが並びます。</p>
+  </div>
+
+  <div class="ctrl">
+    <div class="yearline">
+      <button class="step" id="mi" type="button" aria-label="10年戻る">−</button>
+      <div class="yr" id="yr">紀元前450年</div>
+      <button class="step" id="pl" type="button" aria-label="10年進む">＋</button>
+    </div>
+    <div class="hist" id="hist" title="クリックでその時代へ"></div>
+    <input type="range" id="sl" min="-620" max="2026" step="1" value="-450">
+    <div class="scale"><span>紀元前620年</span><span>0</span><span>1000年</span><span>2026年</span></div>
+    <div class="presets" id="presets"></div>
+  </div>
+
+  <div class="headline" id="headline"></div>
+  <div class="note" id="note"></div>
+
+  <div class="grid" id="grid"></div>
+
+  <div class="share">
+    <a id="shX" href="#" target="_blank" rel="noopener">この発見をXで共有</a>
+    <a href="/quiz.html">あなたに近い哲学者を診断する →</a>
+  </div>
+
+  <p class="foot">※ 当サイトに収録されている228人のうち、その年に生きていた人を表示しています。<br>生没年に諸説ある人物は代表的な説を採用し、「◯世紀頃」とされる人物は推定値で配置しています。</p>
+</main>
+
+<footer>Philosophia｜哲学を、体系的に。　<a href="/philosophia.html">インタラクティブ版</a>　/　<a href="/guide.html">哲学者一覧</a>　/　<a href="/quiz.html">哲学者診断</a></footer>
+
+<script>
+var DATA = {"P":[{"s":"socrates","n":"ソクラテス","i":"Socrates Louvre.jpg","b":-469,"d":-399,"r":"west","e":"紀元前469–399"},{"s":"plato","n":"プラトン","i":"Plato Silanion Musei Capitolini MC1377.jpg","b":-427,"d":-347,"r":"west","e":"紀元前427–347"},{"s":"aristotle","n":"アリストテレス","i":"Aristotle Altemps Inv8575.jpg","b":-384,"d":-322,"r":"west","e":"紀元前384–322"},{"s":"epicurus","n":"エピクロス","i":"Epicurus Louvre.jpg","b":-341,"d":-270,"r":"west","e":"紀元前341–270"},{"s":"zeno-of-citium","n":"ゼノン(ストア派)","i":"Zeno of Citium pushkin.jpg","b":-334,"d":-262,"r":"west","e":"紀元前334–262"},{"s":"augustine","n":"アウグスティヌス","i":"Sandro Botticelli - St Augustin - WGA2842.jpg","b":354,"d":430,"r":"west","e":"354–430"},{"s":"thomas-aquinas","n":"トマス・アクィナス","i":"St-thomas-aquinas.jpg","b":1225,"d":1274,"r":"west","e":"1225–1274"},{"s":"rene-descartes","n":"デカルト","i":"Frans Hals - Portret van René Descartes.jpg","b":1596,"d":1650,"r":"west","e":"1596–1650"},{"s":"baruch-spinoza","n":"スピノザ","i":"Spinoza.jpg","b":1632,"d":1677,"r":"west","e":"1632–1677"},{"s":"john-locke","n":"ジョン・ロック","i":"JohnLocke.png","b":1632,"d":1704,"r":"west","e":"1632–1704"},{"s":"david-hume","n":"デイヴィッド・ヒューム","i":"Allan Ramsay - David Hume, 1711 - 1776. Historian and philosopher - Google Art Project.jpg","b":1711,"d":1776,"r":"west","e":"1711–1776"},{"s":"immanuel-kant","n":"カント","i":"Immanuel Kant (painted portrait).jpg","b":1724,"d":1804,"r":"west","e":"1724–1804"},{"s":"g-w-f-hegel","n":"ヘーゲル","i":"Hegel portrait by Schlesinger 1831.jpg","b":1770,"d":1831,"r":"west","e":"1770–1831"},{"s":"friedrich-nietzsche","n":"ニーチェ","i":"Nietzsche187a.jpg","b":1844,"d":1900,"r":"west","e":"1844–1900"},{"s":"martin-heidegger","n":"ハイデガー","i":"Martin Heidegger.jpg","b":1889,"d":1976,"r":"west","e":"1889–1976"},{"s":"jean-paul-sartre","n":"サルトル","i":"Jean-Paul Sartre FP.JPG","b":1905,"d":1980,"r":"west","e":"1905–1980"},{"s":"ludwig-wittgenstein","n":"ウィトゲンシュタイン","i":"Ludwig Wittgenstein 1930.jpg","b":1889,"d":1951,"r":"west","e":"1889–1951"},{"s":"confucius","n":"孔子","i":"Confucius Tang Dynasty.jpg","b":-551,"d":-479,"r":"china","e":"紀元前551–479"},{"s":"laozi","n":"老子","i":"Zhang Lu-Laozi Riding an Ox.jpg","b":-580,"d":-510,"r":"china","e":"紀元前6世紀頃"},{"s":"zhuangzi","n":"荘子","i":"Zhuangzi.gif","b":-369,"d":-286,"r":"china","e":"紀元前369–286頃"},{"s":"gautama-buddha","n":"ブッダ(釈迦)","i":"Buddha in Sarnath Museum (Dhammajak Mutra).jpg","b":-463,"d":-383,"r":"india","e":"紀元前463–383頃"},{"s":"nagarjuna","n":"龍樹(ナーガールジュナ)","i":"Nagarjuna at Samye Ling Monastery.JPG","b":150,"d":250,"r":"india","e":"150–250頃"},{"s":"nishida-kitaro","n":"西田幾多郎","i":"Kitaro Nishida.jpg","b":1870,"d":1945,"r":"japan","e":"1870–1945"},{"s":"heraclitus","n":"ヘラクレイトス","i":"Hendrick ter Brugghen - Heraclitus.jpg","b":-540,"d":-480,"r":"west","e":"紀元前540頃–480頃"},{"s":"parmenides","n":"パルメニデス","i":"Parmenides.jpg","b":-515,"d":-450,"r":"west","e":"紀元前515頃–450頃"},{"s":"democritus","n":"デモクリトス","i":"Hendrick ter Brugghen - Democritus.jpg","b":-460,"d":-370,"r":"west","e":"紀元前460頃–370頃"},{"s":"diogenes","n":"ディオゲネス","i":"Jean-Léon Gérôme - Diogenes - Walters 37131.jpg","b":-412,"d":-323,"r":"west","e":"紀元前412頃–323頃"},{"s":"plotinus","n":"プロティノス","i":"Plotinos.jpg","b":205,"d":270,"r":"west","e":"205頃–270"},{"s":"william-of-ockham","n":"オッカム","i":"William of Ockham.png","b":1287,"d":1347,"r":"west","e":"1287頃–1347"},{"s":"francis-bacon","n":"フランシス・ベーコン","i":"Somer Francis Bacon.jpg","b":1561,"d":1626,"r":"west","e":"1561–1626"},{"s":"thomas-hobbes","n":"ホッブズ","i":"Thomas Hobbes (portrait).jpg","b":1588,"d":1679,"r":"west","e":"1588–1679"},{"s":"gottfried-wilhelm-leibniz","n":"ライプニッツ","i":"Christoph Bernhard Francke - Bildnis des Philosophen Leibniz (ca. 1695).jpg","b":1646,"d":1716,"r":"west","e":"1646–1716"},{"s":"jean-jacques-rousseau","n":"ルソー","i":"Jean-Jacques Rousseau (painted portrait).jpg","b":1712,"d":1778,"r":"west","e":"1712–1778"},{"s":"adam-smith","n":"アダム・スミス","i":"AdamSmith.jpg","b":1723,"d":1790,"r":"west","e":"1723–1790"},{"s":"john-stuart-mill","n":"J.S.ミル","i":"John Stuart Mill by London Stereoscopic Company, c1870.jpg","b":1806,"d":1873,"r":"west","e":"1806–1873"},{"s":"arthur-schopenhauer","n":"ショーペンハウアー","i":"Arthur Schopenhauer by J Schäfer, 1859b.jpg","b":1788,"d":1860,"r":"west","e":"1788–1860"},{"s":"s-ren-kierkegaard","n":"キルケゴール","i":"Kierkegaard.jpg","b":1813,"d":1855,"r":"west","e":"1813–1855"},{"s":"karl-marx","n":"マルクス","i":"Karl Marx 001.jpg","b":1818,"d":1883,"r":"west","e":"1818–1883"},{"s":"edmund-husserl","n":"フッサール","i":"Edmund Husserl 1900.jpg","b":1859,"d":1938,"r":"west","e":"1859–1938"},{"s":"henri-bergson","n":"ベルクソン","i":"Henri Bergson 02.jpg","b":1859,"d":1941,"r":"west","e":"1859–1941"},{"s":"william-james","n":"ウィリアム・ジェイムズ","i":"William James b1842c.jpg","b":1842,"d":1910,"r":"west","e":"1842–1910"},{"s":"john-dewey","n":"デューイ","i":"John Dewey cph.3a51565.jpg","b":1859,"d":1952,"r":"west","e":"1859–1952"},{"s":"bertrand-russell","n":"ラッセル","i":"Bertrand Russell 1957.jpg","b":1872,"d":1970,"r":"west","e":"1872–1970"},{"s":"karl-popper","n":"ポパー","i":"Karl Popper.jpg","b":1902,"d":1994,"r":"west","e":"1902–1994"},{"s":"maurice-merleau-ponty","n":"メルロ=ポンティ","i":"Merleau.jpg","b":1908,"d":1961,"r":"west","e":"1908–1961"},{"s":"hannah-arendt","n":"アーレント","i":"Hannah Arendt 1975 (cropped).jpg","b":1906,"d":1975,"r":"west","e":"1906–1975"},{"s":"albert-camus","n":"カミュ","i":"Albert Camus, gagnant de prix Nobel, portrait en buste, posé au bureau, faisant face à gauche, cigarette de tabagisme.jpg","b":1913,"d":1960,"r":"west","e":"1913–1960"},{"s":"michel-foucault","n":"フーコー","i":"Michel Foucault 1974 Brasil.jpg","b":1926,"d":1984,"r":"west","e":"1926–1984"},{"s":"jacques-derrida","n":"デリダ","i":"Jacques Derrida (1930-2004), foto 1979.jpg","b":1930,"d":2004,"r":"west","e":"1930–2004"},{"s":"john-rawls","n":"ロールズ","i":"John Rawls (1971 photo portrait).jpg","b":1921,"d":2002,"r":"west","e":"1921–2002"},{"s":"mencius","n":"孟子","i":"Half Portraits of the Great Sage and Virtuous Men of Old - Meng Ke.jpg","b":-372,"d":-289,"r":"china","e":"紀元前372頃–289頃"},{"s":"xunzi","n":"荀子","i":"Xunzi.jpg","b":-313,"d":-238,"r":"china","e":"紀元前313頃–238頃"},{"s":"mozi","n":"墨子","i":"Mozi.jpg","b":-470,"d":-390,"r":"china","e":"紀元前470頃–390頃"},{"s":"han-feizi","n":"韓非子","i":"Han Feizi.jpg","b":-280,"d":-233,"r":"china","e":"紀元前280頃–233"},{"s":"zhu-xi","n":"朱熹","i":"Zhu xi.jpg","b":1130,"d":1200,"r":"china","e":"1130–1200"},{"s":"wang-yangming","n":"王陽明","i":"Wang Yangming.jpg","b":1472,"d":1529,"r":"china","e":"1472–1529"},{"s":"kukai","n":"空海","i":"Kobo Daishi (Taisanji Matsuyama).jpg","b":774,"d":835,"r":"japan","e":"774–835"},{"s":"dogen","n":"道元","i":"Dogen.jpg","b":1200,"d":1253,"r":"japan","e":"1200–1253"},{"s":"adi-shankara","n":"シャンカラ","i":"Raja Ravi Varma - Sankaracharya.jpg","b":700,"d":750,"r":"india","e":"700頃–750頃"},{"s":"watsuji-tetsuro","n":"和辻哲郎","i":"Tetsuro Watsuji.jpg","b":1889,"d":1960,"r":"japan","e":"1889–1960"},{"s":"avicenna","n":"イブン・シーナー(アヴィセンナ)","i":"Avicenna TajikistanP17-20Somoni-1999 (cropped).png","b":980,"d":1037,"r":"islam","e":"980–1037"},{"s":"averroes","n":"イブン・ルシュド(アヴェロエス)","i":"AverroesColor.jpg","b":1126,"d":1198,"r":"islam","e":"1126–1198"},{"s":"maimonides","n":"マイモニデス","i":"Maimonides-2.jpg","b":1138,"d":1204,"r":"islam","e":"1138–1204"},{"s":"pythagoras","n":"ピュタゴラス","i":"Kapitolinischer Pythagoras adjusted.jpg","b":-570,"d":-495,"r":"west","e":"紀元前570頃–495頃"},{"s":"blaise-pascal","n":"パスカル","i":"Blaise Pascal Versailles.JPG","b":1623,"d":1662,"r":"west","e":"1623–1662"},{"s":"george-berkeley","n":"バークリー","i":"John Smibert - Bishop George Berkeley - Google Art Project.jpg","b":1685,"d":1753,"r":"west","e":"1685–1753"},{"s":"jeremy-bentham","n":"ベンサム","i":"Jeremy Bentham by Henry William Pickersgill detail.jpg","b":1748,"d":1832,"r":"west","e":"1748–1832"},{"s":"montesquieu","n":"モンテスキュー","i":"Montesquieu 1.png","b":1689,"d":1755,"r":"west","e":"1689–1755"},{"s":"johann-gottlieb-fichte","n":"フィヒテ","i":"Johann Gottlieb Fichte.jpg","b":1762,"d":1814,"r":"west","e":"1762–1814"},{"s":"friedrich-schelling","n":"シェリング","i":"Friedrich Wilhelm Joseph von Schelling 1848.jpg","b":1775,"d":1854,"r":"west","e":"1775–1854"},{"s":"emmanuel-levinas","n":"レヴィナス","i":"Emmanuel Levinas.jpg","b":1906,"d":1995,"r":"west","e":"1906–1995"},{"s":"simone-de-beauvoir","n":"ボーヴォワール","i":"Simone de Beauvoir2.png","b":1908,"d":1986,"r":"west","e":"1908–1986"},{"s":"gilles-deleuze","n":"ドゥルーズ","i":"Gilles Deleuze.jpg","b":1925,"d":1995,"r":"west","e":"1925–1995"},{"s":"jurgen-habermas","n":"ハーバーマス","i":"JuergenHabermas.jpg","b":1929,"d":2026,"r":"west","e":"1929–"},{"s":"thales","n":"タレス","i":"Thales.jpg","b":-624,"d":-546,"r":"west","e":"紀元前624頃–546頃"},{"s":"anaximander","n":"アナクシマンドロス","i":"Anaximander.jpg","b":-610,"d":-546,"r":"west","e":"紀元前610頃–546頃"},{"s":"anaxagoras","n":"アナクサゴラス","i":"Anaxagoras Lebiedzki Rahl.jpg","b":-500,"d":-428,"r":"west","e":"紀元前500頃–428頃"},{"s":"empedocles","n":"エンペドクレス","i":"Empedocles.jpg","b":-490,"d":-430,"r":"west","e":"紀元前490頃–430頃"},{"s":"protagoras","n":"プロタゴラス","i":"Protagoras.jpg","b":-490,"d":-420,"r":"west","e":"紀元前490頃–420頃"},{"s":"pyrrho","n":"ピュロン","i":"Pyrrho.jpg","b":-360,"d":-270,"r":"west","e":"紀元前360頃–270頃"},{"s":"seneca","n":"セネカ","i":"Seneca-berlinantikensammlung-1.jpg","b":-4,"d":66,"r":"west","e":"紀元前4頃–65"},{"s":"epictetus","n":"エピクテトス","i":"Epictetus.jpg","b":55,"d":135,"r":"west","e":"55頃–135頃"},{"s":"marcus-aurelius","n":"マルクス・アウレリウス","i":"Marcus Aurelius Glyptothek Munich.jpg","b":121,"d":180,"r":"west","e":"121–180"},{"s":"cicero","n":"キケロ","i":"Cicero - Musei Capitolini.JPG","b":-106,"d":-43,"r":"west","e":"紀元前106–43"},{"s":"boethius","n":"ボエティウス","i":"Boethius.Consolation.Philosophy.jpg","b":480,"d":524,"r":"west","e":"480頃–524"},{"s":"anselm-of-canterbury","n":"アンセルムス","i":"Anselm of Canterbury.jpg","b":1033,"d":1109,"r":"west","e":"1033–1109"},{"s":"duns-scotus","n":"ドゥンス・スコトゥス","i":"Joos van Gent - Duns Scotus.jpg","b":1266,"d":1308,"r":"west","e":"1266頃–1308"},{"s":"nicholas-of-cusa","n":"ニコラウス・クザーヌス","i":"Nikolaus von Kues.JPG","b":1401,"d":1464,"r":"west","e":"1401–1464"},{"s":"niccolo-machiavelli","n":"マキャヴェッリ","i":"Portrait of Niccolò Machiavelli by Santi di Tito.jpg","b":1469,"d":1527,"r":"west","e":"1469–1527"},{"s":"thomas-more","n":"トマス・モア","i":"Hans Holbein, the Younger - Sir Thomas More - Google Art Project.jpg","b":1478,"d":1535,"r":"west","e":"1478–1535"},{"s":"erasmus","n":"エラスムス","i":"Holbein-erasmus.jpg","b":1466,"d":1536,"r":"west","e":"1466頃–1536"},{"s":"michel-de-montaigne","n":"モンテーニュ","i":"Michel de Montaigne 1.jpg","b":1533,"d":1592,"r":"west","e":"1533–1592"},{"s":"giordano-bruno","n":"ジョルダーノ・ブルーノ","i":"Giordano Bruno.jpg","b":1548,"d":1600,"r":"west","e":"1548–1600"},{"s":"giambattista-vico","n":"ヴィーコ","i":"Giambattista Vico.jpg","b":1668,"d":1744,"r":"west","e":"1668–1744"},{"s":"voltaire","n":"ヴォルテール","i":"Nicolas de Largillière - François-Marie Arouet dit Voltaire.jpg","b":1694,"d":1778,"r":"west","e":"1694–1778"},{"s":"denis-diderot","n":"ディドロ","i":"Louis-Michel van Loo 001.jpg","b":1713,"d":1784,"r":"west","e":"1713–1784"},{"s":"johann-gottfried-herder","n":"ヘルダー","i":"Johann Gottfried Herder.jpg","b":1744,"d":1803,"r":"west","e":"1744–1803"},{"s":"auguste-comte","n":"オーギュスト・コント","i":"Auguste Comte.jpg","b":1798,"d":1857,"r":"west","e":"1798–1857"},{"s":"ludwig-feuerbach","n":"フォイエルバッハ","i":"Ludwig Andreas Feuerbach.jpg","b":1804,"d":1872,"r":"west","e":"1804–1872"},{"s":"edmund-burke","n":"エドマンド・バーク","i":"Edmund Burke2 c.jpg","b":1729,"d":1797,"r":"west","e":"1729–1797"},{"s":"alexis-de-tocqueville","n":"トクヴィル","i":"Alexis de Tocqueville (Théodore Chassériau - 1850).jpg","b":1805,"d":1859,"r":"west","e":"1805–1859"},{"s":"henri-de-saint-simon","n":"サン=シモン","i":"Henri de Saint-Simon.jpg","b":1760,"d":1825,"r":"west","e":"1760–1825"},{"s":"gottlob-frege","n":"フレーゲ","i":"Young frege.jpg","b":1848,"d":1925,"r":"west","e":"1848–1925"},{"s":"g-e-moore","n":"G.E.ムーア","i":"George Edward Moore.jpg","b":1873,"d":1958,"r":"west","e":"1873–1958"},{"s":"alfred-north-whitehead","n":"ホワイトヘッド","i":"Alfred North Whitehead in 1936.jpg","b":1861,"d":1947,"r":"west","e":"1861–1947"},{"s":"rudolf-carnap","n":"カルナップ","i":"Rudolf Carnap.png","b":1891,"d":1970,"r":"west","e":"1891–1970"},{"s":"w-v-o-quine","n":"クワイン","i":"Wvo-quine-3.jpg","b":1908,"d":2000,"r":"west","e":"1908–2000"},{"s":"thomas-kuhn","n":"クーン","i":"Thomas Kuhn.jpg","b":1922,"d":1996,"r":"west","e":"1922–1996"},{"s":"richard-rorty","n":"ローティ","i":"Richard Rorty.jpg","b":1931,"d":2007,"r":"west","e":"1931–2007"},{"s":"saul-kripke","n":"クリプキ","i":"Saul Kripke.JPG","b":1940,"d":2022,"r":"west","e":"1940–2022"},{"s":"john-searle","n":"サール","i":"John searle2.jpg","b":1932,"d":2026,"r":"west","e":"1932–"},{"s":"hilary-putnam","n":"パトナム","i":"Hilary Putnam.jpg","b":1926,"d":2016,"r":"west","e":"1926–2016"},{"s":"karl-jaspers","n":"ヤスパース","i":"Karl Jaspers 1910.jpg","b":1883,"d":1969,"r":"west","e":"1883–1969"},{"s":"hans-georg-gadamer","n":"ガダマー","i":"Hans-Georg Gadamer.jpeg","b":1900,"d":2002,"r":"west","e":"1900–2002"},{"s":"paul-ric-ur","n":"リクール","i":"Paul Ricoeur.jpg","b":1913,"d":2005,"r":"west","e":"1913–2005"},{"s":"theodor-adorno","n":"アドルノ","i":"Theodor W. Adorno.jpg","b":1903,"d":1969,"r":"west","e":"1903–1969"},{"s":"walter-benjamin","n":"ベンヤミン","i":"Walter Benjamin vers 1928.jpg","b":1892,"d":1940,"r":"west","e":"1892–1940"},{"s":"huineng","n":"慧能","i":"Huineng.jpg","b":638,"d":713,"r":"china","e":"638–713"},{"s":"vasubandhu","n":"世親","i":"Vasubandhu, Kōfuku-ji.jpg","b":340,"d":460,"r":"india","e":"4–5世紀頃"},{"s":"asanga","n":"無著","i":"Asanga.jpg","b":320,"d":390,"r":"india","e":"4世紀頃"},{"s":"saicho","n":"最澄","i":"Saicho.jpg","b":767,"d":822,"r":"japan","e":"767–822"},{"s":"honen","n":"法然","i":"Priest Honen.jpg","b":1133,"d":1212,"r":"japan","e":"1133–1212"},{"s":"shinran","n":"親鸞","i":"Portrait of Shinran.jpg","b":1173,"d":1263,"r":"japan","e":"1173–1263"},{"s":"nichiren","n":"日蓮","i":"Nichiren.jpg","b":1222,"d":1282,"r":"japan","e":"1222–1282"},{"s":"ito-jinsai","n":"伊藤仁斎","i":"Ito Jinsai.jpg","b":1627,"d":1705,"r":"japan","e":"1627–1705"},{"s":"ogyu-sorai","n":"荻生徂徠","i":"Ogyu Sorai.jpg","b":1666,"d":1728,"r":"japan","e":"1666–1728"},{"s":"motoori-norinaga","n":"本居宣長","i":"Motoori Norinaga self portrait.jpg","b":1730,"d":1801,"r":"japan","e":"1730–1801"},{"s":"fukuzawa-yukichi","n":"福沢諭吉","i":"Fukuzawa Yukichi.jpg","b":1835,"d":1901,"r":"japan","e":"1835–1901"},{"s":"mahatma-gandhi","n":"ガンディー","i":"Mahatma-Gandhi, studio, 1931.jpg","b":1869,"d":1948,"r":"india","e":"1869–1948"},{"s":"swami-vivekananda","n":"ヴィヴェーカーナンダ","i":"Swami Vivekananda-1893-09-signed.jpg","b":1863,"d":1902,"r":"india","e":"1863–1902"},{"s":"ramanuja","n":"ラーマーヌジャ","i":"Ramanuja.jpg","b":1017,"d":1137,"r":"india","e":"1017頃–1137頃"},{"s":"patanjali","n":"パタンジャリ","i":"Patanjali Statue.jpg","b":-150,"d":350,"r":"india","e":"紀元前2世紀頃–紀元後4世紀頃"},{"s":"al-kindi","n":"アル・キンディー","i":"Al-Kindi Portrait.jpg","b":801,"d":873,"r":"islam","e":"801頃–873頃"},{"s":"al-farabi","n":"アル・ファーラービー","i":"Al-Farabi.jpg","b":872,"d":950,"r":"islam","e":"872頃–950"},{"s":"al-ghazali","n":"ガザーリー","i":"Algazel.png","b":1058,"d":1111,"r":"islam","e":"1058–1111"},{"s":"ibn-arabi","n":"イブン・アラビー","i":"Ibn Arabi.jpg","b":1165,"d":1240,"r":"islam","e":"1165–1240"},{"s":"ibn-khaldun","n":"イブン・ハルドゥーン","i":"Ibn Khaldoun-Kassus.jpg","b":1332,"d":1406,"r":"islam","e":"1332–1406"},{"s":"philo-of-alexandria","n":"フィロン","i":"PhiloThevet.jpg","b":-25,"d":50,"r":"islam","e":"紀元前25頃–紀元後50頃"},{"s":"martin-buber","n":"マルティン・ブーバー","i":"Martin Buber portrait.jpg","b":1878,"d":1965,"r":"islam","e":"1878–1965"},{"s":"simone-weil","n":"シモーヌ・ヴェイユ","i":"Simone Weil 04.jpg","b":1909,"d":1943,"r":"west","e":"1909–1943"},{"s":"herbert-marcuse","n":"マルクーゼ","i":"Marcuse.jpg","b":1898,"d":1979,"r":"west","e":"1898–1979"},{"s":"robert-nozick","n":"ノージック","i":"Robert Nozick.jpg","b":1938,"d":2002,"r":"west","e":"1938–2002"},{"s":"alasdair-macintyre","n":"マッキンタイア","i":"Alasdair MacIntyre.jpg","b":1929,"d":2026,"r":"west","e":"1929–"},{"s":"charles-taylor","n":"チャールズ・テイラー","i":"Charles Taylor.jpg","b":1931,"d":2026,"r":"west","e":"1931–"},{"s":"michael-sandel","n":"マイケル・サンデル","i":"Michael Sandel.jpg","b":1953,"d":2026,"r":"west","e":"1953–"},{"s":"judith-butler","n":"ジュディス・バトラー","i":"Judith Butler 2013.jpg","b":1956,"d":2026,"r":"west","e":"1956–"},{"s":"slavoj-zizek","n":"ジジェク","i":"Zizek in Liverpool cropped.jpg","b":1949,"d":2026,"r":"west","e":"1949–"},{"s":"friedrich-hayek","n":"ハイエク","i":"Friedrich Hayek portrait.jpg","b":1899,"d":1992,"r":"west","e":"1899–1992"},{"s":"erich-fromm","n":"エーリッヒ・フロム","i":"Erich Fromm 1974.jpg","b":1900,"d":1980,"r":"west","e":"1900–1980"},{"s":"sun-tzu","n":"孫子","i":"Enchoen27n3200.jpg","b":-580,"d":-510,"r":"china","e":"紀元前6世紀頃"},{"s":"claude-levi-strauss","n":"レヴィ=ストロース","i":"","b":1908,"d":2009,"r":"west","e":"1908–2009"},{"s":"d-t-suzuki","n":"鈴木大拙","i":"","b":1870,"d":1966,"r":"japan","e":"1870–1966"},{"s":"mulla-sadra","n":"モッラー・サドラー","i":"","b":1571,"d":1640,"r":"islam","e":"1571頃–1640"},{"s":"jacques-lacan","n":"ラカン","i":"","b":1901,"d":1981,"r":"west","e":"1901–1981"},{"s":"jean-francois-lyotard","n":"リオタール","i":"","b":1924,"d":1998,"r":"west","e":"1924–1998"},{"s":"wilhelm-dilthey","n":"ディルタイ","i":"","b":1833,"d":1911,"r":"west","e":"1833–1911"},{"s":"nishitani-keiji","n":"西谷啓治","i":"","b":1900,"d":1990,"r":"japan","e":"1900–1990"},{"s":"sri-aurobindo","n":"オーロビンド","i":"","b":1872,"d":1950,"r":"india","e":"1872–1950"},{"s":"charles-sanders-peirce","n":"C.S.パース","i":"","b":1839,"d":1914,"r":"west","e":"1839–1914"},{"s":"max-weber","n":"マックス・ウェーバー","i":"","b":1864,"d":1920,"r":"west","e":"1864–1920"},{"s":"frantz-fanon","n":"ファノン","i":"","b":1925,"d":1961,"r":"west","e":"1925–1961"},{"s":"wang-bi","n":"王弼","i":"","b":226,"d":249,"r":"china","e":"226–249"},{"s":"dong-zhongshu","n":"董仲舒","i":"","b":-179,"d":-104,"r":"china","e":"前179頃–前104頃"},{"s":"donald-davidson","n":"デイヴィッドソン","i":"","b":1917,"d":2003,"r":"west","e":"1917–2003"},{"s":"zhou-dunyi","n":"周敦頤","i":"","b":1017,"d":1073,"r":"china","e":"1017–1073"},{"s":"shihab-al-din-suhrawardi","n":"スフラワルディー","i":"","b":1154,"d":1191,"r":"islam","e":"1154–1191"},{"s":"enrique-dussel","n":"ドゥッセル","i":"","b":1934,"d":2023,"r":"west","e":"1934–2023"},{"s":"kuki-shuzo","n":"九鬼周造","i":"","b":1888,"d":1941,"r":"japan","e":"1888–1941"},{"s":"gorgias","n":"ゴルギアス","i":"","b":-483,"d":-376,"r":"west","e":"紀元前483頃–376頃"},{"s":"proclus","n":"プロクロス","i":"","b":412,"d":485,"r":"west","e":"412–485"},{"s":"hypatia","n":"ヒュパティア","i":"","b":355,"d":415,"r":"west","e":"355頃–415"},{"s":"peter-abelard","n":"ピエール・アベラール","i":"","b":1079,"d":1142,"r":"west","e":"1079–1142"},{"s":"meister-eckhart","n":"マイスター・エックハルト","i":"","b":1260,"d":1328,"r":"west","e":"1260頃–1328"},{"s":"nicolas-malebranche","n":"マルブランシュ","i":"","b":1638,"d":1715,"r":"west","e":"1638–1715"},{"s":"shaftesbury","n":"シャフツベリ","i":"","b":1671,"d":1713,"r":"west","e":"1671–1713"},{"s":"thomas-reid","n":"トマス・リード","i":"","b":1710,"d":1796,"r":"west","e":"1710–1796"},{"s":"condorcet","n":"コンドルセ","i":"","b":1743,"d":1794,"r":"west","e":"1743–1794"},{"s":"baron-d-holbach","n":"ドルバック","i":"","b":1723,"d":1789,"r":"west","e":"1723–1789"},{"s":"friedrich-schleiermacher","n":"シュライアマハー","i":"","b":1768,"d":1834,"r":"west","e":"1768–1834"},{"s":"herbert-spencer","n":"ハーバート・スペンサー","i":"","b":1820,"d":1903,"r":"west","e":"1820–1903"},{"s":"georg-simmel","n":"ジンメル","i":"","b":1858,"d":1918,"r":"west","e":"1858–1918"},{"s":"ernst-cassirer","n":"カッシーラー","i":"","b":1874,"d":1945,"r":"west","e":"1874–1945"},{"s":"max-scheler","n":"マックス・シェーラー","i":"","b":1874,"d":1928,"r":"west","e":"1874–1928"},{"s":"gyorgy-lukacs","n":"ルカーチ","i":"","b":1885,"d":1971,"r":"west","e":"1885–1971"},{"s":"antonio-gramsci","n":"グラムシ","i":"","b":1891,"d":1937,"r":"west","e":"1891–1937"},{"s":"max-horkheimer","n":"ホルクハイマー","i":"","b":1895,"d":1973,"r":"west","e":"1895–1973"},{"s":"louis-althusser","n":"アルチュセール","i":"","b":1918,"d":1990,"r":"west","e":"1918–1990"},{"s":"isaiah-berlin","n":"イザヤ・バーリン","i":"","b":1909,"d":1997,"r":"west","e":"1909–1997"},{"s":"gilbert-ryle","n":"ギルバート・ライル","i":"","b":1900,"d":1976,"r":"west","e":"1900–1976"},{"s":"thomas-nagel","n":"トマス・ネーゲル","i":"","b":1937,"d":2026,"r":"west","e":"1937–"},{"s":"zhang-zai","n":"張載","i":"","b":1020,"d":1077,"r":"china","e":"1020–1077"},{"s":"cheng-yi","n":"程頤","i":"","b":1033,"d":1107,"r":"china","e":"1033–1107"},{"s":"nakae-chomin","n":"中江兆民","i":"","b":1847,"d":1901,"r":"japan","e":"1847–1901"},{"s":"tanabe-hajime","n":"田辺元","i":"","b":1885,"d":1962,"r":"japan","e":"1885–1962"},{"s":"rabindranath-tagore","n":"タゴール","i":"","b":1861,"d":1941,"r":"india","e":"1861–1941"},{"s":"jiddu-krishnamurti","n":"クリシュナムルティ","i":"","b":1895,"d":1986,"r":"india","e":"1895–1986"},{"s":"rumi","n":"ルーミー","i":"","b":1207,"d":1273,"r":"islam","e":"1207–1273"},{"s":"judah-halevi","n":"ユダ・ハレヴィ","i":"","b":1075,"d":1141,"r":"islam","e":"1075頃–1141"},{"s":"lucretius","n":"ルクレティウス","i":"","b":-99,"d":-55,"r":"west","e":"紀元前99頃–55頃"},{"s":"porphyry","n":"ポルフュリオス","i":"","b":234,"d":305,"r":"west","e":"234頃–305頃"},{"s":"origen","n":"オリゲネス","i":"","b":185,"d":254,"r":"west","e":"185頃–254頃"},{"s":"ramon-llull","n":"ラモン・リュイ","i":"","b":1232,"d":1316,"r":"west","e":"1232頃–1316"},{"s":"hugo-grotius","n":"グロティウス","i":"","b":1583,"d":1645,"r":"west","e":"1583–1645"},{"s":"pierre-bayle","n":"ピエール・ベール","i":"","b":1647,"d":1706,"r":"west","e":"1647–1706"},{"s":"francis-hutcheson","n":"ハチスン","i":"","b":1694,"d":1746,"r":"west","e":"1694–1746"},{"s":"christian-wolff","n":"クリスティアン・ヴォルフ","i":"","b":1679,"d":1754,"r":"west","e":"1679–1754"},{"s":"friedrich-heinrich-jacobi","n":"ヤコービ","i":"","b":1743,"d":1819,"r":"west","e":"1743–1819"},{"s":"wilhelm-von-humboldt","n":"ヴィルヘルム・フォン・フンボルト","i":"","b":1767,"d":1835,"r":"west","e":"1767–1835"},{"s":"benedetto-croce","n":"クローチェ","i":"","b":1866,"d":1952,"r":"west","e":"1866–1952"},{"s":"jose-ortega-y-gasset","n":"オルテガ・イ・ガセット","i":"","b":1883,"d":1955,"r":"west","e":"1883–1955"},{"s":"vladimir-solovyov","n":"ソロヴィヨフ","i":"","b":1853,"d":1900,"r":"west","e":"1853–1900"},{"s":"nikolai-berdyaev","n":"ベルジャーエフ","i":"","b":1874,"d":1948,"r":"west","e":"1874–1948"},{"s":"carl-schmitt","n":"カール・シュミット","i":"","b":1888,"d":1985,"r":"west","e":"1888–1985"},{"s":"leo-strauss","n":"レオ・シュトラウス","i":"","b":1899,"d":1973,"r":"west","e":"1899–1973"},{"s":"hans-jonas","n":"ハンス・ヨナス","i":"","b":1903,"d":1993,"r":"west","e":"1903–1993"},{"s":"gaston-bachelard","n":"バシュラール","i":"","b":1884,"d":1962,"r":"west","e":"1884–1962"},{"s":"georges-bataille","n":"バタイユ","i":"","b":1897,"d":1962,"r":"west","e":"1897–1962"},{"s":"jean-baudrillard","n":"ボードリヤール","i":"","b":1929,"d":2007,"r":"west","e":"1929–2007"},{"s":"p-f-strawson","n":"P.F.ストローソン","i":"","b":1919,"d":2006,"r":"west","e":"1919–2006"},{"s":"david-lewis","n":"デイヴィッド・ルイス","i":"","b":1941,"d":2001,"r":"west","e":"1941–2001"},{"s":"bernard-williams","n":"バーナード・ウィリアムズ","i":"","b":1929,"d":2003,"r":"west","e":"1929–2003"},{"s":"cheng-hao","n":"程顥","i":"","b":1032,"d":1085,"r":"china","e":"1032–1085"},{"s":"lu-jiuyuan","n":"陸九淵","i":"","b":1139,"d":1193,"r":"china","e":"1139–1193"},{"s":"wang-fuzhi","n":"王夫之","i":"","b":1619,"d":1692,"r":"china","e":"1619–1692"},{"s":"ishida-baigan","n":"石田梅岩","i":"","b":1685,"d":1744,"r":"japan","e":"1685–1744"},{"s":"b-r-ambedkar","n":"アンベードカル","i":"","b":1891,"d":1956,"r":"india","e":"1891–1956"},{"s":"guru-nanak","n":"グル・ナーナク","i":"","b":1469,"d":1539,"r":"india","e":"1469–1539"},{"s":"solomon-ibn-gabirol","n":"イブン・ガビロール","i":"","b":1021,"d":1058,"r":"islam","e":"1021頃–1058頃"}]};
+var PH = DATA.P;
+var REGIONS = [
+  {k:"west", label:"ヨーロッパ・地中海"},
+  {k:"islam",label:"イスラーム・ユダヤ圏"},
+  {k:"china",label:"中国"},
+  {k:"india",label:"インド"},
+  {k:"japan",label:"日本"}
+];
+var PRESETS = [
+  {y:-450, t:"前450年 枢軸時代"},
+  {y:-350, t:"前350年"},
+  {y:1135, t:"1135年 5つの世界"},
+  {y:1180, t:"1180年 東の時代"},
+  {y:1640, t:"1640年 理性の世紀"},
+  {y:1900, t:"1900年"},
+  {y:1950, t:"1950年"}
+];
+var NOTES = {
+  "-450":"ソクラテス19歳、ブッダ13歳、墨子20歳。互いを知らないまま、同じ時代に。",
+  "1135":"収録228人のうち、5つの地域すべてに同時に思想家がいた稀な年。",
+  "1180":"ヨーロッパに一人もいない。だが東では8人が同時に考えていた。",
+  "1640":"デカルト44歳。ヨーロッパが理性に賭けはじめた頃、日本では伊藤仁斎が13歳。",
+  "1900":"ニーチェが世を去った年。ハイデガーは11歳、ウィトゲンシュタインも11歳だった。"
+};
+var MINY=-620, MAXY=2026, BUCKETS=88;
+function $(id){ return document.getElementById(id); }
+function img(f,w){ return "https://commons.wikimedia.org/wiki/Special:FilePath/"+encodeURIComponent(f)+"?width="+(w||120); }
+function fmtYear(y){ return y<0 ? "紀元前"+(-y)+"年" : y+"年"; }
+function aliveAt(y){ var o=[]; for(var i=0;i<PH.length;i++){ var p=PH[i]; if(p.b<=y&&p.d>=y) o.push(p); } return o; }
+function hue(s){ var h=0; for(var i=0;i<s.length;i++) h=(h*31+s.charCodeAt(i))>>>0; return h%360; }
+
+/* 密度ストリップ */
+var counts=[];
+(function(){
+  var step=(MAXY-MINY)/BUCKETS, mx=0;
+  for(var i=0;i<BUCKETS;i++){
+    var y=Math.round(MINY+step*(i+0.5));
+    var c=aliveAt(y).length; counts.push(c); if(c>mx) mx=c;
+  }
+  var h=$("hist");
+  for(var i=0;i<BUCKETS;i++){
+    var b=document.createElement("i");
+    b.style.height=Math.max(2, Math.round(counts[i]/mx*32))+"px";
+    if(counts[i]>0) b.className="hot";
+    h.appendChild(b);
+  }
+  h.onclick=function(e){
+    var r=h.getBoundingClientRect();
+    var f=(e.clientX-r.left)/r.width;
+    setYear(Math.round(MINY+(MAXY-MINY)*f));
+  };
+})();
+
+/* プリセット */
+(function(){
+  var w=$("presets");
+  PRESETS.forEach(function(p){
+    var b=document.createElement("button"); b.className="pz"; b.type="button"; b.textContent=p.t;
+    b.setAttribute("data-y", p.y);
+    b.onclick=function(){ setYear(p.y); };
+    w.appendChild(b);
+  });
+})();
+
+function render(y){
+  $("yr").textContent=fmtYear(y);
+  var list=aliveAt(y);
+
+  // 密度ストリップの現在位置
+  var step=(MAXY-MINY)/BUCKETS;
+  var idx=Math.min(BUCKETS-1, Math.max(0, Math.floor((y-MINY)/step)));
+  var bars=$("hist").children;
+  for(var i=0;i<bars.length;i++){
+    bars[i].className = (i===idx) ? "cur" : (counts[i]>0 ? "hot" : "");
+  }
+  // プリセットの選択状態
+  var pzs=$("presets").children;
+  for(var i=0;i<pzs.length;i++){ pzs[i].classList.toggle("on", +pzs[i].getAttribute("data-y")===y); }
+
+  var regs=REGIONS.filter(function(r){ return list.some(function(p){ return p.r===r.k; }); }).length;
+  $("headline").innerHTML = list.length
+    ? "この年、<b>"+regs+"つの地域</b>で <b>"+list.length+"人</b> が同時に生きていました。"
+    : "この年に生きていた思想家は、収録データにいません。";
+  $("note").textContent = NOTES[String(y)] || "";
+
+  var g=$("grid"); g.innerHTML="";
+  REGIONS.forEach(function(r){
+    var l=list.filter(function(p){ return p.r===r.k; }).sort(function(a,b){ return a.b-b.b; });
+    var col=document.createElement("div");
+    col.className="col"+(l.length?"":" empty");
+    var head='<h2>'+r.label+' <span class="cnt">'+(l.length?l.length+"人":"—")+'</span></h2>';
+    var body=l.length ? '<div class="plist">'+l.map(function(p){
+      var age=y-p.b;
+      var face = p.i
+        ? '<img src="'+img(p.i,80)+'" alt="" loading="lazy">'
+        : '<div class="ph" style="background:linear-gradient(135deg,hsl('+hue(p.n)+' 45% 32%),hsl('+((hue(p.n)+40)%360)+' 50% 20%))">'+p.n.charAt(0)+'</div>';
+      return '<a class="pchip" href="/p/'+p.s+'">'+face+'<span><span class="nm">'+p.n+'</span><br><span class="ag">'+(age<=0?"この年に誕生":age+"歳")+'</span></span></a>';
+    }).join("")+'</div>' : '<div class="none">この地域の思想家は<br>収録されていません</div>';
+    col.innerHTML=head+body;
+    g.appendChild(col);
+  });
+
+  var url="https://philosophia-psi.vercel.app/era.html?y="+y;
+  var txt = NOTES[String(y)] ? NOTES[String(y)] : fmtYear(y)+"、世界では"+list.length+"人の思想家が同時に生きていた。";
+  $("shX").href="https://twitter.com/intent/tweet?text="+encodeURIComponent(txt+"\n#哲学")+"&url="+encodeURIComponent(url);
+  try{ history.replaceState(null,"","/era.html?y="+y); }catch(e){}
+}
+
+function setYear(y){
+  y=Math.max(MINY,Math.min(MAXY,Math.round(y)));
+  $("sl").value=y; render(y);
+}
+$("sl").addEventListener("input",function(){ render(+this.value); });
+$("mi").onclick=function(){ setYear(+$("sl").value-10); };
+$("pl").onclick=function(){ setYear(+$("sl").value+10); };
+document.addEventListener("keydown",function(e){
+  if(e.key==="ArrowLeft"){ setYear(+$("sl").value-10); }
+  else if(e.key==="ArrowRight"){ setYear(+$("sl").value+10); }
+});
+
+(function(){
+  var m=location.search.match(/[?&]y=(-?\d+)/);
+  setYear(m ? +m[1] : -450);
+})();
+</script>
+</body>
+</html>
