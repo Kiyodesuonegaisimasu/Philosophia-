@@ -116,6 +116,7 @@ ${relHTML}
   </ul></section>`:''}
   <div class="cta">
     <a class="cta-main" href="/philosophia.html#${enc(p.name)}">▶ インタラクティブ版で${esc(p.name)}をさらに詳しく（キーワード解説・年表・つながり）</a>
+    <a class="cta-sub" href="/quiz.html">🧭 あなたに近い哲学者は？ 6つの質問で診断する（1分・無料）</a>
     <a class="cta-sub" href="/members.html">🔒 会員限定の深掘り解説を読む（1日無料）</a>
   </div>
   <p class="back"><a href="/guide.html">← ほかの哲学者を見る（全${Object.keys(BY).length}人）</a></p>
