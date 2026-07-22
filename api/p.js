@@ -8,11 +8,28 @@ const CATLABEL = { 'west-ancient':'西洋古代','west-medieval':'西洋中世',
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 function enc(s){ return encodeURIComponent(s); }
 function descOf(p){ const t=(p.summary||p.easy||'').replace(/\s+/g,' '); return t.length>118 ? t.slice(0,116)+'…' : t; }
+// era.html（同時代ビュー）へ飛ばすための代表年。生没年の中間あたりを取る。
+function midYear(era){
+  if(!era) return null;
+  const s=String(era).replace(/頃/g,'').replace(/\s/g,'');
+  const d='[–—\\-〜~ー]';
+  let m;
+  m=s.match(new RegExp('^紀元前(\\d+)'+d+'紀元後(\\d+)$')); if(m) return Math.round((-(+m[1])+(+m[2]))/2);
+  m=s.match(new RegExp('^紀元前(\\d+)'+d+'(\\d+)$'));       if(m) return Math.round((-(+m[1])-(+m[2]))/2);
+  m=s.match(new RegExp('^前(\\d+)'+d+'前(\\d+)$'));         if(m) return Math.round((-(+m[1])-(+m[2]))/2);
+  m=s.match(/^紀元前(\d+)世紀$/);                            if(m) return -((+m[1])*100-50);
+  m=s.match(new RegExp('^(\\d+)'+d+'(\\d+)世紀$'));          if(m) return Math.round(((+m[1])*100-60+(+m[2])*100-40)/2);
+  m=s.match(/^(\d+)世紀$/);                                  if(m) return (+m[1])*100-50;
+  m=s.match(new RegExp('^(\\d+)'+d+'$'));                    if(m) return Math.min(2026, (+m[1])+45);
+  m=s.match(new RegExp('^(\\d+)'+d+'(\\d+)$'));              if(m) return Math.round(((+m[1])+(+m[2]))/2);
+  return null;
+}
 
 function render(p){
   const url = BASE + '/p/' + p.slug;
   const cat = CATLABEL[p.category] || '';
   const d = descOf(p);
+  const my = midYear(p.era);
   const imgUrl = p.img ? ('https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(p.img)+'?width=500') : '';
   const ogImg = imgUrl || (BASE+'/icon-512.png');
   const ch = esc((p.name||'？').trim().charAt(0));
@@ -116,6 +133,7 @@ ${relHTML}
   </ul></section>`:''}
   <div class="cta">
     <a class="cta-main" href="/philosophia.html#${enc(p.name)}">▶ インタラクティブ版で${esc(p.name)}をさらに詳しく（キーワード解説・年表・つながり）</a>
+    ${my!==null?`<a class="cta-sub" href="/era.html?y=${my}">🕰 ${esc(p.name)}と同じ時代に、世界で誰が考えていたか見る</a>`:''}
     <a class="cta-sub" href="/quiz.html">🧭 あなたに近い哲学者は？ 6つの質問で診断する（1分・無料）</a>
     <a class="cta-sub" href="/members.html">🔒 会員限定の深掘り解説を読む（1日無料）</a>
   </div>
