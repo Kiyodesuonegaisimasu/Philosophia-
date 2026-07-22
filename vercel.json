@@ -7,6 +7,10 @@
     {
       "source": "/q/:slug",
       "destination": "/api/q?slug=:slug"
+    },
+    {
+      "source": "/deep/:slug",
+      "destination": "/api/deep?slug=:slug"
     }
   ]
 }

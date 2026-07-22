@@ -65,6 +65,7 @@ header .r{margin-left:auto;display:flex;gap:14px;align-items:center;font-size:13
 .rdesc{text-align:left;font-size:14.5px;color:#dcdcdc;margin-top:15px}
 .rmore{display:block;background:linear-gradient(180deg,#f4dfa0,#e8c672);color:#1a1408;font-weight:800;text-align:center;padding:14px;border-radius:26px;font-size:15px;margin-top:22px}
 .rmore:hover{text-decoration:none;opacity:.92}
+.rsub{display:block;text-align:center;margin-top:11px;font-size:13.5px;color:#c9b8ff}
 
 .sec{margin-top:30px}
 .sec h2{font-size:15.5px;color:#f4dfa0;border-left:4px solid #e8c672;padding-left:11px;margin-bottom:13px}
@@ -124,7 +125,8 @@ footer{border-top:1px solid #2c2c2c;margin-top:46px;padding:22px 20px;text-align
       <div class="rera" id="rera"></div>
       <blockquote class="rquote" id="rquote"></blockquote>
       <p class="rdesc" id="rdesc"></p>
-      <a class="rmore" id="rmore" href="#">▶ この哲学者をもっと詳しく読む</a>
+      <a class="rmore" id="rmore" href="#">▶ なぜ、あなたにこの人なのか。深く知る</a>
+      <a class="rsub" id="rsub" href="#">基本ページを見る</a>
     </div>
 
     <div class="sec">
@@ -230,7 +232,8 @@ function render(p, near, u){
   $("rera").textContent=p.r;
   $("rquote").textContent="「"+p.q+"」";
   $("rdesc").textContent=p.d;
-  $("rmore").href="/p/"+p.s;
+  $("rmore").href="/deep/"+p.s+"?v="+u.map(function(x){return x.toFixed(2);}).join(",");
+  $("rsub").href="/p/"+p.s;
 
   var bars=$("bars"); bars.innerHTML="";
   for(var i=0;i<4;i++){
