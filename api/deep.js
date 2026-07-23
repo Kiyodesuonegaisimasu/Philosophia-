@@ -7,6 +7,7 @@ import { BY, P } from './_data.js';
 import { ASK } from './_ask.js';
 import { LV } from './_levels.js';
 import { VEC } from './_vec.js';
+import { LIFE } from './_life.js';
 
 const BASE = 'https://philosophia-psi.vercel.app';
 function esc(s){ return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
@@ -61,6 +62,7 @@ function render(p, u){
   const im = imgOf(p.img,400);
   const ask = ASK[p.name];
   const lv = LV[p.name];
+  const life = LIFE[p.name];
   const why = u ? whyText(u, (VEC[p.name]||{}).v || [0,0,0,0], p.name) : [];
   const far = u ? farthest(u, p.name) : null;
   const farP = far ? BY[far.slug] : null;
@@ -129,6 +131,11 @@ sec,section{display:block}
 .askbox .mark{font-size:30px;color:#7b5cff;line-height:1}
 .askbox .q{font-size:19.5px;color:#fff;font-weight:700;line-height:1.6;margin-top:10px}
 .askbox .w{font-size:13.5px;color:#a99fd6;margin-top:14px;text-align:left;border-top:1px solid #33305a;padding-top:13px}
+.life{background:linear-gradient(165deg,#141b17,#101512);border:1px solid #2a4034;border-radius:16px;padding:20px 20px}
+.life .scene{font-size:14px;color:#8fd3a8;font-weight:700;line-height:1.7;margin-bottom:12px}
+.life p{font-size:15px;color:#e6ede8;line-height:1.95}
+.life .step{margin-top:16px;background:rgba(143,211,168,.09);border:1px solid #2f5a41;border-radius:12px;padding:13px 15px;font-size:14px;color:#dbeee2;line-height:1.75}
+.life .step .sl{display:inline-block;background:#8fd3a8;color:#0c1a12;font-size:11px;font-weight:800;border-radius:8px;padding:2px 9px;margin-right:9px;vertical-align:2px}
 .kw{list-style:none;display:flex;flex-direction:column;gap:9px}
 .kw li{background:#151515;border:1px solid #262626;border-radius:11px;padding:11px 14px;font-size:14px;color:#dcdcdc}
 .kw b{color:#c9b8ff}
@@ -181,6 +188,13 @@ footer{border-top:1px solid #2c2c2c;margin-top:46px;padding:22px 20px;text-align
       <div class="mark">?</div>
       <div class="q">${esc(ask.q)}</div>
       <div class="w">${esc(ask.w)}</div>
+    </div></div>`:''}
+
+  ${life?`<div class="sec"><h2>この考えを、あなたの毎日で</h2>
+    <div class="life">
+      <div class="scene">${esc(life.scene)}</div>
+      <p>${esc(life.body)}</p>
+      ${life.step?`<div class="step"><span class="sl">今日の一歩</span>${esc(life.step)}</div>`:''}
     </div></div>`:''}
 
   ${(p.concepts&&p.concepts.length)?`<div class="sec"><h2>思想の核心</h2>
