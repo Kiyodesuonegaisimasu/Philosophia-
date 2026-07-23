@@ -103,7 +103,7 @@
 <header><span class="mark">φ</span><b>Philosophia</b><span style="color:var(--accent);font-weight:700">&nbsp;プレミアム会員</span><a class="back-top" href="/philosophia.html">← Philosophia へ戻る</a></header>
 <div class="wrap">
   <h1>プレミアム会員</h1>
-  <p class="lead">メールでログインすると、まず<b>1日間は無料</b>で会員限定コンテンツを全部お試しできます。続けたい場合は月額500円で会員になれます。</p>
+  <p class="lead">メールでログインすると、まず<b>1日間は無料</b>で会員限定コンテンツを全部お試しできます。続けたい場合は月額100円で会員になれます。</p>
 
   <!-- 未ログイン -->
   <div id="loginCard" class="card hide">
@@ -123,7 +123,7 @@
     <div class="status">ログイン中：<b id="userEmail"></b> ・ <span id="memberBadge"></span></div>
     <div id="notMember" class="hide" style="margin-top:14px">
       <p style="font-size:14px;margin-bottom:12px" id="notMemberMsg"></p>
-      <a class="btn" id="subscribeBtn" href="#" target="_blank" rel="noopener noreferrer"><svg class="ic fill" viewBox="0 0 24 24"><path d="M12 3c.6 4 2 5.4 6 6-4 .6-5.4 2-6 6-.6-4-2-5.4-6-6 4-.6 5.4-2 6-6z"/></svg> プレミアム会員になる（月500円）</a>
+      <a class="btn" id="subscribeBtn" href="#" target="_blank" rel="noopener noreferrer"><svg class="ic fill" viewBox="0 0 24 24"><path d="M12 3c.6 4 2 5.4 6 6-4 .6-5.4 2-6 6-.6-4-2-5.4-6-6 4-.6 5.4-2 6-6z"/></svg> プレミアム会員になる（月100円）</a>
       <div style="margin-top:12px"><button class="ghost" id="recheck">支払い後、状態を再確認</button></div>
     </div>
     <div style="margin-top:16px"><button class="ghost" id="logout">ログアウト</button></div>
@@ -198,7 +198,7 @@
       // トライアル終了・未課金 → 登録案内
       $('premiumWrap').classList.add('hide');
       $('notMember').classList.remove('hide');
-      $('notMemberMsg').innerHTML = '無料トライアル（1日間）は終了しました。続けて会員限定コンテンツを読むには、月額500円のプレミアム会員にご登録ください。<br><span class="muted">※Stripeの購入画面では、ログインと<b>同じメールアドレス</b>をお使いください。</span>';
+      $('notMemberMsg').innerHTML = '無料トライアル（1日間）は終了しました。続けて会員限定コンテンツを読むには、月額100円のプレミアム会員にご登録ください。<br><span class="muted">※Stripeの購入画面では、ログインと<b>同じメールアドレス</b>をお使いください。</span>';
     }
   }
 
