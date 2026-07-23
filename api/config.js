@@ -5,6 +5,6 @@ export default function handler(req, res) {
   res.status(200).json({
     url: process.env.SUPABASE_URL || "",
     anonKey: process.env.SUPABASE_ANON_KEY || "",
-    stripeLink: "https://buy.stripe.com/7sY5kD1Ay1Ss0OZ02zfMA00"
+    stripeLink: "https://buy.stripe.com/cNi4gz4MK54EdBL6qXfMA01"
   });
 }
