@@ -2,6 +2,7 @@
 // 役割: /p/<slug> を書き換えでここに送り、哲学者ごとのSEO/共有ページHTMLをサーバー生成して返す。
 //   vercel.json の rewrites: { source: "/p/:slug", destination: "/api/p?slug=:slug" }
 import { BY } from './_data.js';
+import { STORY } from './_story.js';
 
 const BASE = 'https://philosophia-psi.vercel.app';
 const CATLABEL = { 'west-ancient':'西洋古代','west-medieval':'西洋中世','west-modern':'西洋近代','west-contemporary':'西洋現代','east':'東洋','islamic-jewish':'イスラーム・ユダヤ' };
@@ -25,8 +26,22 @@ function midYear(era){
   return null;
 }
 
+// 長文読み物（STORY）のレンダリング。ブロック種別ごとに見せ方を変える。
+function storyHTML(st){
+  return '<div class="story">' + st.blocks.map(b=>{
+    const v = esc(b.v||'');
+    if(b.t==='h')      return '<h2 class="s-h">'+v+'</h2>';
+    if(b.t==='q')      return '<figure class="s-q"><blockquote>'+v+'</blockquote>'+(b.by?'<figcaption>— '+esc(b.by)+'</figcaption>':'')+'</figure>';
+    if(b.t==='read')   return '<div class="s-read"><span class="s-tag">読み解く</span><p>'+v+'</p></div>';
+    if(b.t==='attack') return '<div class="s-attack"><span class="s-tag">この考えへの、最も強い反論</span><p>'+v+'</p></div>';
+    if(b.t==='ask')    return '<div class="s-ask"><span class="s-tag">あなたへ</span><p>'+v+'</p></div>';
+    return '<p class="s-p">'+v+'</p>';
+  }).join('\n') + '</div>';
+}
+
 function render(p){
   const url = BASE + '/p/' + p.slug;
+  const story = STORY[p.name];
   const cat = CATLABEL[p.category] || '';
   const d = descOf(p);
   const my = midYear(p.era);
@@ -93,6 +108,25 @@ blockquote{border-left:3px solid #7b5cff;padding:6px 0 6px 14px;color:#cfc6ff;fo
 section{margin-top:26px}
 section h2{font-size:18px;color:#f4dfa0;border-left:4px solid #e8c672;padding-left:11px;margin-bottom:9px}
 section p{font-size:15px;color:#e2e2e2}
+/* 長文読み物 */
+.story{margin-top:30px}
+.story .s-h{font-size:20px;color:#fff;font-weight:800;line-height:1.5;margin:38px 0 14px;padding-left:0;border:0}
+.story .s-h:first-child{margin-top:6px}
+.story .s-p{font-size:16px;color:#e6e6e6;line-height:2.0;margin-bottom:17px}
+.story .s-q{margin:26px 0;padding:20px 22px;background:linear-gradient(170deg,#191622,#121016);border-left:3px solid #7b5cff;border-radius:0 12px 12px 0}
+.story .s-q blockquote{font-size:17.5px;color:#e4defb;line-height:1.95;font-weight:600}
+.story .s-q figcaption{margin-top:11px;font-size:12.5px;color:#9089b5}
+.story .s-read{margin:22px 0;padding:16px 18px;background:rgba(232,198,114,.06);border:1px solid #3a3222;border-radius:12px}
+.story .s-read p{font-size:15px;color:#efe3c4;line-height:1.95}
+.story .s-attack{margin:30px 0;padding:17px 19px;background:#171313;border:1px solid #4a2f2f;border-radius:12px}
+.story .s-attack p{font-size:14.8px;color:#e8d2d2;line-height:1.9}
+.story .s-ask{margin:34px 0 10px;padding:22px;background:linear-gradient(165deg,#14201a,#101512);border:1px solid #2f5a41;border-radius:14px}
+.story .s-ask p{font-size:16.5px;color:#dbeee2;line-height:1.95;font-weight:600}
+.story .s-tag{display:inline-block;font-size:11px;font-weight:800;letter-spacing:.08em;border-radius:8px;padding:3px 10px;margin-bottom:9px}
+.story .s-read .s-tag{background:#e8c672;color:#1a1408}
+.story .s-attack .s-tag{background:#8a4a4a;color:#fff}
+.story .s-ask .s-tag{background:#8fd3a8;color:#0c1a12}
+@media(max-width:520px){.story .s-h{font-size:18px}.story .s-p{font-size:15.5px;line-height:1.95}.story .s-q blockquote{font-size:16px}}
 .kw{list-style:none;display:flex;flex-direction:column;gap:8px}
 .kw li{background:#161616;border:1px solid #262626;border-radius:10px;padding:10px 13px;font-size:14px}
 .kw b{color:#c9b8ff}
@@ -125,8 +159,8 @@ footer{border-top:1px solid #2c2c2c;margin-top:50px;padding:24px 20px;text-align
   </div>
   ${p.quote?`<blockquote>「${esc(p.quote)}」</blockquote>`:''}
   ${p.easy?`<div class="easy">💡 ${esc(p.easy)}</div>`:''}
-  <section><h2>何を言っていたか</h2><p>${esc(p.summary||'')}</p></section>
-  ${p.system?`<section><h2>どういう思想体系を作ったか</h2><p>${esc(p.system)}</p></section>`:''}
+  ${story ? storyHTML(story) : `<section><h2>何を言っていたか</h2><p>${esc(p.summary||'')}</p></section>
+  ${p.system?`<section><h2>どういう思想体系を作ったか</h2><p>${esc(p.system)}</p></section>`:''}`}
   ${(p.concepts&&p.concepts.length)?`<section><h2>キーワード</h2><ul class="kw">${p.concepts.map(c=>`<li><b>${esc(c.t)}</b> ― ${esc(c.d||'')}</li>`).join('')}</ul></section>`:''}
   ${(p.rels&&p.rels.length)?`<section><h2>つながり（関係性）</h2><ul class="rel">
 ${relHTML}
