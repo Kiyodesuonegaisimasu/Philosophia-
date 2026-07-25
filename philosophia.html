@@ -31,6 +31,7 @@
 <script src="batch1.js"></script>
 <script src="batch2.js"></script>
 <script src="batch3.js"></script>
+<script src="story.js"></script>
 <script src="levels.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
@@ -130,6 +131,25 @@
   .m-block h3 .ic.gold svg.ic{stroke:#111}
   .linkbtn svg.ic{width:15px;height:15px;opacity:.85}
   .act-like svg.ic,.act-save svg.ic,.ys-listrow svg.ic,.m-share svg.ic{width:15px;height:15px;vertical-align:-3px;margin-right:3px;opacity:.9}
+  /* 長文読み物（モーダル内） */
+  .deepstory{padding:2px 0 0}
+  .deepstory .ds-h{font-size:19px;color:#fff;font-weight:800;line-height:1.55;margin:34px 0 13px;background:none;border:0;padding:0;display:block}
+  .deepstory .ds-h:first-child{margin-top:4px}
+  .deepstory .ds-p{font-size:15.5px;color:#e6e6e6;line-height:2.0;margin-bottom:16px}
+  .deepstory .ds-q{margin:24px 0;padding:19px 21px;background:linear-gradient(170deg,#191622,#121016);border-left:3px solid var(--accent2);border-radius:0 12px 12px 0}
+  .deepstory .ds-q blockquote{font-size:17px;color:#e4defb;line-height:1.95;font-weight:600;margin:0}
+  .deepstory .ds-q figcaption{margin-top:10px;font-size:12.5px;color:#9089b5}
+  .deepstory .ds-read{margin:20px 0;padding:15px 17px;background:rgba(201,162,75,.07);border:1px solid #3a3222;border-radius:12px}
+  .deepstory .ds-read p{font-size:14.8px;color:#efe3c4;line-height:1.95;margin:0}
+  .deepstory .ds-attack{margin:28px 0;padding:16px 18px;background:#171313;border:1px solid #4a2f2f;border-radius:12px}
+  .deepstory .ds-attack p{font-size:14.5px;color:#e8d2d2;line-height:1.9;margin:0}
+  .deepstory .ds-ask{margin:32px 0 6px;padding:21px;background:linear-gradient(165deg,#14201a,#101512);border:1px solid #2f5a41;border-radius:14px}
+  .deepstory .ds-ask p{font-size:16px;color:#dbeee2;line-height:1.95;font-weight:600;margin:0}
+  .deepstory .ds-tag{display:inline-block;font-size:10.5px;font-weight:800;letter-spacing:.06em;border-radius:8px;padding:3px 10px;margin-bottom:9px}
+  .deepstory .ds-read .ds-tag{background:var(--accent);color:#1a1408}
+  .deepstory .ds-attack .ds-tag{background:#8a4a4a;color:#fff}
+  .deepstory .ds-ask .ds-tag{background:#8fd3a8;color:#0c1a12}
+  @media(max-width:640px){.deepstory .ds-h{font-size:17.5px}.deepstory .ds-p{font-size:15px;line-height:1.95}.deepstory .ds-q blockquote{font-size:15.5px}}
   .prem-embed{padding:10px 20px 0}
   #premFrame{width:100%;height:640px;min-height:400px;border:1px solid var(--line);border-radius:16px;background:transparent;display:block;overflow:hidden}
   @media(max-width:680px){ .prem-embed{padding:8px 8px 0} }
@@ -1554,79 +1574,79 @@ const SEED = [
    system:"『孫子』十三篇によって兵法を体系化し、東アジアの軍事思想の古典となった。その状況分析と戦略の思想は、軍事を超えて政治・経営・処世の知恵として今も広く読まれている。",
    concepts:[{t:"知彼知己",d:"敵と自分の情勢を正しく知れば、負けることはないという教え。"},{t:"不戦而勝",d:"戦わずして勝つことを最善とする考え。"},{t:"兵は詭道なり",d:"戦いは相手を欺き、変化に応じて動く駆け引きだという見方。"},{t:"勢",d:"状況の勢いをつかみ、それに乗って力を発揮すること。"}]},
 
-  {name:"レヴィ=ストロース", en:"Claude Lévi-Strauss", era:"1908–2009", category:"west-contemporary", country:"フランス", imgFile:"",
+  {name:"レヴィ=ストロース", en:"Claude Lévi-Strauss", era:"1908–2009", category:"west-contemporary", country:"フランス", imgFile:"Levi-strauss 260 (cropped2).jpg",
    quote:"神話は、人間が意識せぬうちに、人間のうちで考える。",
    summary:"文化人類学者。バラバラに見える神話・親族・慣習の背後に、人間の心に共通する無意識の「構造」があると考えた。個々の要素そのものより、要素どうしの関係の体系こそが意味を生むとし、未開と文明を優劣でなく、別の論理として並べて捉えた。",
    system:"言語学（ソシュール）の構造分析を人類学へ応用し、『構造主義』を確立した。親族の体系や神話を、対立する項の組み合わせとして分析。西洋中心の進歩史観を退け、20世紀後半の人文学に大きな転回をもたらした。",
    concepts:[{t:"構造",d:"個々の要素そのものより、要素どうしの関係の体系こそが意味を生むとする見方。"},{t:"二項対立",d:"自然/文化、生/煮のように、対立する項の組で人間は思考するという考え。"},{t:"野生の思考",d:"未開とされる思考も、文明の科学に劣らない、別種の緻密な論理だとする見方。"},{t:"親族の基本構造",d:"婚姻による女性の交換の規則が、社会の秩序を生み出すとする分析。"}]},
 
-  {name:"鈴木大拙", en:"D.T. Suzuki", era:"1870–1966", category:"east", country:"日本", imgFile:"",
+  {name:"鈴木大拙", en:"D.T. Suzuki", era:"1870–1966", category:"east", country:"日本", imgFile:"Daisetsu Teitarō Suzuki photographed by Shigeru Tamura.jpg",
    quote:"禅は、言葉や論理の手前にある、生きた経験そのものを指さす。",
    summary:"禅を英語で世界に紹介し、東洋思想を西洋へ橋渡しした仏教学者。悟り（さとり）を、理屈で説明される教義ではなく、日常のただ中で起こる直接の体験として説いた。二元的な分別を超える『即』の逆説の論理を語った。",
    system:"膨大な英文著作で禅を欧米に広め、20世紀の思想・芸術・心理学（ユングら）に影響を与えた。『日本的霊性』を論じ、浄土思想（妙好人）にも光を当てた。学問と実参（じっさんの修行）を両輪とした。",
    concepts:[{t:"悟り",d:"分別（二元的な思考）を超えて、実在に直接めざめる禅の体験。"},{t:"即非の論理",d:"「AはAでない、ゆえにAである」という、分別を超えた逆説の論理。"},{t:"日本的霊性",d:"日本人の宗教意識の深層にある、大地に根ざした霊性のあり方。"},{t:"妙好人",d:"学識ではなく、純粋な信心のままに生きる、市井の念仏者。"}]},
 
-  {name:"モッラー・サドラー", en:"Mulla Sadra", era:"1571頃–1640", category:"islamic-jewish", country:"ペルシア（イラン）", imgFile:"",
+  {name:"モッラー・サドラー", en:"Mulla Sadra", era:"1571頃–1640", category:"islamic-jewish", country:"ペルシア（イラン）", imgFile:"مجسمه ملاصدرا.jpg",
    quote:"存在は、静止した実体ではなく、絶えず高まりゆく運動である。",
    summary:"サファヴィー朝ペルシアの哲学者。哲学（理性）・神秘主義（直観）・啓示（信仰）を一つに統合する壮大な体系を築いた。本質ではなく『存在』こそが根源的な実在であり、存在は強弱の度合いをもって、たえず上位へと生成すると説いた。",
    system:"『四つの旅』などで『超越的叡智（ヒクマ・ムタアーリヤ）』を大成した。イブン・シーナーの哲学、スフラワルディーの照明哲学、イブン・アラビーの神秘思想を総合し、以後のイランの思想に決定的な影響を与えた。",
    concepts:[{t:"存在の根源性",d:"本質ではなく『存在』こそが実在の根本だとする、彼の哲学の出発点。"},{t:"存在の階層",d:"存在は強弱の度合いをもつ、ひとつながりの一なる実在だとする見方。"},{t:"実体的運動",d:"実体そのものが静止せず、たえず上位の段階へと生成し続けるという説。"},{t:"三つの道の統合",d:"理性・神秘的直観・啓示という三つの道を、ひとつに結び合わせる立場。"}]},
 
-  {name:"ラカン", en:"Jacques Lacan", era:"1901–1981", category:"west-contemporary", country:"フランス", imgFile:"",
+  {name:"ラカン", en:"Jacques Lacan", era:"1901–1981", category:"west-contemporary", country:"フランス", imgFile:"Jacques Lacan during an interview 1969.jpg",
    quote:"無意識は、言語のように構造化されている。",
    summary:"フロイトの精神分析を、構造主義の言語論を用いて根本から読み直した。無意識は本能の混沌ではなく、言語と同じ規則で構造化されているとし、人間の欲望や主体が、言葉と他者との関係のなかで形づくられると説いた。",
    system:"乳児が鏡の像に自分を見いだす『鏡像段階』で自我の成り立ちを、『想像界・象徴界・現実界』の三つの位相で心の構造を捉えた。難解な語りで知られ、20世紀後半の思想・批評・映画論に絶大な影響を与えた。",
    concepts:[{t:"鏡像段階",d:"乳児が鏡に映る像を自分だと見いだし、まとまった自我を得る発達の段階。"},{t:"無意識は言語のように構造化されている",d:"無意識は本能の混沌でなく、言葉の連鎖と同じ規則で働くという考え。"},{t:"象徴界",d:"言語と法の秩序。人はここに参入して初めて社会的な主体となる。"},{t:"欲望は他者の欲望である",d:"人の欲望は自前でなく、他者が欲するものを欲する形で生じるという見方。"}]},
 
-  {name:"リオタール", en:"Jean-François Lyotard", era:"1924–1998", category:"west-contemporary", country:"フランス", imgFile:"",
+  {name:"リオタール", en:"Jean-François Lyotard", era:"1924–1998", category:"west-contemporary", country:"フランス", imgFile:"Jean-Francois Lyotard cropped.jpg",
    quote:"私はポストモダンを、大きな物語への不信と定義する。",
    summary:"人類の進歩や解放を約束する『大きな物語』が、もはや信じられなくなった状態を『ポストモダン』と名づけた。単一で普遍的な正しさを疑い、多様で断片的な『小さな物語』の共存を重んじた。",
    system:"『ポストモダンの条件』で、知識の正しさを支えるものの変化を論じた。共通の尺度では裁けない、異なる立場のあいだの根本的な対立（ディフェラン）に注目した。",
    concepts:[{t:"大きな物語",d:"人類全体を導くと称する、進歩・解放・全体的真理といった普遍的な物語。"},{t:"ポストモダン",d:"大きな物語への信頼が失われた、多様で断片的な時代のあり方。"},{t:"言語ゲーム",d:"それぞれ固有の規則をもつ、複数の言葉の営み。単一の尺度に還元できない。"},{t:"ディフェラン",d:"共通の裁定基準がないために解消できない、立場間の根本的な争い。"}]},
 
-  {name:"ディルタイ", en:"Wilhelm Dilthey", era:"1833–1911", category:"west-contemporary", country:"ドイツ", imgFile:"",
+  {name:"ディルタイ", en:"Wilhelm Dilthey", era:"1833–1911", category:"west-contemporary", country:"ドイツ", imgFile:"Portrait Dilthey.jpg",
    quote:"自然は説明し、精神（人間）は理解する。",
    summary:"自然科学とは別に、歴史・文化・人間を扱う『精神科学』の独自の方法を基礎づけた。自然を外から因果的に『説明』するのに対し、人間の営みは、内側からその意味を追体験して『理解』するのだと説いた。",
    system:"『生（レーベン）』を出発点とし、テキストや歴史を解釈する解釈学（ヘルメノイティク）を、人文学の方法へと発展させた。後のハイデガーやガダマーの解釈学に、道を開いた。",
    concepts:[{t:"精神科学",d:"歴史・文化・人間を扱う学問。自然科学とは根本的に方法が異なるとされる。"},{t:"説明と理解",d:"自然は因果関係で『説明』し、人間の営みは意味を『理解』するという区別。"},{t:"追体験",d:"他者の体験を、内側から生き直すようにして、その意味を理解すること。"},{t:"生の哲学",d:"抽象的な理性よりも、生きられた具体的な体験（生）を根本に置く立場。"}]},
 
-  {name:"西谷啓治", en:"Nishitani Keiji", era:"1900–1990", category:"east", country:"日本", imgFile:"",
+  {name:"西谷啓治", en:"Nishitani Keiji", era:"1900–1990", category:"east", country:"日本", imgFile:"Nisitani keiji.jpg",
    quote:"虚無の底を突き抜けたところに、空（くう）がひらける。",
    summary:"京都学派を代表する哲学者。西洋の虚無主義（ニヒリズム）と仏教の『空』を突き合わせ、近代人が陥る虚無を、仏教的な空の立場から突き抜けて乗り越える道を探った。",
    system:"西田幾多郎に学び、宗教と哲学、東洋と西洋を架橋した。『宗教とは何か』で、科学的世界観のもとで意味を失った現代人の実存を、空の思想から問い直した。",
    concepts:[{t:"空（くう）",d:"実体としての自我も世界も無い、しかし単なる虚無でもない、仏教的な境地。"},{t:"ニヒリズムの克服",d:"近代の虚無を否定して逃げるのでなく、その底を突き抜けて空に至る道。"},{t:"京都学派",d:"西田幾多郎を中心に、東西の思想を統合しようとした日本の哲学運動。"},{t:"回互（えご）",d:"個々のものが互いに映し合い、支え合って成り立つ、空におけるあり方。"}]},
 
-  {name:"オーロビンド", en:"Sri Aurobindo", era:"1872–1950", category:"east", country:"インド", imgFile:"",
+  {name:"オーロビンド", en:"Sri Aurobindo", era:"1872–1950", category:"east", country:"インド", imgFile:"Sri aurobindo.jpg",
    quote:"人間は、進化の最終形ではなく、途上にある存在である。",
    summary:"インドの独立運動家から、後に霊性の探求者へと転じた思想家。宇宙は物質から生命・心へと進化してきたが、その先に神的な『超精神（スーパーマインド）』への進化があると説き、精神と物質を統合する『統合ヨーガ』を唱えた。",
    system:"ヴェーダーンタの伝統を、進化論的な世界観と結びつけて刷新した。人類は、より高い神的な意識へと進化する途上にあるとし、彼岸でなく、この地上における霊的な変容を目指した。",
    concepts:[{t:"超精神（スーパーマインド）",d:"物質・生命・心の上位にある、宇宙を貫く神的な意識の段階。"},{t:"統合ヨーガ",d:"世俗の生を捨てず、物質と精神を一つに統合していく霊的な実践。"},{t:"意識の進化",d:"宇宙は物質から生命・心・神的意識へと進化していくとする世界観。"},{t:"地上の変容",d:"あの世でなく、この地上そのものを霊的に高め変えていくという理想。"}]},
 
-  {name:"C.S.パース", en:"Charles Sanders Peirce", era:"1839–1914", category:"west-contemporary", country:"アメリカ", imgFile:"",
+  {name:"C.S.パース", en:"Charles Sanders Peirce", era:"1839–1914", category:"west-contemporary", country:"アメリカ", imgFile:"Charles Sanders Peirce.png",
    quote:"ある観念の意味は、それが生む実際的な効果のうちにある。",
    summary:"プラグマティズムの創始者であり、記号論（セミオティクス）の父。ある概念の意味は、それを真と認めたときに生じる、実際の行動上・経験上の効果のうちにあると説いた（プラグマティズムの格率）。",
    system:"論理学・数学・科学方法論に深く通じ、探究を『アブダクション（仮説形成）→演繹→帰納』の過程として分析した。記号を『イコン・インデックス・シンボル』に分類し、後の記号論・分析哲学に大きな影響を与えた。",
    concepts:[{t:"プラグマティズムの格率",d:"概念の意味は、それが生む実際的・経験的な効果にあるとする原則。"},{t:"アブダクション",d:"観察された事実から、それを最もよく説明する仮説を立てる推論。"},{t:"記号論（セミオティクス）",d:"記号とその意味作用の一般理論。記号をイコン・インデックス・シンボルに分類した。"},{t:"誤謬可能主義",d:"あらゆる知は誤りうると認め、探究をどこまでも続けようとする態度。"}]},
 
-  {name:"マックス・ウェーバー", en:"Max Weber", era:"1864–1920", category:"west-contemporary", country:"ドイツ", imgFile:"",
+  {name:"マックス・ウェーバー", en:"Max Weber", era:"1864–1920", category:"west-contemporary", country:"ドイツ", imgFile:"Max Weber, 1918.jpg",
    quote:"世界の脱魔術化（呪術からの解放）が、近代の運命である。",
    summary:"近代社会を『合理化』の進展として捉えた社会学者・思想家。宗教・経済・支配など多方面を、意味を『理解』する方法で分析した。プロテスタントの禁欲的な倫理が、意図せず資本主義の精神を生んだと論じた。",
    system:"『プロテスタンティズムの倫理と資本主義の精神』で、思想が経済を動かす面を示した。支配の三類型（伝統的・カリスマ的・合法的）や、価値と事実の峻別など、社会科学の方法を確立した。",
    concepts:[{t:"合理化",d:"社会のあらゆる領域が、計算可能で効率的な仕組みへと進んでいく過程。"},{t:"脱魔術化",d:"世界から神秘や呪術が失われ、すべてが計算で捉えられるようになること。"},{t:"理解社会学",d:"行為者の主観的な意味を『理解』することを通じて社会を捉える方法。"},{t:"支配の三類型",d:"支配の正当性を、伝統的・カリスマ的・合法的の三つに分けて捉える理論。"}]},
 
-  {name:"ファノン", en:"Frantz Fanon", era:"1925–1961", category:"west-contemporary", country:"マルティニーク／アルジェリア", imgFile:"",
+  {name:"ファノン", en:"Frantz Fanon", era:"1925–1961", category:"west-contemporary", country:"マルティニーク／アルジェリア", imgFile:"Photograph of Frantz Fanon from Black Skin White Masks (1967) dust jacket.webp",
    quote:"植民地支配は、被支配者の魂そのものを歪める。",
    summary:"カリブ海マルティニーク出身の精神科医・思想家。植民地支配が、黒人の心に植えつける劣等感と自己疎外を、精神分析と実存主義を用いて鋭くえぐった。抑圧からの解放を、人間性そのものの回復として論じた。",
    system:"『黒い皮膚・白い仮面』で人種と自己の疎外を、『地に呪われたる者』で植民地からの解放と暴力の問題を論じた。反植民地闘争と、後のポストコロニアル思想に決定的な影響を与えた。",
    concepts:[{t:"黒い皮膚・白い仮面",d:"白人の価値観を内面化させられた黒人が陥る、自己疎外の状態。"},{t:"植民地の暴力",d:"支配が生み出す構造的な暴力と、そこからの解放をめぐる問題。"},{t:"人種と実存",d:"人種化されたまなざしのもとで身体を生きる、疎外された実存の分析。"},{t:"脱植民地化",d:"政治的独立だけでなく、歪められた人間性を回復する営みとしての解放。"}]},
 
-  {name:"王弼", en:"Wang Bi", era:"226–249", category:"east", country:"中国", imgFile:"",
+  {name:"王弼", en:"Wang Bi", era:"226–249", category:"east", country:"中国", imgFile:"至聖先賢半身像 冊-107-王弼.jpg",
    quote:"有（存在するもの）は、すべて無を根本としている。",
    summary:"三国時代の中国で、わずか二十三歳で世を去った天才思想家。『老子』『易経』の画期的な注釈で、道家の『無』を万物の根本原理として捉え直した。儒家と道家を融合する『玄学（げんがく・神秘の学）』を切り開いた。",
    system:"『万物は無を本とする（貴無論）』と説き、現象の多様性の背後にある根源的な『無』を思索した。その老子・易経の注釈は、後世の東アジア思想の標準的な読み方となった。",
    concepts:[{t:"貴無論",d:"有（存在）は無を根本とし、無こそが万物の本だとする説。"},{t:"玄学",d:"老荘思想と易を融合し、現象の奥の根源を探る、魏晋の神秘の学。"},{t:"得意忘言",d:"言葉は意味をつかむための道具であり、意味を得たら言葉は忘れてよいという考え。"},{t:"本末",d:"物事を、根本（本）と枝葉（末）に分けて捉える見方。"}]},
 
-  {name:"董仲舒", en:"Dong Zhongshu", era:"前179頃–前104頃", category:"east", country:"中国", imgFile:"",
+  {name:"董仲舒", en:"Dong Zhongshu", era:"前179頃–前104頃", category:"east", country:"中国", imgFile:"歷代聖賢半身像 冊 董仲舒 (Dong Zhongshu).png",
    quote:"天と人とは、たがいに感応し合う。",
    summary:"前漢の儒学者で、儒教が中国の国家の学問（国教）となる道を開いた。天と人が互いに影響し合う『天人相関』を説き、君主の徳が乱れれば天が災いで警告する（災異説）とした。陰陽五行説を儒教に取り込み、壮大な宇宙論を築いた。",
    system:"武帝に儒学の官学化を進言し、後の科挙と儒教国家の礎を築いた。『春秋繁露』で、天・自然・人間・政治を一つに結ぶ、体系的な世界観を展開した。",
@@ -1638,7 +1658,7 @@ const SEED = [
    system:"心的な出来事は物理的な出来事だが、心を物理法則に還元はできないとする『非法則的一元論』を唱えた。行為・理由・因果の関係や、翻訳・解釈の理論など、心の哲学・言語哲学に広く影響を与えた。",
    concepts:[{t:"真理条件的意味論",d:"文の意味は、それが真になるための条件のうちにあるとする考え。"},{t:"好意の原理",d:"他者の言葉を理解するには、相手の多くの信念を真だと前提する必要がある。"},{t:"非法則的一元論",d:"心的な出来事は物理的だが、心そのものは物理法則には還元できない。"},{t:"理由は原因である",d:"行為を理由づける説明は、その行為を引き起こす原因の説明でもある。"}]},
 
-  {name:"周敦頤", en:"Zhou Dunyi", era:"1017–1073", category:"east", country:"中国", imgFile:"",
+  {name:"周敦頤", en:"Zhou Dunyi", era:"1017–1073", category:"east", country:"中国", imgFile:"Zhou Dunyi.png",
    quote:"無極にして太極。太極が動いて陽を生じ、静にして陰を生ず。",
    summary:"宋代の儒学（宋学・のちの朱子学）の道を開いた先駆者。『太極図説』で、宇宙が根源（太極）から陰陽・五行を経て万物を生み出す過程を、簡潔な図と言葉で示した。儒教に、道家的な壮大な宇宙論を取り込んだ世界像を与えた。",
    system:"『太極図説』『通書』により、後の程頤・朱熹らの理気哲学の出発点を築いた。人間は、宇宙の最も正しい気を受けた優れた存在であり、欲を少なくして聖人を目指すべきだと説いた。",
@@ -1650,13 +1670,13 @@ const SEED = [
    system:"アリストテレス的な逍遥学派の論理を批判的に受けつつ、古代ペルシアやプラトンの叡智を取り込み、光の形而上学を築いた。後のモッラー・サドラーら、イランの思想に大きな影響を与えた。若くして処刑された。",
    concepts:[{t:"照明哲学（イシュラーク）",d:"実在を『光』として捉え、神秘的な直観を重んじる哲学。"},{t:"光の光",d:"最も純粋で根源的な光。すなわち神。すべての光の源。"},{t:"光の階層",d:"光が強弱の度合いをなして流れ出て、万物が成り立つという世界像。"},{t:"直観知（現前知）",d:"推論を介さず、対象がじかに心に照らし出されて得られる知。"}]},
 
-  {name:"ドゥッセル", en:"Enrique Dussel", era:"1934–2023", category:"west-contemporary", country:"アルゼンチン／メキシコ", imgFile:"",
+  {name:"ドゥッセル", en:"Enrique Dussel", era:"1934–2023", category:"west-contemporary", country:"アルゼンチン／メキシコ", imgFile:"EnriqueDussel.jpg",
    quote:"近代は、他者（周縁）を犠牲にして、自らを中心に立てた。",
    summary:"ラテンアメリカの『解放の哲学』を代表する哲学者。ヨーロッパ中心の近代を、征服と植民地支配によって非ヨーロッパ世界を『他者』として抑圧・排除することで成立した、と批判した。抑圧された者（貧者・周縁）の側から、倫理と歴史を問い直した。",
    system:"レヴィナスの『他者』の思想を受けつつ、それをラテンアメリカの被抑圧者の現実へと展開した。『解放の哲学』『解放の倫理』を築き、後の脱植民地（デコロニアル）思想の先駆けとなった。",
    concepts:[{t:"解放の哲学",d:"ヨーロッパ中心の哲学を退け、抑圧された者の側から思考する哲学。"},{t:"他者",d:"近代によって周縁化され、排除された、貧者・被抑圧者・非ヨーロッパ世界。"},{t:"近代性の裏面",d:"近代の輝かしい光の裏にある、征服・植民地支配・搾取という暴力。"},{t:"トランスモダニティ",d:"近代を超え、排除された他者の視点から築く、新しい世界の地平。"}]},
 
-  {name:"九鬼周造", en:"Kuki Shūzō", era:"1888–1941", category:"east", country:"日本", imgFile:"",
+  {name:"九鬼周造", en:"Kuki Shūzō", era:"1888–1941", category:"east", country:"日本", imgFile:"Affidavit-kuki-shuzo-portrait-scan.jpg",
    quote:"「いき」とは、垢抜けして、張りのある、色っぽさである。",
    summary:"江戸文化の美意識『いき』を、哲学的に分析した日本の哲学者。『「いき」の構造』で、いきを『媚態・意気地・諦め』の三つの契機として解き明かした。また、すべては『そうでなくてもよかった』という偶然性の不思議に、深く思索を向けた。",
    system:"ヨーロッパで現象学・実存哲学（ハイデガー、ベルクソンら）を学び、それを日本の美意識や、偶然性の問題へと独自に応用した。西洋の厳密な方法で、日本文化の核心を捉えようとした。",
@@ -3741,6 +3761,24 @@ function render(){
 /* ============================================================
    年表ビュー / 共有(固有URL)
    ============================================================ */
+/* 長文読み物（story.js の window.__STORY）。ある人はこちらを本文にする。
+   ブロック種別: h=見出し p=本文 q=本人の言葉 read=読み解き attack=最も強い反論 ask=読者への問い */
+function deepStoryHTML(p){
+  try{
+    var st = (typeof window!=='undefined' && window.__STORY) ? window.__STORY[p.name] : null;
+    if(!st || !st.blocks || !st.blocks.length) return '';
+    var body = st.blocks.map(function(b){
+      var v = esc(b.v||'');
+      if(b.t==='h')      return '<h3 class="ds-h">'+v+'</h3>';
+      if(b.t==='q')      return '<figure class="ds-q"><blockquote>'+v+'</blockquote>'+(b.by?'<figcaption>— '+esc(b.by)+'</figcaption>':'')+'</figure>';
+      if(b.t==='read')   return '<div class="ds-read"><span class="ds-tag">読み解く</span><p>'+v+'</p></div>';
+      if(b.t==='attack') return '<div class="ds-attack"><span class="ds-tag">この考えへの、最も強い反論</span><p>'+v+'</p></div>';
+      if(b.t==='ask')    return '<div class="ds-ask"><span class="ds-tag">あなたへ</span><p>'+v+'</p></div>';
+      return '<p class="ds-p">'+v+'</p>';
+    }).join('');
+    return '<div class="m-block deepstory">'+body+'</div>';
+  }catch(e){ return ''; }
+}
 function setView(v){ viewMode=v; document.querySelectorAll('.vt').forEach(e=>e.classList.toggle('active',e.dataset.v===v)); render(); window.scrollTo({top:0,behavior:"smooth"}); }
 /* プレミアム(会員)ビュー：会員ページの内容をこの画面の枠内に埋め込む。
    非会員はログイン/登録フォーム、会員は限定コンテンツがそのまま表示される（画面遷移なし）。 */
@@ -4211,17 +4249,17 @@ function openModal(name){
       </div>
     </div>
     <div class="m-body">
-      ${storyHTML}
+      ${deepStoryHTML(p) || `${storyHTML}
       ${easyHTML}
       <div class="m-block">
         <h3><span class="ic"><svg class="ic" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 3v-3H4z"/></svg></span>何を言っていたか</h3>
         <p>${esc(p.summary)}</p>
-      </div>
-      <div class="m-block">
+      </div>`}
+      ${deepStoryHTML(p) ? '' : `<div class="m-block">
         <h3><span class="ic gold"><svg class="ic" viewBox="0 0 24 24"><path d="M4 9l8-5 8 5"/><path d="M5 9v9h14V9"/><path d="M9 18v-5M12 18v-5M15 18v-5"/></svg></span>どういう思想体系を作ったか</h3>
         <p>${esc(p.system)}</p>
         ${sd?(window.PHILO_ACCESS?`<span class="more-btn" onclick="toggleMore('sysMore',this)">もっと詳しく ▾</span>${sysMoreInner(p)}`:`<a class="more-btn" href="/members.html" style="color:var(--accent2);text-decoration:none"><svg class="ic" viewBox="0 0 24 24" style="vertical-align:-3px"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg> さらに詳しい解説を読む（会員限定・1日無料）▾</a>`):''}
-      </div>
+      </div>`}
       ${CURRENT_CONCEPTS.length?`
       <div class="m-block">
         <h3><span class="ic"><svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="9" r="4"/><path d="M11.8 11.8L20 20M16 18l2-2"/></svg></span>キーワード<span class="hint">タップで意味を表示</span></h3>
