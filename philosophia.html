@@ -158,7 +158,21 @@
   .cf.active{border-color:var(--accent);box-shadow:0 0 44px rgba(201,162,75,.30),inset 0 1px 0 rgba(255,255,255,.07)}
   .cf-t{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;color:var(--accent);letter-spacing:.05em;flex:none}
   .cf-ic{font-size:13px;opacity:.85}
-  .cf-v{margin-top:9px;font-size:11.8px;line-height:1.72;color:#dcd9e6;overflow:hidden;white-space:pre-line;flex:1}
+  .cf-v{margin-top:9px;font-size:11.8px;line-height:1.72;color:#dcd9e6;white-space:pre-line;flex:1;
+    overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;touch-action:pan-y;
+    padding-right:5px;scrollbar-width:thin;scrollbar-color:#4f4866 transparent}
+  .cf-v::-webkit-scrollbar{width:4px}
+  .cf-v::-webkit-scrollbar-thumb{background:#4f4866;border-radius:2px}
+  .cf-v::-webkit-scrollbar-track{background:transparent}
+  /* 続きがあることを示すフェード */
+  .cf-in::after{content:'';position:absolute;left:0;right:0;bottom:0;height:30px;pointer-events:none;
+    opacity:0;transition:opacity .18s;border-radius:0 0 12px 12px;
+    background:linear-gradient(to bottom,rgba(18,17,24,0),rgba(18,17,24,.97))}
+  .cf.more .cf-in::after{opacity:1}
+  .cf-more-i{position:absolute;left:50%;bottom:1px;transform:translateX(-50%);font-size:11px;color:var(--accent);
+    opacity:0;transition:opacity .18s;pointer-events:none;animation:cfBob 1.6s ease-in-out infinite}
+  .cf.more .cf-more-i{opacity:.85}
+  @keyframes cfBob{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(2px)}}
   .cf-by{margin-top:6px;font-size:10px;color:#8f88ad;flex:none}
   .cf-q .cf-v{font-size:13.5px;line-height:1.8;color:#e4defb;font-weight:600}
   .cf-a{border-color:#5a3535}
@@ -3839,6 +3853,7 @@ function cubeHTML(p){
         +   '<div class="cf-t"><span class="cf-ic">'+esc(f.ic||'')+'</span>'+esc(f.t)+'</div>'
         +   '<div class="cf-v">'+esc(f.v)+'</div>'
         +   (f.by?'<div class="cf-by">— '+esc(f.by)+'</div>':'')
+        +   '<span class="cf-more-i">▾</span>'
         + '</div>'
         + '</div>';
     }).join('');
@@ -3896,6 +3911,8 @@ function cubeGo(i, keepPlaying){
   var fs=document.querySelectorAll('#cube .cf');
   for(var k=0;k<fs.length;k++) fs[k].classList.toggle('active', +fs[k].getAttribute('data-i')===i);
   var cap=document.getElementById('cubeCap'); if(cap) cap.textContent=F[i].t;
+  var nv=document.querySelector('#cube .cf[data-i="'+i+'"] .cf-v'); if(nv) nv.scrollTop=0;
+  setTimeout(cubeMarkOverflow,60);
 }
 function cubeStop(){
   if(CUBE_TIMER){ clearInterval(CUBE_TIMER); CUBE_TIMER=null; }
@@ -3919,11 +3936,28 @@ function cubePlay(){
     cubeGo(step,true);
   }, sec*1000);
 }
-/* ドラッグ回転（マウス＋タッチ） */
+/* はみ出している面に「続きあり」の印をつける（スクロール位置で更新） */
+function cubeMarkOverflow(){
+  var fs=document.querySelectorAll('#cube .cf');
+  for(var i=0;i<fs.length;i++){
+    var v=fs[i].querySelector('.cf-v'); if(!v) continue;
+    var rest = v.scrollHeight - v.clientHeight - v.scrollTop;
+    fs[i].classList.toggle('more', rest > 4);
+  }
+}
+/* ドラッグ回転（マウス＋タッチ）。文字のスクロール中は回転させない */
 function cubeBind(){
   var st=document.getElementById('cubeStage'), c=document.getElementById('cube');
   if(!st||!c) return;
   var dragging=false, sx=0, sy=0, rx=0, ry=0, moved=false;
+  /* スクロールできる本文の上から始めた操作は、回転ではなくスクロールに渡す */
+  function scrollableAt(t){
+    while(t && t!==st){
+      if(t.classList && t.classList.contains('cf-v') && t.scrollHeight > t.clientHeight+2) return true;
+      t=t.parentNode;
+    }
+    return false;
+  }
   function down(x,y){ dragging=true; moved=false; sx=x; sy=y; rx=CUBE_ROT.x; ry=CUBE_ROT.y; c.classList.add('drag'); cubeStop(); }
   function move(x,y){
     if(!dragging) return;
@@ -3934,13 +3968,40 @@ function cubeBind(){
     cubeApply();
   }
   function up(){ if(!dragging) return; dragging=false; c.classList.remove('drag'); }
-  st.addEventListener('mousedown',function(e){ down(e.clientX,e.clientY); e.preventDefault(); });
+  st.addEventListener('mousedown',function(e){
+    if(scrollableAt(e.target)) return;      // 本文スクロール優先
+    down(e.clientX,e.clientY); e.preventDefault();
+  });
   window.addEventListener('mousemove',function(e){ move(e.clientX,e.clientY); });
   window.addEventListener('mouseup',up);
-  st.addEventListener('touchstart',function(e){ var t=e.touches[0]; down(t.clientX,t.clientY); },{passive:true});
-  st.addEventListener('touchmove',function(e){ var t=e.touches[0]; move(t.clientX,t.clientY); e.preventDefault(); },{passive:false});
+  st.addEventListener('touchstart',function(e){
+    if(scrollableAt(e.target)) return;
+    var t=e.touches[0]; down(t.clientX,t.clientY);
+  },{passive:true});
+  st.addEventListener('touchmove',function(e){
+    if(!dragging) return;                   // スクロール中は素通し
+    var t=e.touches[0]; move(t.clientX,t.clientY); e.preventDefault();
+  },{passive:false});
   st.addEventListener('touchend',up);
+  /* ホイールは本文の上でだけ本文を送る（外側ではページを普通にスクロール） */
+  st.addEventListener('wheel',function(e){
+    var t=e.target;
+    while(t && t!==st){
+      if(t.classList && t.classList.contains('cf-v') && t.scrollHeight>t.clientHeight+2){
+        var before=t.scrollTop;
+        t.scrollTop += e.deltaY;
+        if(t.scrollTop!==before) e.preventDefault();  // 端まで来たらページへ返す
+        cubeMarkOverflow();
+        return;
+      }
+      t=t.parentNode;
+    }
+  },{passive:false});
+  /* 本文をスクロールしたら「続きあり」表示を更新 */
+  var vs=st.querySelectorAll('.cf-v');
+  for(var i=0;i<vs.length;i++) vs[i].addEventListener('scroll',cubeMarkOverflow,{passive:true});
   cubeApply();
+  cubeMarkOverflow();
   var d0=document.querySelector('#cubeDots i'); if(d0) d0.classList.add('on');
 }
 /* 長文読み物（story.js の window.__STORY）。ある人はこちらを本文にする。
