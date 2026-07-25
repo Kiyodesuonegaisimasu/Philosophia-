@@ -146,10 +146,15 @@
   .cube{position:absolute;left:50%;top:50%;width:230px;height:230px;margin:-115px 0 0 -115px;
     transform-style:preserve-3d;transition:transform .75s cubic-bezier(.3,.9,.3,1)}
   .cube.drag{transition:none}
-  .cf{position:absolute;inset:0;border-radius:14px;padding:16px 15px;overflow:hidden;
+  .cf{position:absolute;inset:0;border-radius:14px;overflow:hidden;
     background:linear-gradient(165deg,rgba(28,26,38,.96),rgba(16,15,22,.97));
     border:1px solid #35304a;box-shadow:0 0 32px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);
-    backface-visibility:hidden;display:flex;flex-direction:column}
+    backface-visibility:hidden}
+  /* 面の中身。キューブの回転に応じて逆回転させ、文字を常に水平に保つ */
+  .cf-in{position:absolute;left:15px;right:15px;top:15px;bottom:15px;
+    display:flex;flex-direction:column;transform-origin:50% 50%;
+    transition:transform .75s cubic-bezier(.3,.9,.3,1)}
+  .cube.drag .cf-in{transition:none}
   .cf.active{border-color:var(--accent);box-shadow:0 0 44px rgba(201,162,75,.30),inset 0 1px 0 rgba(255,255,255,.07)}
   .cf-t{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;color:var(--accent);letter-spacing:.05em;flex:none}
   .cf-ic{font-size:13px;opacity:.85}
@@ -3830,9 +3835,11 @@ function cubeHTML(p){
     var cls = ['','cf-q','','','cf-a','cf-you'];
     var faces = F.map(function(f,i){
       return '<div class="cf '+(cls[i]||'')+(i===0?' active':'')+'" data-i="'+i+'" style="transform:'+tf[i]+'">'
-        + '<div class="cf-t"><span class="cf-ic">'+esc(f.ic||'')+'</span>'+esc(f.t)+'</div>'
-        + '<div class="cf-v">'+esc(f.v)+'</div>'
-        + (f.by?'<div class="cf-by">— '+esc(f.by)+'</div>':'')
+        + '<div class="cf-in">'
+        +   '<div class="cf-t"><span class="cf-ic">'+esc(f.ic||'')+'</span>'+esc(f.t)+'</div>'
+        +   '<div class="cf-v">'+esc(f.v)+'</div>'
+        +   (f.by?'<div class="cf-by">— '+esc(f.by)+'</div>':'')
+        + '</div>'
         + '</div>';
     }).join('');
     return '<div class="m-block cube-block">'
@@ -3845,9 +3852,37 @@ function cubeHTML(p){
       + '</div>';
   }catch(e){ return ''; }
 }
+/* --- 3x3 行列ユーティリティ（CSS の回転規約：Y は下向き、Z は手前） --- */
+function m3mul(a,b){
+  var r=[0,0,0,0,0,0,0,0,0];
+  for(var i=0;i<3;i++)for(var j=0;j<3;j++){
+    var s=0; for(var k=0;k<3;k++) s+=a[i*3+k]*b[k*3+j];
+    r[i*3+j]=s;
+  }
+  return r;
+}
+function m3rotX(d){var t=d*Math.PI/180,c=Math.cos(t),s=Math.sin(t);return [1,0,0, 0,c,-s, 0,s,c];}
+function m3rotY(d){var t=d*Math.PI/180,c=Math.cos(t),s=Math.sin(t);return [c,0,s, 0,1,0, -s,0,c];}
+var CUBE_FACE_ROT=[ m3rotX(0), m3rotY(90), m3rotY(180), m3rotY(-90), m3rotX(90), m3rotX(-90) ];
+
 function cubeApply(){
   var c=document.getElementById('cube'); if(!c) return;
   c.style.transform='rotateX('+CUBE_ROT.x+'deg) rotateY('+CUBE_ROT.y+'deg)';
+  // 各面の中身を逆回転させ、文字を常に読める向き（水平）に保つ
+  var R=m3mul(m3rotX(CUBE_ROT.x), m3rotY(CUBE_ROT.y));
+  var ins=c.querySelectorAll('.cf');
+  for(var i=0;i<ins.length;i++){
+    var idx=+ins[i].getAttribute('data-i');
+    var M=m3mul(R, CUBE_FACE_ROT[idx]||CUBE_FACE_ROT[0]);
+    // 面のローカル x 軸 → 画面上のベクトル u、ローカル y 軸 → v
+    var ux=M[0], uy=M[3];
+    var vx=M[1], vy=M[4];
+    // 文字の並び方向が画面水平になる回転角 φ を解く
+    var phi=Math.atan2(-uy, vy);
+    if(Math.cos(phi)*ux + Math.sin(phi)*vx < 0) phi+=Math.PI;
+    var inner=ins[i].querySelector('.cf-in');
+    if(inner) inner.style.transform='rotate('+(phi*180/Math.PI).toFixed(2)+'deg)';
+  }
 }
 function cubeGo(i, keepPlaying){
   var F=(window.__CUBE||{})[CURRENT_NAME]; if(!F) return;
