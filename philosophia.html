@@ -4,21 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Philosophia｜その悩み、哲学者ならこう考える。診断であなたに近い哲学者がわかる</title>
-<meta name="description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日の悩みに活かせる無料サイト。ソクラテスからニーチェ、ブッダまで228人を、やさしい言葉と診断で。">
+<meta name="description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日の悩みに活かせるサイト。ソクラテスからニーチェ、ブッダまで228人を、やさしい言葉と診断で。">
 <meta name="keywords" content="哲学,哲学者,思想,哲学入門,わかりやすい,西洋哲学,東洋哲学,倫理学,ソクラテス,プラトン,アリストテレス,カント,ニーチェ,孔子,ブッダ">
 <link rel="canonical" href="https://philosophia-psi.vercel.app/philosophia.html">
 <meta property="og:title" content="Philosophia｜その悩み、哲学者ならこう考える。">
-<meta property="og:description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日に活かせる無料サイト。ソクラテスからニーチェ、ブッダまで228人。">
+<meta property="og:description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日に活かせるサイト。ソクラテスからニーチェ、ブッダまで228人。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://philosophia-psi.vercel.app/philosophia.html">
 <meta property="og:site_name" content="Philosophia 哲学の泉">
 <meta property="og:image" content="https://philosophia-psi.vercel.app/icon-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Philosophia｜その悩み、哲学者ならこう考える。">
-<meta name="twitter:description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日に活かせる無料サイト。ソクラテスからニーチェ、ブッダまで228人。">
+<meta name="twitter:description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日に活かせるサイト。ソクラテスからニーチェ、ブッダまで228人。">
 <meta name="twitter:image" content="https://philosophia-psi.vercel.app/icon-512.png">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebSite","name":"Philosophia 哲学の泉","alternateName":"Philosophia","url":"https://philosophia-psi.vercel.app/philosophia.html","description":"古代から現代まで200人以上の哲学者を、やさしい要約・キーワード・影響関係・年表でたどれる無料の哲学学習サイト。","inLanguage":"ja","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://philosophia-psi.vercel.app/philosophia.html?q={search_term_string}"},"query-input":"required name=search_term_string"},"publisher":{"@type":"Organization","name":"Philosophia 哲学の泉","logo":{"@type":"ImageObject","url":"https://philosophia-psi.vercel.app/icon-512.png"}}}
+{"@context":"https://schema.org","@type":"WebSite","name":"Philosophia 哲学の泉","alternateName":"Philosophia","url":"https://philosophia-psi.vercel.app/philosophia.html","description":"古代から現代まで200人以上の哲学者を、やさしい要約・キーワード・影響関係・年表でたどれる哲学サイト。","inLanguage":"ja","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://philosophia-psi.vercel.app/philosophia.html?q={search_term_string}"},"query-input":"required name=search_term_string"},"publisher":{"@type":"Organization","name":"Philosophia 哲学の泉","logo":{"@type":"ImageObject","url":"https://philosophia-psi.vercel.app/icon-512.png"}}}
 </script>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
@@ -32,6 +32,7 @@
 <script src="batch2.js"></script>
 <script src="batch3.js"></script>
 <script src="story.js"></script>
+<script src="cube.js"></script>
 <script src="levels.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 <style>
@@ -131,6 +132,46 @@
   .m-block h3 .ic.gold svg.ic{stroke:#111}
   .linkbtn svg.ic{width:15px;height:15px;opacity:.85}
   .act-like svg.ic,.act-save svg.ic,.ys-listrow svg.ic,.m-share svg.ic{width:15px;height:15px;vertical-align:-3px;margin-right:3px;opacity:.9}
+  /* ===== 6面キューブ（回転可能／60秒再生） ===== */
+  .cube-block{margin:6px 0 26px;padding:0}
+  .cube-head{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+  .cube-head h3{font-size:14px;color:var(--accent);font-weight:800;margin:0;background:none;padding:0}
+  .cube-head .ch-hint{font-size:11.5px;color:var(--sub)}
+  .cube-play{margin-left:auto;display:inline-flex;align-items:center;gap:7px;background:linear-gradient(180deg,#f6e4ad,#e8c672);color:#1a1408;font-weight:800;font-size:12.5px;padding:7px 15px;border-radius:18px;border:none;cursor:pointer;font-family:inherit}
+  .cube-play:hover{opacity:.9}
+  .cube-play.on{background:#2a2a2a;color:#e8c672;border:1px solid #4a4230}
+  .cube-stage{position:relative;height:330px;perspective:1100px;touch-action:none;cursor:grab;user-select:none;
+    background:radial-gradient(ellipse at 50% 45%,rgba(123,92,255,.10),transparent 62%)}
+  .cube-stage:active{cursor:grabbing}
+  .cube{position:absolute;left:50%;top:50%;width:230px;height:230px;margin:-115px 0 0 -115px;
+    transform-style:preserve-3d;transition:transform .75s cubic-bezier(.3,.9,.3,1)}
+  .cube.drag{transition:none}
+  .cf{position:absolute;inset:0;border-radius:14px;padding:16px 15px;overflow:hidden;
+    background:linear-gradient(165deg,rgba(28,26,38,.96),rgba(16,15,22,.97));
+    border:1px solid #35304a;box-shadow:0 0 32px rgba(0,0,0,.5),inset 0 1px 0 rgba(255,255,255,.05);
+    backface-visibility:hidden;display:flex;flex-direction:column}
+  .cf.active{border-color:var(--accent);box-shadow:0 0 44px rgba(201,162,75,.30),inset 0 1px 0 rgba(255,255,255,.07)}
+  .cf-t{display:flex;align-items:center;gap:7px;font-size:11.5px;font-weight:800;color:var(--accent);letter-spacing:.05em;flex:none}
+  .cf-ic{font-size:13px;opacity:.85}
+  .cf-v{margin-top:9px;font-size:11.8px;line-height:1.72;color:#dcd9e6;overflow:hidden;white-space:pre-line;flex:1}
+  .cf-by{margin-top:6px;font-size:10px;color:#8f88ad;flex:none}
+  .cf-q .cf-v{font-size:13.5px;line-height:1.8;color:#e4defb;font-weight:600}
+  .cf-a{border-color:#5a3535}
+  .cf-a .cf-t{color:#e59a9a}
+  .cf-you{border-color:#2f5a41}
+  .cf-you .cf-t{color:#8fd3a8}
+  .cf-you .cf-v{color:#dbeee2;font-weight:600;font-size:12.5px}
+  .cube-dots{display:flex;justify-content:center;gap:7px;margin-top:6px}
+  .cube-dots i{width:7px;height:7px;border-radius:50%;background:#2f2f38;cursor:pointer;transition:.2s}
+  .cube-dots i.on{background:var(--accent);transform:scale(1.35)}
+  .cube-bar{height:2px;background:#232330;border-radius:2px;margin:9px 0 0;overflow:hidden}
+  .cube-bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width .25s linear}
+  .cube-cap{text-align:center;font-size:11.5px;color:var(--sub);margin-top:8px;min-height:16px}
+  @media(max-width:640px){
+    .cube-stage{height:300px;perspective:900px}
+    .cube{width:206px;height:206px;margin:-103px 0 0 -103px}
+    .cf{padding:14px 13px}.cf-v{font-size:11.3px}
+  }
   /* 長文読み物（モーダル内） */
   .deepstory{padding:2px 0 0}
   .deepstory .ds-h{font-size:19px;color:#fff;font-weight:800;line-height:1.55;margin:34px 0 13px;background:none;border:0;padding:0;display:block}
@@ -335,8 +376,8 @@
   <div class="intro-center">
     <div class="intro-title">Philosophia</div>
     <div class="intro-sub">哲学の泉</div>
-    <div class="intro-promise">その悩み、2500年前の誰かが、<br>もう考えぬいている。</div>
-    <div class="intro-lead">哲学の知識は、いりません。ソクラテスからニーチェ、ブッダまで――今を生きるあなたに効く"考え方"を、やさしい言葉で、無料で。</div>
+    <div class="intro-promise">その悩み、2500年前の誰かが、<br>もう考えぬいているかも？</div>
+    <div class="intro-lead">哲学の知識は、いりません。ソクラテスからニーチェ、ブッダまで――今を生きるあなたに効く"考え方"を、やさしい言葉で。</div>
     <button class="intro-cta" type="button" aria-label="はじめる">はじめる →</button>
     <div class="intro-hint">画面のどこでもクリックで入れます</div>
   </div>
@@ -574,7 +615,7 @@
   <h1>あなたの悩みに、近い哲学者がいる。</h1>
   <p>「どう生きるか」「なぜ報われないのか」――誰もが一度は考えることを、とことん考えぬいた人たちがいます。予備知識はいりません。まずは<b>6つの質問</b>で、あなたに近い一人を見つけてみませんか。</p>
   <div class="hero-cta">
-    <a class="hc-main" href="/quiz.html">🧭 あなたに近い哲学者を診断する（1分・無料）</a>
+    <a class="hc-main" href="/quiz.html">🧭 あなたに近い哲学者を診断する（1分）</a>
     <span class="hc-hint">または、下の一覧から気になる名前をどうぞ。</span>
   </div>
 </div>
@@ -591,7 +632,7 @@
 
 <div class="ad-slot" id="adBottom"></div>
 <footer>
-  Philosophia — 哲学を体系的に無料で学べるプラットフォーム。 ・ <a href="guide.html">哲学者一覧（全228人）を見る</a> ・ <a href="quiz.html">哲学者診断（あなたに近い思想家は？）</a><br>
+  Philosophia — 哲学を、あなたの毎日に。 ・ <a href="guide.html">哲学者一覧（全228人）を見る</a> ・ <a href="quiz.html">哲学者診断（あなたに近い思想家は？）</a><br>
   肖像画像はWikimedia Commons(パブリックドメイン等)から表示しています。自由に使える写真が存在しない一部の人物は、頭文字のプレースホルダーになる場合があります。<br>
   詳細画面の「研究・文献をさがす」からGoogle Scholar・Wikipedia・CiNii等の学術データベースへ誘導します。 ・ <a href="#" onclick="openGen();return false;">AIで哲学者を追加する</a> ・ <a href="#" onclick="showPrivacy();return false;">プライバシーポリシー</a>
   <div class="support-block" id="supportBlock" style="display:none">
@@ -3761,6 +3802,112 @@ function render(){
 /* ============================================================
    年表ビュー / 共有(固有URL)
    ============================================================ */
+/* ===== 6面キューブ =====
+   6つの面に、その哲学者の属性（核心／本人の言葉／転回／生の事実／反論／あなたへ）を配置。
+   ドラッグで自由回転。再生ボタンで6面を各10秒＝約60秒めぐる。 */
+var CUBE_ROT = {x:-14, y:24};   // 現在の回転
+var CUBE_FACE = 0;              // 手前の面
+var CUBE_TIMER = null;          // 再生タイマー
+var CUBE_PROG = null;           // 進捗タイマー
+/* 各面を正面に持ってくる回転角 */
+var CUBE_ANGLES = [
+  {x:-10, y:0},    {x:-10, y:-90},  {x:-10, y:180},
+  {x:-10, y:90},   {x:-88, y:0},    {x:88,  y:0}
+];
+function cubeHTML(p){
+  try{
+    var F = (typeof window!=='undefined' && window.__CUBE) ? window.__CUBE[p.name] : null;
+    if(!F || F.length!==6) return '';
+    var half = 115;
+    var tf = [
+      'translateZ('+half+'px)',
+      'rotateY(90deg) translateZ('+half+'px)',
+      'rotateY(180deg) translateZ('+half+'px)',
+      'rotateY(-90deg) translateZ('+half+'px)',
+      'rotateX(90deg) translateZ('+half+'px)',
+      'rotateX(-90deg) translateZ('+half+'px)'
+    ];
+    var cls = ['','cf-q','','','cf-a','cf-you'];
+    var faces = F.map(function(f,i){
+      return '<div class="cf '+(cls[i]||'')+(i===0?' active':'')+'" data-i="'+i+'" style="transform:'+tf[i]+'">'
+        + '<div class="cf-t"><span class="cf-ic">'+esc(f.ic||'')+'</span>'+esc(f.t)+'</div>'
+        + '<div class="cf-v">'+esc(f.v)+'</div>'
+        + (f.by?'<div class="cf-by">— '+esc(f.by)+'</div>':'')
+        + '</div>';
+    }).join('');
+    return '<div class="m-block cube-block">'
+      + '<div class="cube-head"><h3>6つの面から見る</h3><span class="ch-hint">ドラッグで回転</span>'
+      +   '<button class="cube-play" id="cubePlay" type="button" onclick="cubePlay()">▶ 1分で見る</button></div>'
+      + '<div class="cube-stage" id="cubeStage"><div class="cube" id="cube">'+faces+'</div></div>'
+      + '<div class="cube-bar"><i id="cubeBar"></i></div>'
+      + '<div class="cube-dots" id="cubeDots">'+F.map(function(f,i){return '<i data-i="'+i+'" onclick="cubeGo('+i+')" title="'+esc(f.t)+'"></i>';}).join('')+'</div>'
+      + '<div class="cube-cap" id="cubeCap">'+esc(F[0].t)+'</div>'
+      + '</div>';
+  }catch(e){ return ''; }
+}
+function cubeApply(){
+  var c=document.getElementById('cube'); if(!c) return;
+  c.style.transform='rotateX('+CUBE_ROT.x+'deg) rotateY('+CUBE_ROT.y+'deg)';
+}
+function cubeGo(i, keepPlaying){
+  var F=(window.__CUBE||{})[CURRENT_NAME]; if(!F) return;
+  if(!keepPlaying) cubeStop();
+  CUBE_FACE=i;
+  var a=CUBE_ANGLES[i]; CUBE_ROT.x=a.x; CUBE_ROT.y=a.y;
+  var c=document.getElementById('cube'); if(c) c.classList.remove('drag');
+  cubeApply();
+  var dots=document.querySelectorAll('#cubeDots i');
+  for(var k=0;k<dots.length;k++) dots[k].classList.toggle('on',k===i);
+  var fs=document.querySelectorAll('#cube .cf');
+  for(var k=0;k<fs.length;k++) fs[k].classList.toggle('active', +fs[k].getAttribute('data-i')===i);
+  var cap=document.getElementById('cubeCap'); if(cap) cap.textContent=F[i].t;
+}
+function cubeStop(){
+  if(CUBE_TIMER){ clearInterval(CUBE_TIMER); CUBE_TIMER=null; }
+  if(CUBE_PROG){ clearInterval(CUBE_PROG); CUBE_PROG=null; }
+  var b=document.getElementById('cubePlay'); if(b){ b.textContent='▶ 1分で見る'; b.classList.remove('on'); }
+  var bar=document.getElementById('cubeBar'); if(bar) bar.style.width='0%';
+}
+function cubePlay(){
+  if(CUBE_TIMER){ cubeStop(); return; }
+  var b=document.getElementById('cubePlay'); if(b){ b.textContent='■ 停止'; b.classList.add('on'); }
+  var step=0, total=6, sec=10, t=0;
+  cubeGo(0,true);
+  var bar=document.getElementById('cubeBar');
+  CUBE_PROG=setInterval(function(){
+    t+=0.25;
+    if(bar) bar.style.width=Math.min(100,(t/(total*sec))*100)+'%';
+  },250);
+  CUBE_TIMER=setInterval(function(){
+    step++;
+    if(step>=total){ cubeStop(); return; }
+    cubeGo(step,true);
+  }, sec*1000);
+}
+/* ドラッグ回転（マウス＋タッチ） */
+function cubeBind(){
+  var st=document.getElementById('cubeStage'), c=document.getElementById('cube');
+  if(!st||!c) return;
+  var dragging=false, sx=0, sy=0, rx=0, ry=0, moved=false;
+  function down(x,y){ dragging=true; moved=false; sx=x; sy=y; rx=CUBE_ROT.x; ry=CUBE_ROT.y; c.classList.add('drag'); cubeStop(); }
+  function move(x,y){
+    if(!dragging) return;
+    var dx=x-sx, dy=y-sy;
+    if(Math.abs(dx)+Math.abs(dy)>4) moved=true;
+    CUBE_ROT.y = ry + dx*0.45;
+    CUBE_ROT.x = Math.max(-88, Math.min(88, rx - dy*0.45));
+    cubeApply();
+  }
+  function up(){ if(!dragging) return; dragging=false; c.classList.remove('drag'); }
+  st.addEventListener('mousedown',function(e){ down(e.clientX,e.clientY); e.preventDefault(); });
+  window.addEventListener('mousemove',function(e){ move(e.clientX,e.clientY); });
+  window.addEventListener('mouseup',up);
+  st.addEventListener('touchstart',function(e){ var t=e.touches[0]; down(t.clientX,t.clientY); },{passive:true});
+  st.addEventListener('touchmove',function(e){ var t=e.touches[0]; move(t.clientX,t.clientY); e.preventDefault(); },{passive:false});
+  st.addEventListener('touchend',up);
+  cubeApply();
+  var d0=document.querySelector('#cubeDots i'); if(d0) d0.classList.add('on');
+}
 /* 長文読み物（story.js の window.__STORY）。ある人はこちらを本文にする。
    ブロック種別: h=見出し p=本文 q=本人の言葉 read=読み解き attack=最も強い反論 ask=読者への問い */
 function deepStoryHTML(p){
@@ -4249,6 +4396,7 @@ function openModal(name){
       </div>
     </div>
     <div class="m-body">
+      ${cubeHTML(p)}
       ${deepStoryHTML(p) || `${storyHTML}
       ${easyHTML}
       <div class="m-block">
@@ -4281,6 +4429,7 @@ function openModal(name){
   _ov.classList.add("open");
   if(_prevModalName!==name){ _ov.scrollTop=0; }  // 別の哲学者に切り替えたときは最上部から表示
   document.body.style.overflow="hidden";
+  try{ cubeStop(); CUBE_ROT={x:-14,y:24}; CUBE_FACE=0; cubeBind(); }catch(e){}
 }
 function showDef(i){
   const c=CURRENT_CONCEPTS[i]; if(!c) return;
@@ -4291,7 +4440,7 @@ function showDef(i){
   box.innerHTML=`<strong style="color:var(--accent2)">${esc(c.t)}</strong>　${c.d?esc(c.d):'(この用語の説明はまだ用意されていません)'}`
     + (long?`<div><span class="more-btn" onclick="toggleMore('termMore',this)">もっと詳しく ▾</span><div class="more-body" id="termMore">${esc(long)}</div></div>`:'');
 }
-function closeModal(){document.getElementById("overlay").classList.remove("open");document.body.style.overflow="";CURRENT_NAME="";try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}try{document.title="Philosophia｜その悩み、哲学者ならこう考える。診断であなたに近い哲学者がわかる";}catch(e){}}
+function closeModal(){try{cubeStop();}catch(e){} document.getElementById("overlay").classList.remove("open");document.body.style.overflow="";CURRENT_NAME="";try{history.replaceState(null,"",location.pathname+location.search);}catch(e){}try{document.title="Philosophia｜その悩み、哲学者ならこう考える。診断であなたに近い哲学者がわかる";}catch(e){}}
 function removePhilosopher(name){
   if(!confirm(`「${name}」を削除しますか?`))return;
   added=added.filter(p=>p.name!==name);save(LS_ADDED,added);
