@@ -174,6 +174,26 @@ ${relHTML}
   <p class="back"><a href="/guide.html">← ほかの哲学者を見る（全${Object.keys(BY).length}人）</a></p>
 </main>
 <footer>Philosophia｜哲学を、体系的に。　<a href="/philosophia.html">インタラクティブ版</a>　/　<a href="/guide.html">一覧</a></footer>
+<script>
+(function(){
+  function hue(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h%360;}
+  document.addEventListener("error",function(e){
+    var img=e.target;
+    if(!img||img.tagName!=="IMG"||!/Special:FilePath/.test(img.src||"")) return;
+    if(img.__fb) return; img.__fb=1;
+    var nm=(img.getAttribute("alt")||"？").replace(/の肖像$/,"").trim()||"？";
+    var d=document.createElement("div");
+    d.className=img.className;
+    d.textContent=nm.charAt(0);
+    var h=hue(nm), w=img.offsetWidth||img.width||48;
+    d.style.cssText="display:grid;place-items:center;font-weight:800;color:rgba(255,255,255,.92);"
+      +"background:linear-gradient(135deg,hsl("+h+" 45% 32%),hsl("+((h+40)%360)+" 50% 20%));"
+      +"width:"+w+"px;height:"+(img.offsetHeight||img.height||w)+"px;border-radius:inherit;"
+      +"font-size:"+Math.max(12,Math.round(w*0.42))+"px;flex:none";
+    if(img.parentNode) img.parentNode.replaceChild(d,img);
+  },true);
+})();
+</script>
 </body>
 </html>`;
 }
