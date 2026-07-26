@@ -55,7 +55,8 @@
   header{position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:20px;
     padding:12px 26px;background:rgba(10,10,10,.92);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--line)}
-  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.5px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.5px;cursor:pointer;transition:opacity .18s}
+  .brand:hover{opacity:.72}
   .brand .mark{width:30px;height:30px;border-radius:50%;
     background:radial-gradient(circle at 30% 30%,var(--accent),#6b4c1a);
     display:grid;place-items:center;font-size:16px;color:#111;font-weight:900}
@@ -403,12 +404,12 @@
     <div class="intro-lead">哲学の知識は、いりません。ソクラテスからニーチェ、ブッダまで――今を生きるあなたに効く"考え方"を、やさしい言葉で。</div>
     <button class="intro-cta" type="button" aria-label="はじめる">はじめる →</button>
     <div class="intro-gates" id="introGates">
-      <a class="ig" href="/nayami.html"><span class="ig-i">🌙</span><b>その悩みに効く一人を探す</b><i>不安・人間関係・むなしさ…気持ちから</i></a>
-      <a class="ig" href="/quiz.html"><span class="ig-i">🧭</span><b>あなたに近い哲学者を知る</b><i>6つの質問・1分</i></a>
-      <a class="ig" href="#" data-act="today"><span class="ig-i">🎲</span><b>今日の一人に出会う</b><i>毎日ひとり、知らない思想家と</i></a>
-      <a class="ig" href="#" data-act="cube"><span class="ig-i">🧊</span><b>一人を6つの面から掴む</b><i>回る立体で、1分で見る</i></a>
-      <a class="ig" href="#" data-act="attack"><span class="ig-i">⚡</span><b>賛美しない。最強の反論まで</b><i>その思想の、最も痛い批判を</i></a>
-      <a class="ig" href="/era.html"><span class="ig-i">🕰</span><b>その年、世界では誰が</b><i>年代を動かすと同時代が並ぶ</i></a>
+      <a class="ig" href="/nayami.html"><span class="ig-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a6.8 6.8 0 0 0 10.5 10.5z"/></svg></span><b>その悩みに効く一人を探す</b><i>不安・人間関係・むなしさ…気持ちから</i></a>
+      <a class="ig" href="/quiz.html"><span class="ig-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M15.6 8.4l-2.1 5.1-5.1 2.1 2.1-5.1z"/></svg></span><b>あなたに近い哲学者を知る</b><i>6つの質問・1分</i></a>
+      <a class="ig" href="#" data-act="today"><span class="ig-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></span><b>今日の一人に出会う</b><i>毎日ひとり、知らない思想家と</i></a>
+      <a class="ig" href="#" data-act="cube"><span class="ig-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M12 2.6l8 4.3v9.4l-8 4.3-8-4.3V6.9z"/><path d="M4 6.9l8 4.3 8-4.3M12 11.2V20"/></svg></span><b>一人を6つの面から掴む</b><i>回る立体で、1分で見る</i></a>
+      <a class="ig" href="#" data-act="attack"><span class="ig-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><path d="M13 2L4.5 13.5H11L10 22l8.5-11.5H12z"/></svg></span><b>賛美しない。最強の反論まで</b><i>その思想の、最も痛い批判を</i></a>
+      <a class="ig" href="/era.html"><span class="ig-i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.2l3.4 2"/></svg></span><b>その年、世界では誰が</b><i>年代を動かすと同時代が並ぶ</i></a>
     </div>
     <div class="intro-hint">画面のどこでもクリックで入れます</div>
   </div>
@@ -435,16 +436,22 @@
   #introSplash .intro-gates{margin:30px auto 0;max-width:min(92vw,760px);pointer-events:auto;
     display:grid;grid-template-columns:repeat(3,1fr);gap:10px;
     animation:introFade 1.9s 1.05s ease both}
-  #introSplash .ig{display:block;text-align:left;padding:13px 14px;border-radius:13px;text-decoration:none;
-    background:linear-gradient(165deg,rgba(30,26,18,.55),rgba(14,13,11,.62));
-    border:1px solid rgba(201,162,75,.22);backdrop-filter:blur(3px);
-    transition:border-color .22s,transform .22s,background .22s}
-  #introSplash .ig:hover{border-color:rgba(232,198,114,.65);transform:translateY(-3px);
-    background:linear-gradient(165deg,rgba(46,38,22,.7),rgba(20,18,14,.72));
-    box-shadow:0 8px 26px rgba(201,162,75,.16)}
-  #introSplash .ig-i{font-size:16px;line-height:1}
-  #introSplash .ig b{display:block;margin-top:7px;font-size:13px;font-weight:800;color:#f2e6c6;line-height:1.5}
-  #introSplash .ig i{display:block;margin-top:4px;font-size:11px;font-style:normal;color:#a2977e;line-height:1.55}
+  /* 背景と同化しないよう、面を暗く締めて縁を淡い青灰に。金は文字とアイコンだけに使う */
+  #introSplash .ig{display:block;text-align:left;padding:14px 15px;border-radius:14px;text-decoration:none;
+    background:linear-gradient(165deg,rgba(20,21,28,.88),rgba(11,12,16,.92));
+    border:1px solid rgba(150,160,190,.20);backdrop-filter:blur(6px);
+    box-shadow:0 4px 18px rgba(0,0,0,.45);
+    transition:border-color .22s,transform .22s,background .22s,box-shadow .22s}
+  #introSplash .ig:hover{border-color:rgba(232,198,114,.85);transform:translateY(-3px);
+    background:linear-gradient(165deg,rgba(30,28,22,.94),rgba(16,15,13,.95));
+    box-shadow:0 10px 30px rgba(201,162,75,.22)}
+  #introSplash .ig-i{display:inline-flex;align-items:center;justify-content:center;
+    width:30px;height:30px;border-radius:9px;color:#e8c672;
+    background:rgba(201,162,75,.12);border:1px solid rgba(201,162,75,.30)}
+  #introSplash .ig-i svg{width:17px;height:17px;display:block}
+  #introSplash .ig:hover .ig-i{background:rgba(201,162,75,.22);border-color:rgba(232,198,114,.6)}
+  #introSplash .ig b{display:block;margin-top:9px;font-size:13px;font-weight:800;color:#f4ead2;line-height:1.5}
+  #introSplash .ig i{display:block;margin-top:4px;font-size:11px;font-style:normal;color:#9ba0ae;line-height:1.55}
   @media(max-width:820px){
     #introSplash .intro-gates{grid-template-columns:repeat(2,1fr);gap:8px;margin-top:24px}
     #introSplash .ig{padding:11px 12px}
@@ -544,6 +551,11 @@
   function loop(){ frame(); if(splash.style.display!=='none') raf=requestAnimationFrame(loop); }
   function enter(){ if(entering) return; entering=true; splash.classList.add('hide');
     setTimeout(function(){ if(raf) cancelAnimationFrame(raf); splash.style.display='none'; }, 1000); }
+  window.__introRestart=function(){
+    entering=false;
+    resize(); build();
+    if(reduced){ frame(); } else { if(raf) cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
+  };
 
   try{ sessionStorage.setItem('philo_intro_seen','1'); }catch(e){}
   resize(); build();
@@ -668,7 +680,7 @@
 </script>
 
 <header>
-  <div class="brand"><span class="mark">φ</span>Philosophia<small>&nbsp;哲学の泉</small></div>
+  <div class="brand" id="brandHome" role="button" tabindex="0" title="入口の画面へ戻る" onclick="backToIntro()"><span class="mark">φ</span>Philosophia<small>&nbsp;哲学の泉</small></div>
   <div class="search">
     <input id="search" type="text" placeholder="哲学者・思想・キーワードを検索…" oninput="render()">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
@@ -933,7 +945,7 @@ const SEED = [
    system:"存在をめぐる厳密な論理的思考を初めて展開し、西洋存在論(オントロジー)の祖となった。ヘラクレイトスの生成の哲学と対立し、以後の哲学に「存在とは何か」という問いを刻んだ。",
    concepts:[{t:"存在(ある)",d:"生成も消滅もしない、唯一不変で完全な真の実在。"},{t:"生成の否定",d:"「無から有は生じない」として、変化や生成を仮象とみなす立場。"},{t:"思考と存在の一致",d:"あるものだけが思考でき、思考されうるものはあるとする原理。"},{t:"真理と臆見",d:"理性が至る真理の道と、感覚に基づく人々の思い込みの道の区別。"}]},
 
-  {name:"デモクリトス", en:"Democritus", era:"紀元前460頃–370頃", category:"west-ancient", imgFile:"Hendrick ter Brugghen - Democritus.jpg",
+  {name:"デモクリトス", en:"Democritus", era:"紀元前460頃–370頃", category:"west-ancient", imgFile:"Unknown greek pushkin.jpg",
    quote:"実際に存在するのは、原子と空虚だけである。",
    summary:"万物はそれ以上分割できない微小な粒子「原子(アトム)」と、それが運動する「空虚」から成ると説いた。世界の一切は原子の結合と離散で説明でき、魂も原子から成るとする徹底した唯物論・機械論を唱えた。",
    system:"レウキッポスとともに古代原子論を大成し、目的でなく必然と偶然による自然の説明を打ち立てた。この原子論はエピクロスに受け継がれ、近代の機械論的自然観の遠い源流となった。",
@@ -1137,7 +1149,7 @@ const SEED = [
    system:"ウパニシャッドを体系化し、不二一元論(アドヴァイタ・ヴェーダーンタ)を大成した。その思想はインド哲学の主流の一つとなり、ヒンドゥー教の理論的支柱となった。",
    concepts:[{t:"ブラフマン(梵)",d:"宇宙の根源であり、唯一絶対の実在。"},{t:"アートマン(我)",d:"個人の奥にある、変わらぬ真の自己。"},{t:"梵我一如",d:"宇宙の根源と個の本質は本来同一であるという悟り。"},{t:"マーヤー",d:"多様な現象世界を生む、無明による見せかけ・仮象。"}]},
 
-  {name:"和辻哲郎", en:"Watsuji Tetsurō", era:"1889–1960", category:"east", imgFile:"Tetsuro Watsuji.jpg",
+  {name:"和辻哲郎", en:"Watsuji Tetsurō", era:"1889–1960", category:"east", imgFile:"Tetsuro Watsuji 01.jpg",
    quote:"人間とは「間柄」において存在する。",
    summary:"人間を孤立した個人でなく、人と人との「間柄」において初めて成り立つ存在として捉えた。倫理は個人の内面でなく、人間関係・共同体のうちにあるとした。風土が人間の生き方や文化を形づくることも論じた。",
    system:"西洋の個人主義的倫理学を批判し、間柄を基礎とする独自の倫理学を築いた。『風土』で気候・環境と文化の関係を論じ、日本の倫理学・文化論に大きな足跡を残した。",
@@ -1197,7 +1209,7 @@ const SEED = [
    system:"自我を原理とする知識学を構想し、ドイツ観念論の展開を切り開いた。その能動的主体の哲学はシェリング・ヘーゲルへと受け継がれ、後の主体性の思想にも影響した。",
    concepts:[{t:"自我(絶対我)",d:"すべての出発点となる、自らを立てる能動的な主体。"},{t:"定立と反定立",d:"自我が自らを立て、それに対し非我(世界)を立てる働き。"},{t:"知識学",d:"自我を原理としてすべての知を基礎づけようとする体系。"},{t:"道徳的行為",d:"自我の本質を、絶えざる道徳的努力と行為に見る考え。"}]},
 
-  {name:"シェリング", en:"Friedrich Schelling", era:"1775–1854", category:"west-modern", imgFile:"Friedrich Wilhelm Joseph von Schelling 1848.jpg",
+  {name:"シェリング", en:"Friedrich Schelling", era:"1775–1854", category:"west-modern", imgFile:"Nb pinacoteca stieler friedrich wilhelm joseph von schelling.jpg",
    quote:"自然は目に見える精神、精神は目に見えない自然である。",
    summary:"自然と精神を対立させず、両者を貫く一つの根源(絶対者)の異なる現れとして捉えた。自然もまた無意識のうちに精神へと生成していく生きた全体だとし、芸術こそ主観と客観の統一が示される場だとした。",
    system:"自然哲学と同一哲学を展開し、フィヒテとヘーゲルをつなぐドイツ観念論の中心人物となった。自然を生きた有機的全体として捉える見方は、ロマン主義にも大きな影響を与えた。",
@@ -1287,7 +1299,7 @@ const SEED = [
    system:"折衷的にストア派やアカデメイア派を取り入れ、ラテン語の哲学語彙を整えた。その自然法思想と共和政の理念は、近代の法思想・人文主義に大きな影響を残した。",
    concepts:[{t:"自然法",d:"人間に共通する理性に根ざした、普遍的で不変の法。"},{t:"雄弁術",d:"教養と徳を備えた説得の技術。市民の理想とされた。"},{t:"共和政の理想",d:"法と徳に基づく市民の自治を重んじる政治観。"},{t:"折衷主義",d:"複数の学派の長所を取り入れて調和させる態度。"}]},
 
-  {name:"ボエティウス", en:"Boethius", era:"480頃–524", category:"west-medieval", imgFile:"Boethius.Consolation.Philosophy.jpg",
+  {name:"ボエティウス", en:"Boethius", era:"480頃–524", category:"west-medieval", imgFile:"Boethius.jpeg",
    quote:"運命の輪は回り続ける。",
    summary:"無実の罪で投獄され処刑を待つ中、『哲学の慰め』を著した。移ろう運命(フォルトゥナ)に一喜一憂せず、真の幸福は失われることのない最高善=神のうちにあると説き、哲学によって心の平安を求めた。",
    system:"古代哲学と中世をつなぐ「最後のローマ人」とされ、普遍論争の火種となる問題も提起した。その著作と論理学の翻訳は、中世スコラ哲学の重要な出発点となった。",
@@ -1299,13 +1311,13 @@ const SEED = [
    system:"スコラ哲学の父とされ、信仰と理性の関係を問う枠組みを築いた。彼の存在論的証明は、以後デカルト、カント、現代の分析哲学に至るまで議論され続けている。",
    concepts:[{t:"存在論的証明",d:"神の概念そのものから神の存在を論理的に導こうとする証明。"},{t:"知解を求める信仰",d:"信仰を前提に、それを理性で理解しようとする姿勢。"},{t:"最大の存在者",d:"「それより大きいものが考えられない」ものとしての神の定義。"},{t:"信仰と理性",d:"信じることと理解することの結びつきを問う中世の主題。"}]},
 
-  {name:"ドゥンス・スコトゥス", en:"Duns Scotus", era:"1266頃–1308", category:"west-medieval", imgFile:"Joos van Gent - Duns Scotus.jpg",
+  {name:"ドゥンス・スコトゥス", en:"Duns Scotus", era:"1266頃–1308", category:"west-medieval", imgFile:"Scoto (Duns Scoto).jpg",
    quote:"個を個たらしめるもの、それが「このもの性」である。",
    summary:"存在という概念は神にも被造物にも同じ意味で当てはまる(存在の一義性)と論じ、個物を他ならぬこの個物にしている原理を「このもの性」と呼んだ。意志を知性より重んじる立場でも知られる。",
    system:"精緻な論理で知られ「精妙博士」と呼ばれた。存在の一義性や個体化の理論はスコラ哲学を深化させ、後の存在論や近代哲学にも影響を残した。",
    concepts:[{t:"存在の一義性",d:"「存在する」は神にも被造物にも同じ意味で言えるとする説。"},{t:"このもの性",d:"個物を他ならぬこの個物にしている、個体化の原理。"},{t:"意志の優位",d:"知性よりも意志を上位に置く考え(主意主義)。"},{t:"形相的区別",d:"実在の中に見いだされる、概念だけでない微妙な区別。"}]},
 
-  {name:"ニコラウス・クザーヌス", en:"Nicholas of Cusa", era:"1401–1464", category:"west-medieval", imgFile:"Nikolaus von Kues.JPG",
+  {name:"ニコラウス・クザーヌス", en:"Nicholas of Cusa", era:"1401–1464", category:"west-medieval", imgFile:"Nicholas of Cusa.jpg",
    quote:"知ある無知。",
    summary:"無限なる神は人間の有限な理性では捉えきれないと自覚すること(知ある無知)こそ、真の知に近づく道だと説いた。神においては対立するものが一致する(反対の一致)とし、有限と無限の関係を数学的比喩で論じた。",
    system:"中世とルネサンスをつなぐ思想家で、神秘思想と数学的思考を結びつけた。反対の一致や無限の思索は、後のブルーノや近代の宇宙論・哲学に影響を与えた。",
@@ -1347,7 +1359,7 @@ const SEED = [
    system:"デカルト的な数学的理性偏重に抗し、歴史と文化を理解する「新しい学」を構想した。その歴史哲学は当時は注目されなかったが、後のヘルダーやヘーゲル、人文学に大きな影響を与えた。",
    concepts:[{t:"真理は作られたもの",d:"人は自らが作ったものだけを真に知りうるという原理。"},{t:"歴史の学(新しい学)",d:"自然科学とは別に、人間の作る歴史・社会を理解する学問。"},{t:"歴史の反復",d:"諸民族の歴史が神話から理性へと共通の段階をたどるという見方。"},{t:"詩的知恵",d:"原初の人々が神話やイメージで世界を捉えた思考のあり方。"}]},
 
-  {name:"ヴォルテール", en:"Voltaire", era:"1694–1778", category:"west-modern", imgFile:"Nicolas de Largillière - François-Marie Arouet dit Voltaire.jpg",
+  {name:"ヴォルテール", en:"Voltaire", era:"1694–1778", category:"west-modern", imgFile:"Nicolas de Largillière - Portrait de Voltaire (1694-1778) en 1718 - P208 - musée Carnavalet - 5 (cropped).jpg",
    quote:"あなたの意見には反対だが、あなたが言う権利は命がけで守る。",
    summary:"理性と経験を重んじ、教会の独断や不寛容、迷信、専制を鋭い風刺で批判した。信教の自由や言論の自由、寛容を訴え、あらゆる盲信に「理性の光」を当てようとした啓蒙の代表的知識人。",
    system:"啓蒙思想を体現し、寛容と自由をめぐる無数の著作・書簡で世論を動かした。その批判精神と人権擁護は、フランス革命や近代の自由主義に大きな影響を残した。",
@@ -1383,13 +1395,13 @@ const SEED = [
    system:"経験と伝統を尊重する近代保守主義の祖とされる。抽象的理性への懐疑と、社会を有機的に捉える見方は、その後の保守思想の基本となった。",
    concepts:[{t:"保守主義",d:"伝統と慣習の知恵を重んじ、急激な変革を戒める立場。"},{t:"伝統・慣習",d:"歴史の中で培われ受け継がれてきた制度や知恵。"},{t:"漸進的改革",d:"社会を一気にでなく、少しずつ改良していくべきだとする考え。"},{t:"世代間の契約",d:"社会を死者・生者・未来の者の連続した結びつきとみる見方。"}]},
 
-  {name:"トクヴィル", en:"Alexis de Tocqueville", era:"1805–1859", category:"west-modern", imgFile:"Alexis de Tocqueville (Théodore Chassériau - 1850).jpg",
+  {name:"トクヴィル", en:"Alexis de Tocqueville", era:"1805–1859", category:"west-modern", imgFile:"Portrait of Alexis de Tocqueville.jpg",
    quote:"民主主義は、平等への抑えがたい情熱である。",
    summary:"アメリカの民主社会を観察し、身分でなく平等が支配する社会の可能性と危うさを分析した。平等は自由をもたらす一方、人々を孤立させ、多数の意見が個人を圧する「多数の専制」を生みうると警告した。",
    system:"近代民主主義を歴史的必然としつつ、その光と影を冷静に見つめる政治社会学を築いた。市民の結社や自由の意義を説くその分析は、現代の民主主義論に生き続けている。",
    concepts:[{t:"平等化",d:"身分の差が消え、条件の平等が進む近代社会の趨勢。"},{t:"多数の専制",d:"多数派の意見が少数者や個人を圧迫する民主社会の危険。"},{t:"結社",d:"市民が自発的に結びつき、自由を支える中間集団。"},{t:"民主主義の光と影",d:"平等がもたらす自由と、孤立や画一化の両面。"}]},
 
-  {name:"サン=シモン", en:"Henri de Saint-Simon", era:"1760–1825", category:"west-modern", imgFile:"Henri de Saint-Simon.jpg",
+  {name:"サン=シモン", en:"Henri de Saint-Simon", era:"1760–1825", category:"west-modern", imgFile:"Portrait de Claude-Henri de Rouvroy, comte de Saint-Simon.jpg",
    quote:"最も貧しい階級の運命の改善を、社会の目的とせよ。",
    summary:"社会は、産業に携わる者(実業家・技術者・労働者)が中心となって組織され、科学と産業によって計画的に運営されるべきだと構想した。最も貧しい人々の境遇の改善を社会の目標に掲げた。",
    system:"産業社会の到来をいち早く捉え、科学者と産業者による社会の合理的組織化を説いた。その思想は空想的社会主義やコントの実証主義、産業社会論の源流となった。",
@@ -1401,43 +1413,43 @@ const SEED = [
    system:"数学を論理から基礎づけようとし(論理主義)、現代論理学と言語哲学の出発点を築いた。意義と意味の区別や文脈原理は、分析哲学の中心的問題を切り開いた。",
    concepts:[{t:"述語論理",d:"命題の内部構造を関数と項で厳密に表す、現代論理学の体系。"},{t:"意義と意味",d:"語の指示対象(意味)と、その与えられ方(意義)の区別。"},{t:"論理主義",d:"数学を論理学から導き出せるとする立場。"},{t:"文脈原理",d:"語の意味は、それが現れる文全体の中でこそ問うべきだとする原則。"}]},
 
-  {name:"G.E.ムーア", en:"G. E. Moore", era:"1873–1958", category:"west-contemporary", imgFile:"George Edward Moore.jpg",
+  {name:"G.E.ムーア", en:"G. E. Moore", era:"1873–1958", category:"west-contemporary", imgFile:"1914 George Edward Moore (cropped).jpg",
    quote:"善は、それ以上定義できない単純な性質である。",
    summary:"「善い」を快楽など他の自然的性質と同一視する試みを「自然主義的誤謬」として批判し、善はそれ以上分析できない単純な性質だとした。常識的な確信を出発点に、懐疑論に反論したことでも知られる。",
    system:"ラッセルとともにイギリスの分析哲学を興し、日常言語と常識を重んじる方向を示した。倫理学における自然主義批判は、メタ倫理学の議論の起点となった。",
    concepts:[{t:"自然主義的誤謬",d:"「善い」を快楽など自然的性質に還元してしまう誤り。"},{t:"善の非分析性",d:"善はそれ以上定義・分析できない単純な性質だとする考え。"},{t:"常識の擁護",d:"素朴な常識的確信を出発点に懐疑論へ反論する立場。"},{t:"メタ倫理学",d:"道徳の言葉や判断そのものの性質を問う倫理学の分野。"}]},
 
-  {name:"ホワイトヘッド", en:"Alfred North Whitehead", era:"1861–1947", category:"west-contemporary", imgFile:"Alfred North Whitehead in 1936.jpg",
+  {name:"ホワイトヘッド", en:"Alfred North Whitehead", era:"1861–1947", category:"west-contemporary", imgFile:"ANWhitehead.jpg",
    quote:"西洋哲学は、プラトンへの一連の脚注にすぎない。",
    summary:"世界を、静止した実体でなく、生成しつつ関係し合う出来事(現実的存在)の過程として捉えた。あらゆるものは互いに抱握し合いながら生成するとし、宇宙を有機的な創造の過程として描いた。",
    system:"ラッセルと数学基礎論を築いたのち、過程と関係を軸とする有機体の哲学(プロセス哲学)を展開した。その形而上学は宗教哲学や環境思想にも影響を与えている。",
    concepts:[{t:"プロセス哲学",d:"世界を実体でなく、生成する出来事の過程として捉える立場。"},{t:"現実的存在",d:"生成し消えていく、世界を構成する基本的な出来事。"},{t:"抱握",d:"あらゆるものが互いを取り込み関係し合う働き。"},{t:"有機体の哲学",d:"宇宙を、相互に関係し合う有機的な全体として捉える見方。"}]},
 
-  {name:"カルナップ", en:"Rudolf Carnap", era:"1891–1970", category:"west-contemporary", imgFile:"Rudolf Carnap.png",
+  {name:"カルナップ", en:"Rudolf Carnap", era:"1891–1970", category:"west-contemporary", imgFile:"",
    quote:"形而上学の命題は、真でも偽でもなく無意味である。",
    summary:"経験によって検証できる命題だけが有意味だとし(検証原理)、形而上学の問いは無意味な疑似問題だと退けた。科学の言語を論理的に分析し、統一的で明晰な知の体系を目指した。",
    system:"ウィーン学団を代表し、論理実証主義を推進した。論理分析と経験主義を結びつけるその方法は、現代の科学哲学・言語哲学に大きな影響を残した。",
    concepts:[{t:"論理実証主義",d:"経験的に検証できる命題と論理・数学だけを有意味とみなす立場。"},{t:"検証原理",d:"命題の意味は、それを検証する経験的方法によって決まるとする原理。"},{t:"形而上学の排除",d:"検証不能な形而上学の問いを無意味として退けること。"},{t:"論理分析",d:"科学の言語を論理の道具で明晰に分析する方法。"}]},
 
-  {name:"クワイン", en:"W. V. O. Quine", era:"1908–2000", category:"west-contemporary", imgFile:"Wvo-quine-3.jpg",
+  {name:"クワイン", en:"W. V. O. Quine", era:"1908–2000", category:"west-contemporary", imgFile:"Willard Van Orman Quine on Bluenose II in Halifax NS harbor 1980.jpg",
    quote:"存在するとは、変項の値であることだ。",
    summary:"分析的(意味だけで真)と総合的(事実による)命題の区別を疑い、経験と切り離せる純粋な意味はないと論じた。私たちの信念は個々にでなく、全体として経験に向き合う網の目(ホーリズム)をなすとした。",
    system:"論理実証主義の前提を内側から崩し、経験主義を刷新した。翻訳の不確定性や存在論的言明の分析など、その議論は戦後アメリカの分析哲学を方向づけた。",
    concepts:[{t:"分析／総合の区別批判",d:"意味だけで真の命題と事実による命題の境界を疑う議論。"},{t:"ホーリズム",d:"信念は個別でなく、全体として経験に向き合うという考え。"},{t:"翻訳の不確定性",d:"ある言語の文の意味を一意に翻訳し尽くせないという主張。"},{t:"存在論的コミットメント",d:"理論が何の存在を認めているかを、変項の値として問う見方。"}]},
 
-  {name:"クーン", en:"Thomas Kuhn", era:"1922–1996", category:"west-contemporary", imgFile:"Thomas Kuhn.jpg",
+  {name:"クーン", en:"Thomas Kuhn", era:"1922–1996", category:"west-contemporary", imgFile:"Thomas Kuhn (1977) (cropped).jpg",
    quote:"科学は、パラダイムの転換によって革命的に進む。",
    summary:"科学は事実の直線的な積み重ねでなく、時代を支配する枠組み「パラダイム」の内での通常研究と、それが行き詰まって別の枠組みへ乗り換わる「科学革命」を繰り返すと論じた。新旧の枠組みは通約不能だとした。",
    system:"『科学革命の構造』で科学の歴史的・社会的な見方を提示し、科学哲学に大きな転換をもたらした。パラダイムという語は諸分野に広まり、知の枠組みを問う議論を活性化させた。",
    concepts:[{t:"パラダイム",d:"ある時代の科学を支配する、問いと方法の共有された枠組み。"},{t:"通常科学",d:"パラダイムの内部でパズルを解くように進む日常的な研究。"},{t:"科学革命",d:"行き詰まったパラダイムが別の枠組みへ乗り換わる転換。"},{t:"通約不可能性",d:"新旧のパラダイムが共通の尺度で比較できないこと。"}]},
 
-  {name:"ローティ", en:"Richard Rorty", era:"1931–2007", category:"west-contemporary", imgFile:"Richard Rorty.jpg",
+  {name:"ローティ", en:"Richard Rorty", era:"1931–2007", category:"west-contemporary", imgFile:"Una foto en la ventana de Rorty en Barcelona.jpg",
    quote:"真理とは、私たちが信じるのがよいとされるものだ。",
    summary:"心を世界の「鏡」とし、真理を実在の正確な写しとみなす伝統を批判した。真理や知識は、私たちの言葉と実践、会話の中で役立つ合意にすぎないとし、哲学を人間同士の対話の営みとして捉え直した。",
    system:"プラグマティズムを現代に甦らせ、基礎づけ主義を退ける反表象主義を唱えた。その思想は哲学と文学・政治を横断し、ポストモダンの知的状況に大きな影響を与えた。",
    concepts:[{t:"反表象主義",d:"知識を実在の正確な写しとみなす見方を退ける立場。"},{t:"ネオ・プラグマティズム",d:"真理や知を、実践と会話の中で役立つ合意として捉える現代の立場。"},{t:"自然の鏡の批判",d:"心を世界を映す鏡とする認識論の伝統への批判。"},{t:"連帯",d:"普遍的真理でなく、人々の共感と会話に基づく結びつきを重んじる考え。"}]},
 
-  {name:"クリプキ", en:"Saul Kripke", era:"1940–2022", category:"west-contemporary", imgFile:"Saul Kripke.JPG",
+  {name:"クリプキ", en:"Saul Kripke", era:"1940–2022", category:"west-contemporary", imgFile:"Kripke.JPG",
    quote:"名前は、対象を固定的に指し示す。",
    summary:"固有名は意味の記述によってでなく、最初の命名から因果的に受け継がれる連鎖によって対象を指すと論じた(固定指示子)。これにより、経験によって知られるが必然的に真である事柄がありうると示した。",
    system:"様相論理の意味論を整備し、指示や必然性をめぐる議論を一新した。『名指しと必然性』は言語哲学・形而上学に決定的な影響を与え、記述説を覆した。",
@@ -1461,13 +1473,13 @@ const SEED = [
    system:"精神医学から出発し、実存哲学を築いた。限界状況・実存的交わり・包括者などの概念で、科学では届かない人間の depth を照らし、実存主義と宗教哲学に影響した。",
    concepts:[{t:"限界状況",d:"死・苦・罪など、避けられず人を本来の自己へ目覚めさせる状況。"},{t:"実存",d:"客観的に対象化できない、いま生きる本来的な自己。"},{t:"包括者",d:"あらゆる対象を超え、それらを包み込む究極の全体・超越者。"},{t:"実存的交わり",d:"互いを本来の自己として認め合う、真実の人間関係。"}]},
 
-  {name:"ガダマー", en:"Hans-Georg Gadamer", era:"1900–2002", category:"west-contemporary", imgFile:"Hans-Georg Gadamer.jpeg",
+  {name:"ガダマー", en:"Hans-Georg Gadamer", era:"1900–2002", category:"west-contemporary", imgFile:"Hans-Georg Gadamer.jpg",
    quote:"理解とは、地平の融合である。",
    summary:"理解には、私たちが歴史から受け継いだ先入見(先入観)が不可欠に働いていると論じた。テクストや他者を理解するとは、自分の地平と相手の地平が出会い溶け合うこと(地平の融合)だとした。",
    system:"ハイデガーを継ぎ、哲学的解釈学を大成した。『真理と方法』で、科学的方法とは別の、対話と伝統を通じた真理のあり方を示し、人文学に広く影響を与えた。",
    concepts:[{t:"解釈学",d:"テクストや他者を理解する営みそのものを問う哲学。"},{t:"地平の融合",d:"理解する側とされる側の視野が出会い、溶け合うこと。"},{t:"先入見(先理解)",d:"伝統から受け継がれ、理解を可能にする前提的な見方。"},{t:"作用史",d:"過去が現在の理解に働きかけ続けているという歴史のあり方。"}]},
 
-  {name:"リクール", en:"Paul Ricœur", era:"1913–2005", category:"west-contemporary", imgFile:"Paul Ricoeur.jpg",
+  {name:"リクール", en:"Paul Ricœur", era:"1913–2005", category:"west-contemporary", imgFile:"Paul Ricoeur Balzan.png",
    quote:"自己を、他者を経由して理解する。",
    summary:"象徴や物語、テクストの解釈を通して人間の自己理解を探究した。人は自らの人生を物語ることで一貫した自己(物語的アイデンティティ)を築くとし、隠喩や記憶・赦しといった主題を深く論じた。",
    system:"現象学と解釈学を結びつけ、意志・象徴・物語・記憶を横断する広大な思索を展開した。その哲学は倫理学・歴史学・宗教学など多くの分野に影響を与えている。",
@@ -1491,7 +1503,7 @@ const SEED = [
    system:"禅宗の第六祖とされ、その教えは『六祖壇経』にまとめられた。頓悟と見性を軸とする南宗禅は、後の中国・日本の禅の主流となり、東アジア仏教に決定的な影響を与えた。",
    concepts:[{t:"頓悟",d:"段階を踏まず、一挙に本性を悟ること。"},{t:"見性",d:"自らの本性(仏性)を直接に見て取ること。"},{t:"本来清浄",d:"心はもともと清らかで、そのまま仏であるとする考え。"},{t:"不立文字",d:"真理は文字や教義でなく、直接の体得によって伝わるという立場。"}]},
 
-  {name:"世親", en:"Vasubandhu", era:"4–5世紀頃", category:"east", imgFile:"Vasubandhu, Kōfuku-ji.jpg",
+  {name:"世親", en:"Vasubandhu", era:"4–5世紀頃", category:"east", imgFile:"Vasubandhu.png",
    quote:"世界は、ただ識(心)の現れである。",
    summary:"外界の事物はそれ自体で実在するのでなく、すべては心(識)が生み出した現れにすぎないと説いた(唯識)。心の深層に、経験の種子を蓄え輪廻の基となる阿頼耶識があるとし、心の構造を精緻に分析した。",
    system:"兄の無著とともに唯識思想を大成し、大乗仏教の一大学派(瑜伽行派)を築いた。その心の分析は東アジアの法相宗などに受け継がれ、仏教心理学の基礎となった。",
@@ -1509,7 +1521,7 @@ const SEED = [
    system:"日本天台宗を開き、比叡山を総合的な仏教教育の場とした。その普遍的な成仏の思想と教育は、法然・親鸞・道元・日蓮ら鎌倉仏教の祖師を生む母胎となった。",
    concepts:[{t:"一切衆生悉有仏性",d:"すべての生きものが等しく仏になれる素質をもつという考え。"},{t:"天台の教え",d:"『法華経』を最高とし、あらゆる教えを統合する仏教の体系。"},{t:"一隅を照らす",d:"社会の片隅で人を照らし尽くす人こそ国の宝だという理念。"},{t:"大乗戒",d:"僧だけでなく広く人々に開かれた、大乗の戒律。"}]},
 
-  {name:"法然", en:"Hōnen", era:"1133–1212", category:"east", imgFile:"Priest Honen.jpg",
+  {name:"法然", en:"Hōnen", era:"1133–1212", category:"east", imgFile:"Takanobu-no-miei.jpg",
    quote:"ただ念仏して、弥陀にたすけられまいらすべし。",
    summary:"厳しい修行や学問によらず、ひたすら「南無阿弥陀仏」と称える念仏(専修念仏)によって、誰もが等しく極楽往生できると説いた。自力でなく、阿弥陀仏の本願にすべてをゆだねる他力の道を開いた。",
    system:"浄土宗を開き、万人に開かれた易しい救いの道を示した。専修念仏の教えは民衆に広く受け入れられ、親鸞ら後の浄土教の発展の礎となった。",
@@ -1527,13 +1539,13 @@ const SEED = [
    system:"日蓮宗を開き、『法華経』への絶対的帰依と唱題を中心とする信仰を確立した。その現実変革的で情熱的な思想は、後世の宗教運動にも大きな影響を与えた。",
    concepts:[{t:"題目(唱題)",d:"「南無妙法蓮華経」と唱えること。成仏の直接の道とされる。"},{t:"法華経至上",d:"『法華経』を釈迦の究極の教えとみなす立場。"},{t:"即身成仏",d:"この身このまま仏になれるという考え。"},{t:"立正安国",d:"正しい教えを立てることで、国と社会を安んじようとする理念。"}]},
 
-  {name:"伊藤仁斎", en:"Itō Jinsai", era:"1627–1705", category:"east", imgFile:"Ito Jinsai.jpg",
+  {name:"伊藤仁斎", en:"Itō Jinsai", era:"1627–1705", category:"east", imgFile:"伊藤仁斎像.jpg",
    quote:"仁とは、愛のみ。",
    summary:"後世の朱子学の抽象的な理論を退け、孔子・孟子の原典に立ち返ってその真意を捉えようとした(古義学)。仁の本質を、理屈でなく人を愛する具体的な情愛に見いだし、日常の人倫の中に道を求めた。",
    system:"京都で古義学派を開き、『論語』『孟子』を熟読して独自の解釈を示した。その実践的で人間味ある儒学は、江戸時代の思想に大きな影響を与えた。",
    concepts:[{t:"古義学",d:"後世の注釈でなく、孔孟の原典に立ち返って真意を求める学問。"},{t:"仁=愛",d:"仁の本質を、人を愛する具体的な情愛に見る考え。"},{t:"日常の人倫",d:"抽象理論でなく、日々の人間関係の中に道を求める姿勢。"},{t:"原典重視",d:"『論語』『孟子』そのものを熟読し解釈する方法。"}]},
 
-  {name:"荻生徂徠", en:"Ogyū Sorai", era:"1666–1728", category:"east", imgFile:"Ogyu Sorai.jpg",
+  {name:"荻生徂徠", en:"Ogyū Sorai", era:"1666–1728", category:"east", imgFile:"Ogyuh Sorai.jpg",
    quote:"道とは、先王が作った制度・文物のことである。",
    summary:"道を、自然の理でなく、古代の聖王が民を治めるために作った具体的な制度・礼楽(先王の道)だと捉えた。抽象的な心の修養より、社会を治める政治・制度の学を重んじ、古代中国語で原典を読む方法を説いた。",
    system:"古文辞学を唱え、経典を古代の言語と歴史に即して読み解いた。その制度重視・政治優先の学は、後の経世論や国学の方法にも影響を与えた。",
@@ -1587,7 +1599,7 @@ const SEED = [
    system:"「第二の師(アリストテレスに次ぐ師)」と称され、イスラーム哲学の体系を確立した。その論理学と政治哲学は、イブン・シーナーやマイモニデスに受け継がれた。",
    concepts:[{t:"徳ある都市",d:"人々が理性を完成させ、真の幸福を目指す理想の共同体。"},{t:"哲人王=預言者",d:"哲学者にして預言者が人々を幸福へ導くとする理想像。"},{t:"知性の階梯",d:"人間の知性が能動知性へと高まり真理に至る段階。"},{t:"幸福",d:"理性の完成によって達せられる、人間の究極の目的。"}]},
 
-  {name:"ガザーリー", en:"Al-Ghazali", era:"1058–1111", category:"islamic-jewish", imgFile:"Algazel.png",
+  {name:"ガザーリー", en:"Al-Ghazali", era:"1058–1111", category:"islamic-jewish", imgFile:"Al Ghazzali illustration.gif",
    quote:"哲学者たちの主張は、自壊する。",
    summary:"哲学者たちが理性で神や世界を論じることの限界を鋭く批判し、確実な真理は理性でなく神との直接的な体験(神秘的直観)にあると説いた。自らの信仰の危機を、スーフィズムの実践によって乗り越えた。",
    system:"神学・法学・哲学に精通しつつ、最終的にスーフィズム(イスラーム神秘主義)を正統な信仰の道として基礎づけた。その哲学批判と内面の探究は、イスラーム思想の方向を大きく定めた。",
@@ -1629,7 +1641,7 @@ const SEED = [
    system:"フランクフルト学派の一員として、フロイトとマルクスを結びつけ現代社会を分析した。その解放の思想は1960年代の学生運動・新左翼に大きな影響を与えた。",
    concepts:[{t:"一次元的人間",d:"豊かさに順応し、批判力を失った現代社会の人間像。"},{t:"抑圧的脱昇華",d:"欲望を管理された形で満たし、反抗心を骨抜きにする仕組み。"},{t:"管理社会批判",d:"豊かさによって人々を体制へ順応させる社会への批判。"},{t:"解放",d:"抑圧を突き破り、人間本来の可能性を取り戻すこと。"}]},
 
-  {name:"ノージック", en:"Robert Nozick", era:"1938–2002", category:"west-contemporary", imgFile:"Robert Nozick.jpg",
+  {name:"ノージック", en:"Robert Nozick", era:"1938–2002", category:"west-contemporary", imgFile:"Robert Nozick 1977 Libertarian Review cover (4x5 cropped).jpg",
    quote:"個人には、侵してはならない権利がある。",
    summary:"個人の権利、とりわけ自由と正当に得た所有を絶対的に尊重する立場から、富の再分配を行う大きな国家を批判した。国家の役割は暴力・盗み・契約違反からの保護に限るべきだとする「最小国家」を擁護した。",
    system:"ロールズの正義論に対し、リバタリアニズム(自由至上主義)の立場から反論した。『アナーキー・国家・ユートピア』は、権利と国家の正当性をめぐる現代の議論を活性化させた。",
@@ -1659,7 +1671,7 @@ const SEED = [
    system:"フェミニズムとクィア理論を刷新し、アイデンティティの脱構築を進めた。『ジェンダー・トラブル』は性とアイデンティティをめぐる現代の議論に決定的な影響を与えた。",
    concepts:[{t:"ジェンダー・パフォーマティヴィティ",d:"ジェンダーは反復される行為によって作られる効果だとする考え。"},{t:"構築されたジェンダー",d:"性別の区分は自然でなく、社会的に構築されるという見方。"},{t:"アイデンティティの脱構築",d:"固定した自己・性の区分を問い直し、揺るがすこと。"},{t:"生の可傷性",d:"人が互いに傷つきやすさを分かち合う存在だという洞察。"}]},
 
-  {name:"ジジェク", en:"Slavoj Žižek", era:"1949–", category:"west-contemporary", imgFile:"Zizek in Liverpool cropped.jpg",
+  {name:"ジジェク", en:"Slavoj Žižek", era:"1949–", category:"west-contemporary", imgFile:"Slavoj Žižek 2015 (closeup).jpg",
    quote:"イデオロギーは、我々が知らずに従っているものだ。",
    summary:"ラカンの精神分析とヘーゲルの弁証法を用い、映画や大衆文化を素材に現代のイデオロギーを分析した。人はイデオロギーを見抜いたつもりでも、行動においては従い続けていると指摘し、その無意識の構造を暴いた。",
    system:"精神分析・ドイツ観念論・マルクス主義を独自に結びつけ、現代を挑発的に論じる思想家として知られる。その文化・政治批評は、現代思想の大衆的な受容にも大きな影響を与えている。",
@@ -3870,6 +3882,20 @@ function render(){
 /* ============================================================
    年表ビュー / 共有(固有URL)
    ============================================================ */
+/* 入口（6つの選択肢がある最初の画面）へ戻る */
+function backToIntro(){
+  try{
+    var sp=document.getElementById('introSplash');
+    if(!sp) { location.href='/philosophia.html'; return; }
+    try{ closeModal(); }catch(e){}
+    sp.style.display='';
+    sp.style.pointerEvents='';
+    // 一瞬待ってから hide を外し、フェードインさせる
+    requestAnimationFrame(function(){ sp.classList.remove('hide'); });
+    window.scrollTo({top:0,behavior:'auto'});
+    if(typeof window.__introRestart==='function') window.__introRestart();
+  }catch(e){ location.href='/philosophia.html'; }
+}
 /* ===== 今日の一人 =====
    日付から決まるので、同じ日は誰が開いても同じ人。長文がある人を優先する。 */
 function todayOne(){

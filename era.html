@@ -255,5 +255,31 @@ document.addEventListener("keydown",function(e){
   setYear(m ? +m[1] : -450);
 })();
 </script>
+<script>
+/* 画像が読めなかったら、頭文字の円に自動で差し替える（全ページ共通） */
+(function(){
+  function hue(s){var h=0;for(var i=0;i<s.length;i++)h=(h*31+s.charCodeAt(i))>>>0;return h%360;}
+  window.__imgFallback=function(img){
+    try{
+      if(img.__fb) return; img.__fb=1;
+      var nm=img.getAttribute("data-nm")||img.getAttribute("alt")||"？";
+      var ch=(nm.replace(/の肖像$/,"").trim()||"？").charAt(0);
+      var d=document.createElement("div");
+      d.className=img.className+" imgfb";
+      d.textContent=ch;
+      var h=hue(nm);
+      d.style.cssText="display:grid;place-items:center;font-weight:800;color:rgba(255,255,255,.92);"
+        +"background:linear-gradient(135deg,hsl("+h+" 45% 32%),hsl("+((h+40)%360)+" 50% 20%));"
+        +"width:"+(img.width||img.offsetWidth||48)+"px;height:"+(img.height||img.offsetHeight||48)+"px;"
+        +"border-radius:inherit;font-size:"+Math.max(12,Math.round((img.offsetWidth||48)*0.42))+"px;flex:none";
+      if(img.parentNode) img.parentNode.replaceChild(d,img);
+    }catch(e){}
+  };
+  document.addEventListener("error",function(e){
+    var t=e.target;
+    if(t&&t.tagName==="IMG"&&/Special:FilePath/.test(t.src||"")) window.__imgFallback(t);
+  },true);
+})();
+</script>
 </body>
 </html>
