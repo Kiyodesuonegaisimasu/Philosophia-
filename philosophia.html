@@ -481,8 +481,10 @@
 (function(){
   var splash=document.getElementById('introSplash');
   if(!splash) return;
-  // 最初の導入だけ：このセッションで一度でも見たら以降は出さない
-  try{ if(sessionStorage.getItem('philo_intro_seen')==='1'){ splash.parentNode.removeChild(splash); return; } }catch(e){}
+  // 最初の導入だけ：このセッションで一度でも見たら「自動では」出さない。
+  // ただしDOMには残す（ヘッダーのロゴから入口画面へ戻れるようにするため）
+  var alreadySeen=false;
+  try{ alreadySeen = (sessionStorage.getItem('philo_intro_seen')==='1'); }catch(e){}
   var canvas=document.getElementById('introCanvas');
   var ctx=canvas.getContext('2d');
   var DPR=Math.min(window.devicePixelRatio||1,2);
@@ -552,14 +554,19 @@
   function enter(){ if(entering) return; entering=true; splash.classList.add('hide');
     setTimeout(function(){ if(raf) cancelAnimationFrame(raf); splash.style.display='none'; }, 1000); }
   window.__introRestart=function(){
-    entering=false;
+    entering=false; exitP=0;
+    for(var i=0;i<particles.length;i++){ particles[i].vx=0; particles[i].vy=0; }
     resize(); build();
     if(reduced){ frame(); } else { if(raf) cancelAnimationFrame(raf); raf=requestAnimationFrame(loop); }
   };
 
   try{ sessionStorage.setItem('philo_intro_seen','1'); }catch(e){}
   resize(); build();
-  if(reduced){ frame(); } else { raf=requestAnimationFrame(loop); }
+  if(alreadySeen){
+    // 2回目以降は最初から閉じた状態。ロゴを押したときだけ __introRestart で復帰する
+    splash.classList.add('hide');
+    splash.style.display='none';
+  } else if(reduced){ frame(); } else { raf=requestAnimationFrame(loop); }
   window.addEventListener('resize', function(){ resize(); for(var i=0;i<particles.length;i++) target(particles[i]); if(reduced) frame(); });
   /* 6つの入口。リンクはそのまま遷移、アプリ内で開くものは splash を閉じてから実行 */
   var gates=document.getElementById('introGates');
