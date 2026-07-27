@@ -3,6 +3,7 @@
 //   vercel.json の rewrites: { source: "/p/:slug", destination: "/api/p?slug=:slug" }
 import { BY } from './_data.js';
 import { STORY } from './_story.js';
+import { SEO } from './_seo.js';
 
 const BASE = 'https://philosophia-psi.vercel.app';
 const CATLABEL = { 'west-ancient':'西洋古代','west-medieval':'西洋中世','west-modern':'西洋近代','west-contemporary':'西洋現代','east':'東洋','islamic-jewish':'イスラーム・ユダヤ' };
@@ -26,11 +27,24 @@ function midYear(era){
   return null;
 }
 
+// 見出しにidを振るためのslug化（目次からのジャンプ用）
+function hid(i){ return 'h'+i; }
+
+// 記事の目次。読者に中身の濃さを見せ、検索側にも見出し構造を渡す。
+function tocHTML(st){
+  const hs = st.blocks.filter(b=>b.t==='h');
+  if(hs.length < 2) return '';
+  let n = 0;
+  const items = st.blocks.map(b => b.t==='h' ? '<li><a href="#'+hid(n++)+'">'+esc(b.v)+'</a></li>' : '').join('');
+  return '<nav class="toc" aria-label="この記事の目次"><div class="toc-t">この記事で読めること</div><ol>'+items+'</ol></nav>';
+}
+
 // 長文読み物（STORY）のレンダリング。ブロック種別ごとに見せ方を変える。
 function storyHTML(st){
+  let n = 0;
   return '<div class="story">' + st.blocks.map(b=>{
     const v = esc(b.v||'');
-    if(b.t==='h')      return '<h2 class="s-h">'+v+'</h2>';
+    if(b.t==='h')      return '<h2 class="s-h" id="'+hid(n++)+'">'+v+'</h2>';
     if(b.t==='q')      return '<figure class="s-q"><blockquote>'+v+'</blockquote>'+(b.by?'<figcaption>— '+esc(b.by)+'</figcaption>':'')+'</figure>';
     if(b.t==='read')   return '<div class="s-read"><span class="s-tag">読み解く</span><p>'+v+'</p></div>';
     if(b.t==='attack') return '<div class="s-attack"><span class="s-tag">この考えへの、最も強い反論</span><p>'+v+'</p></div>';
@@ -43,7 +57,14 @@ function render(p){
   const url = BASE + '/p/' + p.slug;
   const story = STORY[p.name];
   const cat = CATLABEL[p.category] || '';
-  const d = descOf(p);
+  // 深く書いた60人は、記事にしかない切り口をタイトルに出す。
+  // 「◯◯とは」で大手と正面衝突しても勝てないため。残りは従来どおりの型。
+  const seo = SEO[p.name] || null;
+  const d = seo ? seo.desc : descOf(p);
+  const pageTitle = seo ? (seo.title + ' - Philosophia')
+                        : (p.name + '（' + (p.en||'') + '）とは｜思想をわかりやすく解説 - Philosophia');
+  const shareTitle = seo ? seo.title
+                         : (p.name + '（' + (p.en||'') + '）｜思想をやさしく解説');
   const my = midYear(p.era);
   const imgUrl = p.img ? ('https://commons.wikimedia.org/wiki/Special:FilePath/'+encodeURIComponent(p.img)+'?width=500') : '';
   const ogImg = imgUrl || (BASE+'/icon-512.png');
@@ -64,18 +85,18 @@ function render(p){
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>${esc(p.name)}（${esc(p.en||'')}）とは｜思想をわかりやすく解説 - Philosophia</title>
+<title>${esc(pageTitle)}</title>
 <meta name="description" content="${esc(d)}">
 <meta name="keywords" content="${kw}">
 <link rel="canonical" href="${url}">
-<meta property="og:title" content="${esc(p.name)}（${esc(p.en||'')}）｜思想をやさしく解説">
+<meta property="og:title" content="${esc(shareTitle)}">
 <meta property="og:description" content="${esc(d)}">
 <meta property="og:type" content="article">
 <meta property="og:url" content="${url}">
 <meta property="og:image" content="${ogImg}">
 <meta property="og:site_name" content="Philosophia 哲学の泉">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="${esc(p.name)}（${esc(p.en||'')}）｜思想をやさしく解説">
+<meta name="twitter:title" content="${esc(shareTitle)}">
 <meta name="twitter:description" content="${esc(d)}">
 <meta name="twitter:image" content="${ogImg}">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
@@ -110,7 +131,13 @@ section h2{font-size:18px;color:#f4dfa0;border-left:4px solid #e8c672;padding-le
 section p{font-size:15px;color:#e2e2e2}
 /* 長文読み物 */
 .story{margin-top:30px}
-.story .s-h{font-size:20px;color:#fff;font-weight:800;line-height:1.5;margin:38px 0 14px;padding-left:0;border:0}
+.toc{margin:24px 0 4px;border:1px solid #2c2c2c;border-radius:14px;padding:16px 20px 18px;background:#121212}
+.toc .toc-t{font-size:12px;letter-spacing:.1em;color:#8a7a52;font-weight:800;margin-bottom:9px}
+.toc ol{margin:0;padding-left:20px}
+.toc li{font-size:14.5px;line-height:1.8;margin-bottom:4px;color:#8f8f8f}
+.toc li a{color:#dcdcdc}
+.toc li a:hover{color:#f4dfa0}
+.story .s-h{font-size:20px;color:#fff;font-weight:800;line-height:1.5;margin:38px 0 14px;padding-left:0;border:0;scroll-margin-top:70px}
 .story .s-h:first-child{margin-top:6px}
 .story .s-p{font-size:16px;color:#e6e6e6;line-height:2.0;margin-bottom:17px}
 .story .s-q{margin:26px 0;padding:20px 22px;background:linear-gradient(170deg,#191622,#121016);border-left:3px solid #7b5cff;border-radius:0 12px 12px 0}
@@ -159,7 +186,7 @@ footer{border-top:1px solid #2c2c2c;margin-top:50px;padding:24px 20px;text-align
   </div>
   ${p.quote?`<blockquote>「${esc(p.quote)}」</blockquote>`:''}
   ${p.easy?`<div class="easy">💡 ${esc(p.easy)}</div>`:''}
-  ${story ? storyHTML(story) : `<section><h2>何を言っていたか</h2><p>${esc(p.summary||'')}</p></section>
+  ${story ? (tocHTML(story) + storyHTML(story)) : `<section><h2>何を言っていたか</h2><p>${esc(p.summary||'')}</p></section>
   ${p.system?`<section><h2>どういう思想体系を作ったか</h2><p>${esc(p.system)}</p></section>`:''}`}
   ${(p.concepts&&p.concepts.length)?`<section><h2>キーワード</h2><ul class="kw">${p.concepts.map(c=>`<li><b>${esc(c.t)}</b> ― ${esc(c.d||'')}</li>`).join('')}</ul></section>`:''}
   ${(p.rels&&p.rels.length)?`<section><h2>つながり（関係性）</h2><ul class="rel">
