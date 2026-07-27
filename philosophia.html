@@ -4,18 +4,18 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Philosophia｜その悩み、哲学者ならこう考える。診断であなたに近い哲学者がわかる</title>
-<meta name="description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日の悩みに活かせるサイト。ソクラテスからニーチェ、ブッダまで228人を、やさしい言葉と診断で。">
+<meta name="description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日の悩みに活かせるサイト。ソクラテスからニーチェ、ブッダまで、60人は要約ではなく全文で読めます。">
 <meta name="keywords" content="哲学,哲学者,思想,哲学入門,わかりやすい,西洋哲学,東洋哲学,倫理学,ソクラテス,プラトン,アリストテレス,カント,ニーチェ,孔子,ブッダ">
 <link rel="canonical" href="https://philosophia-psi.vercel.app/philosophia.html">
 <meta property="og:title" content="Philosophia｜その悩み、哲学者ならこう考える。">
-<meta property="og:description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日に活かせるサイト。ソクラテスからニーチェ、ブッダまで228人。">
+<meta property="og:description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日に活かせるサイト。ソクラテスからニーチェ、ブッダまで。60人は全文で読めます。">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://philosophia-psi.vercel.app/philosophia.html">
 <meta property="og:site_name" content="Philosophia 哲学の泉">
 <meta property="og:image" content="https://philosophia-psi.vercel.app/icon-512.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Philosophia｜その悩み、哲学者ならこう考える。">
-<meta name="twitter:description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日に活かせるサイト。ソクラテスからニーチェ、ブッダまで228人。">
+<meta name="twitter:description" content="哲学の知識はいりません。6つの質問であなたに近い哲学者がわかり、その考え方を毎日に活かせるサイト。ソクラテスからニーチェ、ブッダまで。60人は全文で読めます。">
 <meta name="twitter:image" content="https://philosophia-psi.vercel.app/icon-512.png">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"WebSite","name":"Philosophia 哲学の泉","alternateName":"Philosophia","url":"https://philosophia-psi.vercel.app/philosophia.html","description":"古代から現代まで200人以上の哲学者を、やさしい要約・キーワード・影響関係・年表でたどれる哲学サイト。","inLanguage":"ja","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://philosophia-psi.vercel.app/philosophia.html?q={search_term_string}"},"query-input":"required name=search_term_string"},"publisher":{"@type":"Organization","name":"Philosophia 哲学の泉","logo":{"@type":"ImageObject","url":"https://philosophia-psi.vercel.app/icon-512.png"}}}
@@ -349,8 +349,13 @@
   .lockblk .lk-head{padding:16px 20px 6px}
   .lockblk h3{font-size:16px;font-weight:800;display:flex;align-items:center;gap:8px}
   .lockblk h3 .ic{width:22px;height:22px;border-radius:6px;display:grid;place-items:center;font-size:13px;background:var(--accent2);color:#fff}
-  .lockblk .tease{position:relative;padding:6px 20px 20px;color:#cfc8ea;font-size:14px;line-height:1.85;filter:blur(4px);user-select:none;-webkit-user-select:none;pointer-events:none;max-height:82px;overflow:hidden}
-  .lockblk .lk-cta{position:absolute;left:0;right:0;bottom:0;top:44px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(180deg,rgba(20,18,32,.15),rgba(20,18,32,.92) 55%);text-align:center;padding:16px}
+  /* ぼかした本文の上にCTAを重ねず、縦に積む。何が買えるのかは読める状態で見せる。 */
+  .lockblk .tease{position:relative;padding:2px 20px 16px;color:#cfc8ea;font-size:13.5px;line-height:1.85;
+    user-select:none;-webkit-user-select:none;pointer-events:none;
+    -webkit-mask-image:linear-gradient(180deg,#000 45%,transparent);mask-image:linear-gradient(180deg,#000 45%,transparent)}
+  .lockblk .lk-cta{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:9px;
+    background:linear-gradient(180deg,rgba(123,92,255,.10),rgba(20,18,32,.55));text-align:center;
+    padding:16px 18px 18px;border-top:1px solid rgba(123,92,255,.28)}
   .lockblk .lk-cta .lk-t{font-size:14px;font-weight:800;color:#efeaff}
   .lockblk .lk-cta .lk-s{font-size:12px;color:#b9b2d6}
   .lockblk .lk-btn{display:inline-flex;align-items:center;gap:7px;background:var(--accent2);color:#fff;font-weight:800;font-size:13.5px;border:none;border-radius:22px;padding:10px 18px;cursor:pointer;text-decoration:none}
@@ -742,7 +747,7 @@
 
 <div class="ad-slot" id="adBottom"></div>
 <footer>
-  Philosophia — 哲学を、あなたの毎日に。 ・ <a href="guide.html">哲学者一覧（全228人）を見る</a> ・ <a href="quiz.html">哲学者診断（あなたに近い思想家は？）</a><br>
+  Philosophia — 哲学を、あなたの毎日に。 ・ <a href="guide.html">哲学者一覧（全258人）を見る</a> ・ <a href="quiz.html">哲学者診断（あなたに近い思想家は？）</a><br>
   肖像画像はWikimedia Commons(パブリックドメイン等)から表示しています。自由に使える写真が存在しない一部の人物は、頭文字のプレースホルダーになる場合があります。<br>
 <a href="#" onclick="openGen();return false;">AIで哲学者を追加する</a> ・ <a href="#" onclick="showPrivacy();return false;">プライバシーポリシー</a>
   <div class="support-block" id="supportBlock" style="display:none">
