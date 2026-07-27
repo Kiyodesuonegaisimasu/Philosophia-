@@ -47,6 +47,7 @@
 
   /* --- 何が無料で、何が有料か。ここを曖昧にしない --- */
   .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 6px}
+  .split.hide{display:none}   /* .hide より後に .split があるため、明示的に打ち消す */
   .col{border:1px solid var(--line);border-radius:16px;padding:17px 17px 19px;background:#111}
   .col.paid{border-color:#6b5a2a;background:linear-gradient(180deg,rgba(201,162,75,.09),rgba(201,162,75,.02))}
   .col h3{font-size:13px;letter-spacing:.06em;margin:0 0 3px;color:var(--sub);font-weight:800}
