@@ -32,6 +32,7 @@
 <script src="batch2.js"></script>
 <script src="batch3.js"></script>
 <script src="story.js"></script>
+<script src="life.js"></script>
 <script src="cube.js"></script>
 <script src="levels.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -104,6 +105,28 @@
     padding:3px 9px;border-radius:12px;font-size:11px;color:#fff;backdrop-filter:blur(4px)}
   .thumb .count{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,.6);
     padding:3px 9px;border-radius:12px;font-size:11px;color:#fff}
+  /* 「最後まで読める」印。主役の棚の目印。 */
+  .thumb .deep-badge{position:absolute;right:10px;bottom:10px;
+    background:linear-gradient(180deg,#f4dfa0,#e0bc63);color:#1a1408;font-weight:800;
+    padding:3px 9px;border-radius:12px;font-size:11px;letter-spacing:.04em;
+    box-shadow:0 2px 8px rgba(0,0,0,.45)}
+  /* 「あなたの毎日で」＝有料の中身。会員が見えたときの見た目。 */
+  .m-block.life .life-scene{font-weight:700;color:#8fe0be;font-size:14px;line-height:1.8;
+    margin-bottom:10px;padding-left:12px;border-left:3px solid #2f8f6b}
+  .m-block.life .life-step{margin-top:14px;background:rgba(47,143,107,.10);
+    border:1px solid rgba(47,143,107,.32);border-radius:12px;padding:13px 15px;
+    font-size:14px;line-height:1.85;color:#e4f3ec}
+  .m-block.life .ls-tag{display:inline-block;background:#2f8f6b;color:#04140e;font-weight:800;
+    font-size:11px;padding:2px 9px;border-radius:9px;margin-right:9px;vertical-align:1px}
+  /* 198人への降り口 */
+  .deep-more{max-width:560px;margin:34px auto 10px;text-align:center;padding:22px 20px;
+    border:1px dashed rgba(150,160,190,.26);border-radius:16px;background:rgba(255,255,255,.015)}
+  .deep-more .dm-t{font-weight:800;font-size:15px;color:#e9e9ef}
+  .deep-more .dm-s{margin-top:6px;font-size:12.5px;color:var(--sub);line-height:1.75}
+  .deep-more .dm-btn{margin-top:14px;background:transparent;color:#cfc7b5;cursor:pointer;
+    border:1px solid rgba(150,160,190,.3);border-radius:22px;padding:9px 18px;font-size:13px;
+    font-family:inherit;transition:.18s}
+  .deep-more .dm-btn:hover{border-color:rgba(232,198,114,.7);color:#f4dfa0}
   .thumb .play{position:absolute;right:12px;bottom:12px;width:40px;height:40px;border-radius:50%;
     background:var(--accent);display:grid;place-items:center;opacity:0;transform:translateY(8px);transition:.18s;color:#111}
   .card:hover .play{opacity:1;transform:translateY(0)}
@@ -721,7 +744,7 @@
 <footer>
   Philosophia — 哲学を、あなたの毎日に。 ・ <a href="guide.html">哲学者一覧（全228人）を見る</a> ・ <a href="quiz.html">哲学者診断（あなたに近い思想家は？）</a><br>
   肖像画像はWikimedia Commons(パブリックドメイン等)から表示しています。自由に使える写真が存在しない一部の人物は、頭文字のプレースホルダーになる場合があります。<br>
-  詳細画面の「研究・文献をさがす」からGoogle Scholar・Wikipedia・CiNii等の学術データベースへ誘導します。 ・ <a href="#" onclick="openGen();return false;">AIで哲学者を追加する</a> ・ <a href="#" onclick="showPrivacy();return false;">プライバシーポリシー</a>
+<a href="#" onclick="openGen();return false;">AIで哲学者を追加する</a> ・ <a href="#" onclick="showPrivacy();return false;">プライバシーポリシー</a>
   <div class="support-block" id="supportBlock" style="display:none">
     <span class="txt">このサイトは無料で公開しています。月額100円のプレミアム会員になって、活動を支えていただけると励みになります。</span>
     <a class="support-btn" id="supportBtn2" href="#"><svg class="ic fill" viewBox="0 0 24 24"><path d="M12 3c.6 4 2 5.4 6 6-4 .6-5.4 2-6 6-.6-4-2-5.4-6-6 4-.6 5.4-2 6-6z"/></svg> プレミアム会員になる（月100円）</a>
@@ -3764,7 +3787,7 @@ const WIKITITLE = {
 
 const LS_ADDED = "philosophia_added_v3";
 let added = load(LS_ADDED, []);
-let activeCat = "all";
+let activeCat = "deep";
 let viewMode = "grid";
 const CATCOLOR = {"west-ancient":"#c9a24b","west-medieval":"#b5642d","west-modern":"#7b5cff","west-contemporary":"#4aa3ff","east":"#2e9e6b","islamic-jewish":"#d0568f"};
 
@@ -3835,9 +3858,13 @@ function portraitHTML(p){
 /* ============================================================
    レンダリング
    ============================================================ */
+/* 最後まで読める人（story.js に長文読み物がある人）。ここがサイトの主役。 */
+function isDeep(p){ try{ return !!(window.__STORY && window.__STORY[p.name]); }catch(e){ return false; } }
+function deepList(){ return allData().filter(isDeep); }
+
 function render(){
   const chips=document.getElementById("chips");
-  const cats=[{id:"all",label:"すべて"},...CATS];
+  const cats=[{id:"deep",label:"じっくり読める"},{id:"all",label:"すべて"},...CATS];
   const views=[
     {v:'grid',label:'一覧',ic:'<svg class="ic" viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg>'},
     {v:'timeline',label:'年表',ic:'<svg class="ic" viewBox="0 0 24 24"><path d="M6 4v16"/><path d="M10 8h9M10 16h9"/><circle cx="6" cy="8" r="1.8"/><circle cx="6" cy="16" r="1.8"/></svg>'},
@@ -3848,7 +3875,8 @@ function render(){
     cats.map(c=>`<div class="chip ${activeCat===c.id?'active':''}" onclick="setCat('${c.id}')">${c.label}</div>`).join("")
     + `<span class="chip-sep"></span>`
     + views.map(v=>`<div class="chip vchip ${viewMode===v.v?'active':''}" onclick="setView('${v.v}')">${v.ic}${v.label}</div>`).join("");
-  document.getElementById("countPill").textContent=`全 ${allData().length} 名`;
+  document.getElementById("countPill").textContent =
+    activeCat==="deep" ? `全文で読める ${deepList().length} 人` : `全 ${allData().length} 名`;
   chips.style.display = "";
 
   const q=document.getElementById("search").value.trim().toLowerCase();
@@ -3863,6 +3891,31 @@ function render(){
     main.innerHTML = themeHTML(q);
   } else if(viewMode==="course"){
     main.innerHTML = courseHTML();
+  } else if(activeCat==="deep"){
+    /* 主役の棚。ここだけは要約ではなく、最後まで読める人しか置かない。 */
+    let list=deepList();
+    if(q) list=list.filter(p=>matches(p,q));
+    const order={}; CATS.forEach((c,i)=>order[c.id]=i);
+    list.sort((a,b)=>(order[a.category]??99)-(order[b.category]??99));
+    if(!list.length){
+      main.innerHTML=`<div class="empty">「${esc(document.getElementById("search").value)}」に一致する人はいません。<br><span class="chip" onclick="setCat('all')">すべての${allData().length}名から探す</span></div>`;
+    }else{
+      const sec=document.createElement("div");
+      sec.className="section";
+      sec.innerHTML=`<h2><span class="dot"></span>最後まで読める${list.length}人`
+        + `<span class="hint" style="font-size:12px;color:var(--sub);font-weight:400;margin-left:8px">全文無料</span></h2>`
+        + `<div class="desc">要約ではありません。その日その人が何を見て、何につまずいたのか。本人の言葉と、いちばん強い反論まで。</div><div class="grid"></div>`;
+      const grid=sec.querySelector(".grid");
+      list.forEach(p=>grid.appendChild(cardEl(p)));
+      main.appendChild(sec);
+      const rest=allData().length-deepList().length;
+      const more=document.createElement("div");
+      more.className="deep-more";
+      more.innerHTML=`<div class="dm-t">ほかに${rest}人います</div>`
+        + `<div class="dm-s">こちらはまだ要約のみです。深く書き直したものから順に、上の棚へ移していきます。</div>`
+        + `<button class="dm-btn" onclick="setCat('all')">要約もふくめて全${allData().length}名を見る</button>`;
+      main.appendChild(more);
+    }
   } else {
     const cats2 = activeCat==="all" ? CATS : CATS.filter(c=>c.id===activeCat);
     let total=0;
@@ -4147,8 +4200,9 @@ function parseYear(era){
   return bc ? -year : year;
 }
 function timelineHTML(q){
-  const catsSel = activeCat==="all" ? CATS.map(c=>c.id) : [activeCat];
+  const catsSel = (activeCat==="all"||activeCat==="deep") ? CATS.map(c=>c.id) : [activeCat];
   let list = allData().filter(p=>catsSel.includes(p.category));
+  if(activeCat==="deep") list = list.filter(isDeep);
   if(q) list = list.filter(p=>matches(p,q));
   list = list.map(p=>({p,y:parseYear(p.era)})).filter(o=>o.y!==null).sort((a,b)=>a.y-b.y);
   if(!list.length) return `<div class="empty">該当する哲学者がいません。</div>`;
@@ -4313,7 +4367,7 @@ function cardEl(p){
     <div class="thumb">
       ${portraitHTML(p)}
       <span class="era-badge">${esc(p.era)}</span>
-      <span class="count">${normConcepts(p).length} 概念</span>
+      ${isDeep(p)?'<span class="deep-badge">全文</span>':`<span class="count">${normConcepts(p).length} 概念</span>`}
       <span class="play">▶</span>
     </div>
     <div class="meta">
@@ -4530,13 +4584,33 @@ const STORY = {
 };
 function storyOf(p){ return STORY[p.name] || ""; }
 
-/* 会員アクセス状態（別の module スクリプトが更新する）。詳細解説・関係性のロックに使う。 */
+/* 会員アクセス状態（別の module スクリプトが更新する）。
+   境界の考え方：哲学者を「読む」ものは全部無料。金を取るのは「自分に落とす」側だけ。 */
 window.PHILO_ACCESS = window.PHILO_ACCESS || false;
 function phLock(title, icon, teaser){
   return `<div class="lockblk"><div class="lk-head"><h3><span class="ic">${icon}</span>${esc(title)} <svg class="ic" viewBox="0 0 24 24" style="opacity:.7"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg></h3></div>`
     + `<div class="tease">${esc(teaser||'この項目は会員限定コンテンツです。')}</div>`
     + `<div class="lk-cta"><div><div class="lk-t">この続きは会員限定です</div><div class="lk-s">登録すると1日間は無料で全部読めます（月100円）</div></div>`
     + `<a class="lk-btn" href="/members.html"><svg class="ic" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V7a4 4 0 0 1 7.7-1.3"/></svg> 無料で読む（1日お試し）</a></div></div>`;
+}
+
+/* 「あなたの毎日で」＝ 思想を今日の自分の生活に翻訳するブロック。ここが有料の中身。
+   非会員にも見出しと最初の一文（場面）は見せる。何が買えるのかを、使っている最中に分からせるため。 */
+const LIFE_ICON = "<svg class='ic' viewBox='0 0 24 24'><path d='M3 11l9-7 9 7'/><path d='M6 10v9h12v-9'/><path d='M10 19v-5h4v5'/></svg>";
+function lifeHTML(p){
+  var L=null;
+  try{ L = window.__LIFE ? window.__LIFE[p.name] : null; }catch(e){}
+  if(!L || !L.body) return '';
+  if(window.PHILO_ACCESS){
+    return `<div class="m-block life">
+      <h3><span class="ic" style="background:#2f8f6b">${LIFE_ICON}</span>あなたの毎日で<span class="hint">会員限定</span></h3>
+      <div class="life-scene">${esc(L.scene||'')}</div>
+      <p>${esc(L.body)}</p>
+      ${L.step?`<div class="life-step"><span class="ls-tag">今日の一歩</span>${esc(L.step)}</div>`:''}
+    </div>`;
+  }
+  return phLock('あなたの毎日で', LIFE_ICON,
+    (L.scene||'') + ' ——この場面で、' + p.name + 'の考え方をどう使うか。専門用語なしの翻訳と、今日ためせる一歩まで。');
 }
 
 function openModal(name){
@@ -4555,7 +4629,8 @@ function openModal(name){
   const st=storyOf(p);
   const storyHTML = st ? `<div class="m-block story"><h3><span class="ic" style="background:#7b5cff"><svg class="ic" viewBox="0 0 24 24"><path d="M12 6c-2-1.3-4.5-1.3-7 0v12c2.5-1.3 5-1.3 7 0 2-1.3 4.5-1.3 7 0V6c-2.5-1.3-5-1.3-7 0z"/><path d="M12 6v12"/></svg></span>物語で読む</h3><p class="story-p">${esc(st)}</p></div>` : '';
   const rels=RELATIONS[name]||p.relations||[];
-  const relHTML = !rels.length ? '' : (window.PHILO_ACCESS ? `
+  /* 哲学者を読む部分は全部無料。鍵は「自分に落とす」側だけに置く。 */
+  const relHTML = !rels.length ? '' : `
       <div class="m-block">
         <h3><span class="ic" style="background:#b5642d"><svg class="ic" viewBox="0 0 24 24"><path d="M9 15l6-6"/><path d="M11.5 6.5l1-1a4 4 0 0 1 6 6l-2 2"/><path d="M12.5 17.5l-1 1a4 4 0 0 1-6-6l2-2"/></svg></span>つながり（関係性）<span class="hint">名前をタップで相手のカードへ</span></h3>
         <div class="relations">
@@ -4568,7 +4643,7 @@ function openModal(name){
             + `</div><div class="rel-desc">${esc(r.desc)}</div></div>`;
         }).join("")}
         </div>
-      </div>` : phLock('つながり（関係性）',"<svg class='ic' viewBox='0 0 24 24'><path d='M9 15l6-6'/><path d='M11.5 6.5l1-1a4 4 0 0 1 6 6l-2 2'/><path d='M12.5 17.5l-1 1a4 4 0 0 1-6-6l2-2'/></svg>", `${rels[0].to}：${rels[0].desc||''}　ほか${rels.length}件の思想家とのつながりを解説。`));
+      </div>`;
   const chips=CURRENT_CONCEPTS.map((c,i)=>`<span class="concept" onclick="showDef(${i})">${esc(c.t)}</span>`).join("");
   document.getElementById("modal").innerHTML=`
     <div class="m-head">
@@ -4594,7 +4669,7 @@ function openModal(name){
       ${deepStoryHTML(p) ? '' : `<div class="m-block">
         <h3><span class="ic gold"><svg class="ic" viewBox="0 0 24 24"><path d="M4 9l8-5 8 5"/><path d="M5 9v9h14V9"/><path d="M9 18v-5M12 18v-5M15 18v-5"/></svg></span>どういう思想体系を作ったか</h3>
         <p>${esc(p.system)}</p>
-        ${sd?(window.PHILO_ACCESS?`<span class="more-btn" onclick="toggleMore('sysMore',this)">もっと詳しく ▾</span>${sysMoreInner(p)}`:`<a class="more-btn" href="/members.html" style="color:var(--accent2);text-decoration:none"><svg class="ic" viewBox="0 0 24 24" style="vertical-align:-3px"><rect x="5" y="10.5" width="14" height="9.5" rx="2"/><path d="M8 10.5V7.5a4 4 0 0 1 8 0v3"/></svg> さらに詳しい解説を読む（会員限定・1日無料）▾</a>`):''}
+        ${sd?`<span class="more-btn" onclick="toggleMore('sysMore',this)">もっと詳しく ▾</span>${sysMoreInner(p)}`:''}
       </div>`}
       ${CURRENT_CONCEPTS.length?`
       <div class="m-block">
@@ -4602,14 +4677,8 @@ function openModal(name){
         <div class="concepts">${chips}</div>
         <div class="concept-def" id="conceptDef"></div>
       </div>`:''}
+      ${lifeHTML(p)}
       ${relHTML}
-      <div class="m-block">
-        <h3><span class="ic" style="background:#2e7d5b"><svg class="ic" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="6"/><path d="M15 15l5 5"/></svg></span>研究・文献をさがす</h3>
-        <p style="font-size:13px;color:var(--sub);margin-bottom:12px">Google Scholar などの外部データベースで、この哲学者に関する論文・研究文献を検索します(別タブで開きます)。</p>
-        <div class="links">
-          ${links.map(l=>`<a class="linkbtn" href="${l.url}" target="_blank" rel="noopener noreferrer"><span>${l.ic}</span>${l.label}<span class="ext">↗</span></a>`).join("")}
-        </div>
-      </div>
       <div class="m-actions" id="mActions">${(window.actionBarHTML?actionBarHTML(p.name):'')}</div>
       ${p.ai?`<div class="m-tools"><button onclick="removePhilosopher('${p.name.replace(/'/g,"\\'")}')">このカードを削除</button></div>`:''}
     </div>`;

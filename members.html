@@ -45,6 +45,26 @@
   body.embed h1{font-size:20px}
   .err{color:#e9a463;font-size:13px;margin-top:8px}
 
+  /* --- 何が無料で、何が有料か。ここを曖昧にしない --- */
+  .split{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:22px 0 6px}
+  .col{border:1px solid var(--line);border-radius:16px;padding:17px 17px 19px;background:#111}
+  .col.paid{border-color:#6b5a2a;background:linear-gradient(180deg,rgba(201,162,75,.09),rgba(201,162,75,.02))}
+  .col h3{font-size:13px;letter-spacing:.06em;margin:0 0 3px;color:var(--sub);font-weight:800}
+  .col.paid h3{color:#e8c672}
+  .col .sub{font-size:11.5px;color:#6f6f77;margin-bottom:13px}
+  .col ul{list-style:none;padding:0;margin:0}
+  .col li{position:relative;padding-left:23px;font-size:13.5px;line-height:1.72;margin-bottom:9px;color:#dcdce2}
+  .col li::before{content:"";position:absolute;left:2px;top:8px;width:11px;height:6px;
+    border-left:2px solid #5f6470;border-bottom:2px solid #5f6470;transform:rotate(-45deg)}
+  .col.paid li::before{border-color:#e8c672}
+  .col li b{color:#fff;font-weight:800}
+  .col li i{display:block;font-style:normal;font-size:11.5px;color:#82828c;margin-top:1px}
+  .price-line{margin:16px 0 2px;text-align:center;font-size:13.5px;color:var(--sub)}
+  .price-line b{color:#f4dfa0;font-size:19px;font-weight:800;letter-spacing:.01em}
+  /* 中身が来るまで箱を出さない（空の紫箱バグの対策） */
+  #premiumWelcome:empty,#tabs:empty,#panels:empty{display:none!important;border:0!important;padding:0!important;margin:0!important}
+  @media(max-width:600px){ .split{grid-template-columns:1fr} }
+
   /* --- プレミアム本体 --- */
   .tabs{display:flex;gap:8px;flex-wrap:wrap;margin:20px 0 22px}
   .tab{padding:9px 15px;border-radius:22px;border:1px solid var(--line);background:transparent;color:var(--sub);font-size:13.5px;font-weight:700;cursor:pointer}
@@ -103,7 +123,32 @@
 <header><span class="mark">φ</span><b>Philosophia</b><span style="color:var(--accent);font-weight:700">&nbsp;プレミアム会員</span><a class="back-top" href="/philosophia.html">← Philosophia へ戻る</a></header>
 <div class="wrap">
   <h1>プレミアム会員</h1>
-  <p class="lead">メールでログインすると、まず<b>1日間は無料</b>で会員限定コンテンツを全部お試しできます。続けたい場合は月額100円で会員になれます。</p>
+  <p class="lead">哲学者を<b>読む</b>ところまでは、ぜんぶ無料です。お金をいただくのは、それを<b>あなた自身の毎日に落とす</b>ところだけ。</p>
+
+  <div class="split" id="valueSplit">
+    <div class="col">
+      <h3>無料でできること</h3>
+      <div class="sub">登録もログインもいりません</div>
+      <ul>
+        <li><b>60人の全文を最後まで読む</b><i>要約ではなく、本人の言葉と、いちばん強い反論まで</i></li>
+        <li><b>258人の要約とキーワード</b></li>
+        <li><b>つながり（関係性）</b><i>誰が誰に影響し、誰が誰を否定したか</i></li>
+        <li><b>もっと詳しく（詳細解説）</b></li>
+        <li><b>哲学者診断・悩みから探す・年表</b></li>
+      </ul>
+    </div>
+    <div class="col paid">
+      <h3>会員になると開くもの</h3>
+      <div class="sub">いま解除される項目はこれです</div>
+      <ul>
+        <li><b>「あなたの毎日で」73人分</b><i>その思想を、専門用語なしで今日の自分の場面に翻訳します</i></li>
+        <li><b>「今日の一歩」</b><i>読んで終わりにしないための、今日ためせる具体的な行動</i></li>
+        <li><b>会員限定エリア</b><i>入門コース・原典ガイド・テーマ解説・用語辞典・クイズ</i></li>
+      </ul>
+      <div class="price-line">月額 <b>100円</b> ／ 最初の<b>1日</b>は無料でぜんぶ試せます</div>
+    </div>
+  </div>
+  <p class="muted" style="text-align:center;margin-bottom:4px" id="valueNote">哲学者の本文に鍵をかけることはありません。そこはこれからも無料のままにします。</p>
 
   <!-- 未ログイン -->
   <div id="loginCard" class="card hide">
@@ -131,7 +176,7 @@
 
   <!-- 会員限定コンテンツ本体 -->
   <div id="premiumWrap" class="hide">
-    <div id="premiumWelcome" class="card" style="background:linear-gradient(180deg,rgba(123,92,255,.12),rgba(123,92,255,.04));border-color:#4a3d8f"></div>
+    <div id="premiumWelcome" style="background:linear-gradient(180deg,rgba(123,92,255,.12),rgba(123,92,255,.04));border:1px solid #4a3d8f;border-radius:16px;padding:18px 18px 20px;margin-bottom:6px"></div>
     <div class="tabs" id="tabs"></div>
     <div id="panels"></div>
   </div>
@@ -189,6 +234,11 @@
       $('memberBadge').innerHTML = '<span class="badge off">未登録</span>';
     }
 
+    // すでに開いている人に「何が開くか」の対照表は不要なので畳む
+    var _vs=$('valueSplit'), _vn=$('valueNote');
+    if(_vs) _vs.classList.toggle('hide', !!me.access);
+    if(_vn) _vn.classList.toggle('hide', !!me.access);
+
     if (me.access) {
       // アクセス権あり（会員 or トライアル）→ 限定コンテンツ表示
       $('notMember').classList.add('hide');
@@ -209,8 +259,10 @@
       const r = await fetch('/api/premium', { headers: { Authorization: 'Bearer ' + token } });
       if (!r.ok) { $('premiumWelcome').innerHTML = '<p class="muted">限定コンテンツの取得に失敗しました。再読み込みしてください。</p>'; return; }
       const data = await r.json();
-      $('premiumWelcome').innerHTML = '<p style="margin-bottom:4px"><svg class="ic" viewBox="0 0 24 24" style="vertical-align:-3px"><path d="M12 6c-2-1.3-4.5-1.3-7 0v12c2.5-1.3 5-1.3 7 0 2-1.3 4.5-1.3 7 0V6c-2.5-1.3-5-1.3-7 0z"/><path d="M12 6v12"/></svg> <b>会員限定エリア</b></p><p style="font-size:14px;color:#efeaff">' + esc(data.welcome) + '</p>';
-      renderContent(data.content);
+      $('premiumWelcome').innerHTML = '<p style="margin-bottom:4px"><svg class="ic" viewBox="0 0 24 24" style="vertical-align:-3px"><path d="M12 6c-2-1.3-4.5-1.3-7 0v12c2.5-1.3 5-1.3 7 0 2-1.3 4.5-1.3 7 0V6c-2.5-1.3-5-1.3-7 0z"/><path d="M12 6v12"/></svg> <b>会員限定エリア</b></p><p style="font-size:14px;color:#efeaff">' + esc(data.welcome || 'ようこそ。ここから先は会員限定です。') + '</p>';
+      // content が空でも黙って空箱を出さない
+      try{ renderContent(data.content || {}); }
+      catch(e){ $('panels').innerHTML = '<p class="muted">限定コンテンツの表示でエラーが起きました。再読み込みしてください。</p>'; }
       premiumLoaded = true;
       // 埋め込み時：内容描画後に高さを親へ通知（画像等の遅延反映もリトライで拾う）
       if(EMBED){ [50,300,800,1500,2800].forEach(function(ms){ setTimeout(notifyHeight, ms); }); }
